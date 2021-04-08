@@ -1,29 +1,72 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
-import 'package:groomzy/android/main.dart';
-import 'package:groomzy/ios/main.dart';
-import 'package:groomzy/web/main.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
-  runApp(MyApp());
+import './android/main.dart';
+import './ios/main.dart';
+import './web/main.dart';
+import './api/utils/utils.dart';
+
+Future main() async {
+  await DotEnv.load();
+  await initHiveForFlutter();
+
+  runApp(App());
 }
 
 Widget getAppAccordingToCurrentPlatform() {
   if (Platform.isIOS) {
+    // iOS application
     return IOSApp();
   } else if (kIsWeb) {
+    // Web application
     return WebApp();
   }
-
+  // Android application
   return AndroidApp();
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class App extends StatefulWidget {
+  // This widget is the root of the application.
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
+    final HttpLink httpLink = HttpLink(
+      '${env['BACKEND_URL']}',
+    );
+
+    final WebSocketLink webSocketLink = new WebSocketLink(
+      '${env['BACKEND_WEB_SOCKET_URL']}',
+    );
+
+    String token;
+
+    final AuthLink authLink = AuthLink(
+      getToken: () async {
+        token = await AuthUtil().getToken();
+
+        return token != null ? 'Bearer $token' : null;
+      },
+    );
+
+    final Link link = authLink.concat(httpLink).concat(webSocketLink);
+
+    ValueNotifier<GraphQLClient> client = ValueNotifier(
+      GraphQLClient(
+        link: link,
+        // The default store is the InMemoryStore, which does NOT persist to disk
+        cache: GraphQLCache(store: HiveStore()),
+      ),
+    );
+
     return getAppAccordingToCurrentPlatform();
   }
 }
