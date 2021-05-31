@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:groomzy/common/constants/constants.dart';
 
 import '../category/category.dart';
+import '../../../common/constants/constants.dart';
 
-class HorizontalScroll extends StatelessWidget {
-  const HorizontalScroll({Key key}) : super(key: key);
+class CategoryLabels extends StatelessWidget {
+  const CategoryLabels({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +13,7 @@ class HorizontalScroll extends StatelessWidget {
       {'imageAssetPath': HAIRDRESSER_IMAGE, 'category': HAIRDRESSER},
       {'imageAssetPath': MAKEUP_ARTIST_IMAGE, 'category': MAKEUP_ARTIST},
       {'imageAssetPath': SPA_IMAGE, 'category': SPA},
+      {'imageAssetPath': NAIL_TECHNICIAN_IMAGE, 'category': NAIL_TECHNICIAN},
     ];
     return Container(
       height: 160,

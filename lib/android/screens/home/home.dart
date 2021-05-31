@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/horizontal_scroll/horizontal_scroll.dart';
+import '../../widgets/horizontal_scroll/category_labels.dart';
 import '../../widgets/search/search.dart';
 import '../../widgets/filters/filters.dart';
 import '../../widgets/service/service.dart';
@@ -24,7 +24,7 @@ class Home extends StatelessWidget {
               ],
             ),
           ),
-          HorizontalScroll(),
+          CategoryLabels(),
           AndroidService(),
           AndroidService(),
           AndroidService(),
