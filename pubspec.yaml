@@ -26,6 +26,9 @@ dependencies:
   flutter_dotenv: ^5.0.0
   jaguar_jwt: ^3.0.0
   shared_preferences: ^2.0.5
+  auto_size_text: ^2.1.0
+  url_launcher: ^6.0.4
+  font_awesome_flutter: ^9.0.0
   flutter:
     sdk: flutter
 

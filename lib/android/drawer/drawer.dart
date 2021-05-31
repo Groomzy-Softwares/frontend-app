@@ -6,7 +6,10 @@ import './drawer_item/item_header.dart';
 import '../screens/signin/main.dart';
 import '../screens/signup/main.dart';
 import '../screens/home/main.dart';
+import '../screens/about/main.dart';
+import '../screens/contacts/main.dart';
 import '../../common/types/types.dart';
+import '../../common/constants/constants.dart';
 
 class AndroidDrawer extends StatefulWidget {
   @override
@@ -28,7 +31,7 @@ class _AndroidDrawerState extends State<AndroidDrawer> {
               children: <Widget>[
                 DrawerItem(
                   icon: Icons.home,
-                  title: 'Home',
+                  title: HOME_TITLE,
                   navigateTo: HomeScreen.routeName,
                   navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
@@ -39,22 +42,26 @@ class _AndroidDrawerState extends State<AndroidDrawer> {
                 Divider(),
                 DrawerItem(
                   icon: Icons.info,
-                  title: 'About',
+                  title: ABOUT_TITLE,
+                  navigateTo: AboutScreen.routeName,
+                  navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
                 DrawerItem(
                   icon: Icons.contact_page,
-                  title: 'Contacts',
+                  title: CONTACTS_TITLE,
+                  navigateTo: ContactScreen.routeName,
+                  navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
                 Divider(),
                 DrawerItem(
                   icon: Icons.login,
-                  title: 'Sign in',
+                  title: SIGNIN_TITLE,
                   navigateTo: SignInScreen.routeName,
                   navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
                 DrawerItem(
                   icon: Icons.person_add,
-                  title: 'Sign up',
+                  title: SIGNUP_TITLE,
                   navigateTo: SignUpScreen.routeName,
                   navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import './screens/signin/main.dart';
 import './screens/signup/main.dart';
 import './screens/home/main.dart';
+import './screens/about/main.dart';
+import './screens/contacts/main.dart';
 import '../api/utils/utils.dart';
 import '../common/constants/constants.dart';
 
@@ -59,6 +61,10 @@ class _AndroidAppState extends State<AndroidApp> {
         SignInScreen.routeName: (_) => SignInScreen(),
         // Signup screen
         SignUpScreen.routeName: (_) => SignUpScreen(),
+        // About screen
+        AboutScreen.routeName: (_) =>  AboutScreen(),
+        // Contact screen
+        ContactScreen.routeName: (_) => ContactScreen(),
       },
     );
   }

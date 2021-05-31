@@ -15,7 +15,7 @@ class SignUp extends StatelessWidget {
         children: [
           Center(
             child: Image.asset(
-              'assets/common/images/$LOGO_IMAGE',
+              LOGO_IMAGE,
               fit: BoxFit.cover,
               height: 80,
             ),
