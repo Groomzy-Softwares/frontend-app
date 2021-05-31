@@ -3,7 +3,6 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import './android/main.dart';
@@ -12,7 +11,7 @@ import './web/main.dart';
 import './api/utils/utils.dart';
 
 Future main() async {
-  await DotEnv.load();
+  await dotenv.load();
   await initHiveForFlutter();
 
   runApp(App());
@@ -40,11 +39,11 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     final HttpLink httpLink = HttpLink(
-      '${env['BACKEND_URL']}',
+      '${dotenv.env['BACKEND_URL']}',
     );
 
     final WebSocketLink webSocketLink = new WebSocketLink(
-      '${env['BACKEND_WEB_SOCKET_URL']}',
+      '${dotenv.env['BACKEND_WEB_SOCKET_URL']}',
     );
 
     String token;

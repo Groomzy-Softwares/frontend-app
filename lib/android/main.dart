@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import './screens/home/home.dart';
+import './screens/signin/main.dart';
+import './screens/signup/main.dart';
+import './screens/home/main.dart';
 import '../api/utils/utils.dart';
 import '../common/constants/constants.dart';
 
@@ -47,9 +49,17 @@ class _AndroidAppState extends State<AndroidApp> {
     return MaterialApp(
       title: APP_TITLE,
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        primaryColor: Colors.blueGrey.shade800,
       ),
-      home: Home(user: {'name': 'Sifiso'},),
+      home: _user == null ? SignInScreen() : HomeScreen(user: {'name': 'Test'}),
+      routes: {
+        // Home screen
+        HomeScreen.routeName: (_) => HomeScreen(),
+        // Signin screen
+        SignInScreen.routeName: (_) => SignInScreen(),
+        // Signup screen
+        SignUpScreen.routeName: (_) => SignUpScreen(),
+      },
     );
   }
 }

@@ -4,10 +4,7 @@ class DrawerItemHeader extends StatelessWidget {
   final String name;
   final String email;
 
-  DrawerItemHeader({
-    this.name,
-    this.email,
-  });
+  const DrawerItemHeader({this.name, this.email, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

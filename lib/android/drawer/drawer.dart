@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import './styles.dart';
 import './drawer_item/item.dart';
 import './drawer_item/item_header.dart';
+import '../screens/signin/main.dart';
+import '../screens/signup/main.dart';
+import '../screens/home/main.dart';
+import '../../common/types/types.dart';
 
 class AndroidDrawer extends StatefulWidget {
   @override
@@ -25,6 +29,8 @@ class _AndroidDrawerState extends State<AndroidDrawer> {
                 DrawerItem(
                   icon: Icons.home,
                   title: 'Home',
+                  navigateTo: HomeScreen.routeName,
+                  navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
                 DrawerItem(
                   icon: Icons.edit,
@@ -43,10 +49,14 @@ class _AndroidDrawerState extends State<AndroidDrawer> {
                 DrawerItem(
                   icon: Icons.login,
                   title: 'Sign in',
+                  navigateTo: SignInScreen.routeName,
+                  navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
                 DrawerItem(
                   icon: Icons.person_add,
                   title: 'Sign up',
+                  navigateTo: SignUpScreen.routeName,
+                  navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
                 DrawerItem(
                   icon: Icons.logout,

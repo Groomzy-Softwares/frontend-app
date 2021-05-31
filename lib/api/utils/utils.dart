@@ -29,7 +29,7 @@ class AuthUtil {
       // Verify the signature in the JWT and extract its claim set
       final decClaimSet = verifyJwtHS256Signature(
         await this.getToken(),
-        env['JWT_SECRET'],
+        dotenv.env['JWT_SECRET'],
       );
 
       SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -1,32 +1,34 @@
 import 'package:flutter/material.dart';
 
-import '../../drawer/drawer.dart';
-import '../../../common/constants/constants.dart';
+import '../../widgets/horizontal_scroll/horizontal_scroll.dart';
+import '../../widgets/search/search.dart';
+import '../../widgets/filters/filters.dart';
+import '../../widgets/service/service.dart';
 
 class Home extends StatelessWidget {
   final Map user;
 
-  Home({
-    this.user,
-  });
+  const Home({this.user, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Holds the device dimensions
-    var mediaQuery = MediaQuery.of(context).size;
-
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(HOME_TITLE),
-        ),
-        drawer: AndroidDrawer(),
-        body: Container(
-          height: mediaQuery.height,
-          child: Center(
-            child: Text('Home content centered for ${user['name']}'),
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AndroidSearch(),
+                AndroidFilters(),
+              ],
+            ),
           ),
-        ),
+          HorizontalScroll(),
+          AndroidService(),
+          AndroidService(),
+          AndroidService(),
+        ],
       ),
     );
   }
