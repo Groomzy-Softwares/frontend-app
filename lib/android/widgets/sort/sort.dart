@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AndroidFilters extends StatelessWidget {
-  const AndroidFilters({Key key}) : super(key: key);
+class AndroidSort extends StatelessWidget {
+  const AndroidSort({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +9,7 @@ class AndroidFilters extends StatelessWidget {
       child: IconButton(
         padding: EdgeInsets.zero,
         icon: Icon(
-          Icons.filter_list_outlined,
+          Icons.sort_outlined,
           size: 40,
           color: Theme.of(context).primaryColor,
         ),

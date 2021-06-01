@@ -8,7 +8,8 @@ class AndroidSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.80,
+      height: 45.0,
+      width: MediaQuery.of(context).size.width * 0.6,
       child: AndroidTextField(
         label: 'Search',
         suffixIcon: Icons.search_outlined,
