@@ -7,6 +7,7 @@ const String SIGNIN_TITLE='Signin';
 const String SIGNUP_TITLE='Signup';
 const String ABOUT_TITLE='About';
 const String CONTACTS_TITLE='Contacts';
+const String PROVIDER_TITLE='Provider';
 
 /*
  * Assets constants

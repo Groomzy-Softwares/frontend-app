@@ -10,7 +10,7 @@ class AndroidFilters extends StatelessWidget {
         padding: EdgeInsets.zero,
         icon: Icon(
           Icons.filter_list_outlined,
-          size: 40,
+          size: 30,
           color: Theme.of(context).primaryColor,
         ),
         onPressed: () {},

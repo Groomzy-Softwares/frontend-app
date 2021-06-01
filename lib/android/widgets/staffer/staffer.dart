@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-class Category extends StatelessWidget {
+class Staffer extends StatelessWidget {
   final String imageAssetPath;
-  final String category;
+  final String name;
 
-  const Category({
+  const Staffer({
     this.imageAssetPath,
-    this.category,
+    this.name,
     Key key,
   }) : super(key: key);
-
-  void navigateToRespectiveScreen({String category}) {
-    if ('Provider' == 'Provider') {
-      print('wrt Provider');
-    } else if ('Client' == 'Client') {
-      print('wrt client');
-    } else {
-      print('wrt guest');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +23,21 @@ class Category extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CircleAvatar(
-                radius: 40.0,
-                backgroundColor: Theme.of(context).primaryColor,
-                child: Image.asset(
-                  imageAssetPath,
-                  height: 50.0,
-                  color: Colors.white,
+                radius: 35.0,
+                backgroundColor: name == 'Barber' ? Theme.of(context).primaryColor : Colors.white10,
+                child: CircleAvatar(
+                  radius: 32.0,
+                  backgroundColor: name == 'Barber' ? Colors.white :Colors.black12,
+                  child: Image.asset(
+                    imageAssetPath,
+                    height: 40.0,
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
               ),
               SizedBox(height: 10.0),
               AutoSizeText(
-                category,
+                name,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 16.0
@@ -54,9 +48,7 @@ class Category extends StatelessWidget {
           ),
         ),
         onTap: () {
-          navigateToRespectiveScreen(
-            category: category,
-          );
+          // selected action
         },
       ),
     );

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../widgets/horizontal_scroll/category_labels.dart';
 import '../../widgets/search/search.dart';
 import '../../widgets/filters/filters.dart';
-import '../../widgets/service/service.dart';
+import '../../widgets/summary_service_provider/summary_service_provider.dart';
 import '../../widgets/sort/sort.dart';
 
 class Home extends StatelessWidget {
@@ -18,16 +18,18 @@ class Home extends StatelessWidget {
         children: [
           Container(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 AndroidSearch(),
                 AndroidFilters(),
-                Text('|', style: TextStyle(fontSize: 30),),
+                Text('|', style: TextStyle(fontSize: 30.0)),
                 AndroidSort(),
               ],
             ),
           ),
+          Divider(),
           CategoryLabels(),
+          Divider(),
           AndroidService(),
           AndroidService(),
           AndroidService(),

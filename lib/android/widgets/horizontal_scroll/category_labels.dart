@@ -16,7 +16,7 @@ class CategoryLabels extends StatelessWidget {
       {'imageAssetPath': NAIL_TECHNICIAN_IMAGE, 'category': NAIL_TECHNICIAN},
     ];
     return Container(
-      height: 160,
+      height: 130,
       margin: EdgeInsets.only(top: 10.0),
       child: ListView(
         scrollDirection: Axis.horizontal,

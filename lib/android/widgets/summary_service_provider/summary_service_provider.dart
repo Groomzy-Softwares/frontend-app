@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:groomzy/android/screens/provider/main.dart';
 
 import '../../widgets/horizontal_scroll/labels.dart';
+import '../../widgets/rating/rating.dart';
 import '../../../common/constants/constants.dart';
 
 class AndroidService extends StatelessWidget {
@@ -50,9 +50,16 @@ class AndroidService extends StatelessWidget {
                 Container(
                   height: 180,
                   width: double.infinity,
-                  child: Image.asset(
-                    PLACEHOLDER_IMAGE,
-                    fit: BoxFit.cover,
+                  child: GestureDetector(
+                    child: Image.asset(
+                      PLACEHOLDER_IMAGE,
+                      fit: BoxFit.cover,
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        AndroidProviderScreen.routeName,
+                      );
+                    },
                   ),
                   // child: FutureBuilder<Widget>(
                   //   future: getImage(),
@@ -72,37 +79,7 @@ class AndroidService extends StatelessWidget {
                       child: Labels(),
                     ),
                     Divider(),
-                    Container(
-                      child: ListTile(
-                        leading: Icon(
-                          FontAwesomeIcons.smile,
-                          color: Colors.green,
-                        ),
-                        title: RatingBar.builder(
-                          initialRating: 0,
-                          minRating: 0,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          itemSize: 24,
-                          itemBuilder: (context, _) => Icon(
-                            Icons.star,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          onRatingUpdate: (rating) {
-                            print(rating);
-                          },
-                        ),
-                        subtitle: Text('80% Excellent service'),
-                        trailing: Column(
-                          children: [
-                          Text('50 ratings'),
-                            SizedBox(height: 15.0,),
-                            Text('Active'),
-                          ],
-                        ),
-                      ),
-                    ),
+                    AndroidRating(),
                   ],
                 )
               ],

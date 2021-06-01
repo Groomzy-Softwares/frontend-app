@@ -10,7 +10,7 @@ class AndroidSort extends StatelessWidget {
         padding: EdgeInsets.zero,
         icon: Icon(
           Icons.sort_outlined,
-          size: 40,
+          size: 30,
           color: Theme.of(context).primaryColor,
         ),
         onPressed: () {},

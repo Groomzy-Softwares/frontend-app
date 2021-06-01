@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './contacts.dart';
 import '../../app_bar/app_bar.dart';
 import '../../drawer/drawer.dart';
-import '../../widgets/center/screen_center.dart';
+import '../../widgets/center_horizontal_vertical/center_horizontal_vertical.dart';
 import '../../../common/constants/constants.dart';
 
 class ContactScreen extends StatelessWidget {
@@ -17,7 +17,7 @@ class ContactScreen extends StatelessWidget {
       appBar: AndroidAppBar(title: CONTACTS_TITLE,),
       drawer: AndroidDrawer(),
       body: SafeArea(
-        child: ScreenCenter(screenContent: Contact(),),
+        child: CenterHorizontalVertical(screenContent: Contact(),),
       ),
     );
   }
