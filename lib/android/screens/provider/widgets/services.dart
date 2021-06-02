@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './service.dart';
 import '../../../widgets/filters/filters.dart';
 import '../../../widgets/search/search.dart';
 import '../../../widgets/sort/sort.dart';
@@ -46,6 +47,15 @@ class AndroidServices extends StatelessWidget {
             ),
           ),
           Divider(),
+          AndroidService(),
+          Divider(),
+          AndroidService(),
+          Divider(),
+          AndroidService(),
+          Divider(),
+          AndroidService(),
+          Divider(),
+          AndroidService(),
         ],
       ),
     );
