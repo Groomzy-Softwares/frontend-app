@@ -57,7 +57,7 @@ class AndroidService extends StatelessWidget {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamed(
-                        AndroidProviderScreen.routeName,
+                        ProviderScreen.routeName,
                       );
                     },
                   ),
@@ -76,7 +76,7 @@ class AndroidService extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      child: Labels(),
+                      child: AndroidLabels(),
                     ),
                     Divider(),
                     AndroidRating(),

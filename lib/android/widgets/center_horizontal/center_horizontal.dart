@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class CenterHorizontal extends StatelessWidget {
+class AndroidCenterHorizontal extends StatelessWidget {
   final Widget screenContent;
 
-  CenterHorizontal({@required this.screenContent});
+  AndroidCenterHorizontal({@required this.screenContent});
 
   @override
   Widget build(BuildContext context) {

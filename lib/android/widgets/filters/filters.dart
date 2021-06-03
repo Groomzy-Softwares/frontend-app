@@ -11,7 +11,7 @@ class AndroidFilters extends StatelessWidget {
         icon: Icon(
           Icons.filter_list_outlined,
           size: 30,
-          color: Theme.of(context).primaryColor,
+          color: Colors.white,
         ),
         onPressed: () {},
       ),

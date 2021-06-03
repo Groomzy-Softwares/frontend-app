@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-class Staffer extends StatelessWidget {
+class AndroidStaffer extends StatelessWidget {
   final String imageAssetPath;
   final String name;
 
-  const Staffer({
+  const AndroidStaffer({
     this.imageAssetPath,
     this.name,
     Key key,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../common/constants/constants.dart';
 
-class Labels extends StatelessWidget {
-  const Labels({Key key}) : super(key: key);
+class AndroidLabels extends StatelessWidget {
+  const AndroidLabels({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

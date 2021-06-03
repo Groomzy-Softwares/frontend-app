@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import './styles.dart';
 import './drawer_item/item.dart';
 import './drawer_item/item_header.dart';
-import '../screens/signin/main.dart';
-import '../screens/signup/main.dart';
-import '../screens/home/main.dart';
-import '../screens/about/main.dart';
-import '../screens/contacts/main.dart';
-import '../../common/types/types.dart';
-import '../../common/constants/constants.dart';
+import '../../screens/signin/main.dart';
+import '../../screens/signup/main.dart';
+import '../../screens/home/main.dart';
+import '../../screens/about/main.dart';
+import '../../screens/contacts/main.dart';
+import '../../../common/types/types.dart';
+import '../../../common/constants/constants.dart';
 
 class AndroidDrawer extends StatefulWidget {
   @override
@@ -22,55 +22,55 @@ class _AndroidDrawerState extends State<AndroidDrawer> {
     return Drawer(
       child: Column(
         children: <Widget>[
-          DrawerItemHeader(
+          AndroidDrawerItemHeader(
             name: 'Groomzy',
             email: 'info@groomzy.co.za',
           ),
           Expanded(
             child: ListView(
               children: <Widget>[
-                DrawerItem(
+                AndroidDrawerItem(
                   icon: Icons.home,
                   title: HOME_TITLE,
                   navigateTo: HomeScreen.routeName,
                   navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
-                DrawerItem(
+                AndroidDrawerItem(
                   icon: Icons.edit,
                   title: 'Edit profile',
                 ),
                 Divider(),
-                DrawerItem(
+                AndroidDrawerItem(
                   icon: Icons.info,
                   title: ABOUT_TITLE,
                   navigateTo: AboutScreen.routeName,
                   navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
-                DrawerItem(
+                AndroidDrawerItem(
                   icon: Icons.contact_page,
                   title: CONTACTS_TITLE,
                   navigateTo: ContactScreen.routeName,
                   navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
                 Divider(),
-                DrawerItem(
+                AndroidDrawerItem(
                   icon: Icons.login,
                   title: SIGNIN_TITLE,
                   navigateTo: SignInScreen.routeName,
                   navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
-                DrawerItem(
+                AndroidDrawerItem(
                   icon: Icons.person_add,
                   title: SIGNUP_TITLE,
                   navigateTo: SignUpScreen.routeName,
                   navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
-                DrawerItem(
+                AndroidDrawerItem(
                   icon: Icons.logout,
                   title: 'Sign out',
                 ),
                 Divider(),
-                DrawerItem(
+                AndroidDrawerItem(
                   icon: Icons.policy,
                   title: 'Ts & Cs',
                 ),

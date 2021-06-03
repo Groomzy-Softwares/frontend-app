@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../staffer/staffer.dart';
 import '../../../common/constants/constants.dart';
 
-class Staffers extends StatelessWidget {
-  const Staffers({Key key}) : super(key: key);
+class AndroidStaffers extends StatelessWidget {
+  const AndroidStaffers({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class Staffers extends StatelessWidget {
         shrinkWrap: true,
         children: staffers
             .map(
-              (category) => Staffer(
+              (category) => AndroidStaffer(
             imageAssetPath: category['imageAssetPath'],
             name: category['name'],
           ),

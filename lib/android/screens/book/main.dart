@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
-import './contacts.dart';
+import './book.dart';
 import '../../widgets/app_bar/app_bar.dart';
 import '../../widgets/drawer/drawer.dart';
 import '../../widgets/center_horizontal_vertical/center_horizontal_vertical.dart';
 import '../../../common/constants/constants.dart';
 
-class ContactScreen extends StatelessWidget {
-  static final String routeName = '/${CONTACTS_TITLE.toLowerCase()}';
+class BookScreen extends StatelessWidget {
+  static final String routeName = '/${BOOK_TITLE.toLowerCase()}';
 
-  const ContactScreen({Key key}) : super(key: key);
+  const BookScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AndroidAppBar(title: CONTACTS_TITLE,),
+      appBar: AndroidAppBar(title: BOOK_TITLE,),
       drawer: AndroidDrawer(),
       body: SafeArea(
-        child: AndroidCenterHorizontalVertical(screenContent: Contact(),),
+        child: AndroidCenterHorizontalVertical(screenContent: Book(),),
       ),
     );
   }

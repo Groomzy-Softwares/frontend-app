@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class DrawerItemHeader extends StatelessWidget {
+class AndroidDrawerItemHeader extends StatelessWidget {
   final String name;
   final String email;
 
-  const DrawerItemHeader({this.name, this.email, Key key}) : super(key: key);
+  const AndroidDrawerItemHeader({this.name, this.email, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

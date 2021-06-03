@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../../common/types/types.dart';
+import '../../../../common/types/types.dart';
 
-class DrawerItem extends StatelessWidget {
+class AndroidDrawerItem extends StatelessWidget {
   final IconData icon;
   final String title;
   final String navigateTo;
   final NavigatorNamedType navigateType;
 
-  const DrawerItem({
+  const AndroidDrawerItem({
     this.icon,
     this.title,
     this.navigateTo,

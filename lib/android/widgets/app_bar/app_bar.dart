@@ -9,7 +9,7 @@ class AndroidAppBar extends StatelessWidget with PreferredSizeWidget {
   AndroidAppBar({
     @required this.title,
     Key key,
-  })  : preferredSize = Size.fromHeight(50.0),
+  })  : preferredSize = Size.fromHeight(55.0),
         super(key: key);
 
   @override
@@ -21,6 +21,8 @@ class AndroidAppBar extends StatelessWidget with PreferredSizeWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
+      centerTitle: true,
+      elevation: 0.0,
     );
   }
 }

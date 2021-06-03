@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../category/category.dart';
 import '../../../common/constants/constants.dart';
 
-class CategoryLabels extends StatelessWidget {
-  const CategoryLabels({Key key}) : super(key: key);
+class AndroidCategoryLabels extends StatelessWidget {
+  const AndroidCategoryLabels({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class CategoryLabels extends StatelessWidget {
         shrinkWrap: true,
         children: categories
             .map(
-              (category) => Category(
+              (category) => AndroidCategory(
                 imageAssetPath: category['imageAssetPath'],
                 category: category['category'],
               ),

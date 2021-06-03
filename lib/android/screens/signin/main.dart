@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import './signin.dart';
-import '../../app_bar/app_bar.dart';
-import '../../drawer/drawer.dart';
+import '../../widgets/app_bar/app_bar.dart';
+import '../../widgets/drawer/drawer.dart';
 import '../../widgets/center_horizontal_vertical/center_horizontal_vertical.dart';
 import '../../../common/constants/constants.dart';
 
@@ -17,7 +17,7 @@ class SignInScreen extends StatelessWidget {
       appBar: AndroidAppBar(title: SIGNIN_TITLE,),
       drawer: AndroidDrawer(),
       body: SafeArea(
-        child: CenterHorizontalVertical(screenContent: SignIn(),),
+        child: AndroidCenterHorizontalVertical(screenContent: SignIn(),),
       ),
     );
   }
