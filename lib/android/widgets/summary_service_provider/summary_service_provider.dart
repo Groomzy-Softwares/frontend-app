@@ -7,8 +7,8 @@ import '../../widgets/horizontal_scroll/labels.dart';
 import '../../widgets/rating/rating.dart';
 import '../../../common/constants/constants.dart';
 
-class AndroidService extends StatelessWidget {
-  const AndroidService({Key key}) : super(key: key);
+class AndroidSummaryService extends StatelessWidget {
+  const AndroidSummaryService({Key key}) : super(key: key);
 
   Future<Widget> getImage() async {
     final Completer<Widget> completer = Completer();

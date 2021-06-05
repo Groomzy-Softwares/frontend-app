@@ -4,7 +4,9 @@ import '../staffer/staffer.dart';
 import '../../../common/constants/constants.dart';
 
 class AndroidStaffers extends StatelessWidget {
-  const AndroidStaffers({Key key}) : super(key: key);
+  final Function selectedStaffer;
+
+  const AndroidStaffers({this.selectedStaffer, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +26,11 @@ class AndroidStaffers extends StatelessWidget {
         children: staffers
             .map(
               (category) => AndroidStaffer(
-            imageAssetPath: category['imageAssetPath'],
-            name: category['name'],
-          ),
-        )
+                selectedStaffer: selectedStaffer,
+                imageAssetPath: category['imageAssetPath'],
+                name: category['name'],
+              ),
+            )
             .toList(),
       ),
     );

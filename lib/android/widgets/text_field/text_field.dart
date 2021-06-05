@@ -10,6 +10,7 @@ class AndroidTextField extends StatelessWidget {
   final Color suffixIconColor;
   final Color prefixIconColor;
   final Color cursorColor;
+  final Function onInputChange;
 
   const AndroidTextField({
     this.label,
@@ -21,12 +22,14 @@ class AndroidTextField extends StatelessWidget {
     this.suffixIconColor = Colors.grey,
     this.prefixIconColor = Colors.grey,
     this.cursorColor =  Colors.grey,
+    this.onInputChange,
     Key key,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       child: TextField(
+        onChanged: onInputChange,
         cursorColor: cursorColor,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(

@@ -15,9 +15,9 @@ class Home extends StatelessWidget {
         children: [
           AndroidCategoryLabels(),
           Divider(),
-          AndroidService(),
-          AndroidService(),
-          AndroidService(),
+          AndroidSummaryService(),
+          AndroidSummaryService(),
+          AndroidSummaryService(),
         ],
       ),
     );

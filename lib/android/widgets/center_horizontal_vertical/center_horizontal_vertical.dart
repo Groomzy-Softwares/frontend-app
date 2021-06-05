@@ -22,10 +22,10 @@ class AndroidCenterHorizontalVertical extends StatelessWidget {
             children: [
               if (showSearch)
                 Container(
-                  padding: EdgeInsets.only(bottom: 20.0),
+                  padding: EdgeInsets.only(left: 15.0, right: 10.0, bottom: 20.0),
                   color: Theme.of(context).primaryColor,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AndroidSearch(),
                       AndroidFilters(),
