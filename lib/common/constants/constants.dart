@@ -9,6 +9,7 @@ const String ABOUT_TITLE='About';
 const String CONTACTS_TITLE='Contacts';
 const String PROVIDER_TITLE='Provider';
 const String BOOK_TITLE='Book';
+const String CHECKOUT_TITLE='Checkout';
 
 /*
  * Assets constants

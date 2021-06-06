@@ -4,12 +4,14 @@ import 'package:auto_size_text/auto_size_text.dart';
 class AndroidStaffer extends StatelessWidget {
   final String imageAssetPath;
   final String name;
-  final Function selectedStaffer;
+  final String selectedStaffer;
+  final Function onSelectStaffer;
 
   const AndroidStaffer({
+    this.selectedStaffer,
     this.imageAssetPath,
     this.name,
-    this.selectedStaffer,
+    this.onSelectStaffer,
     Key key,
   }) : super(key: key);
 
@@ -26,13 +28,13 @@ class AndroidStaffer extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 35.0,
-                backgroundColor: name == 'Barber'
+                backgroundColor: name == selectedStaffer
                     ? Theme.of(context).primaryColor
                     : Colors.white10,
                 child: CircleAvatar(
                   radius: 32.0,
                   backgroundColor:
-                      name == 'Barber' ? Colors.white : Colors.black12,
+                      name == selectedStaffer ? Colors.white : Colors.black12,
                   child: Image.asset(
                     imageAssetPath,
                     height: 40.0,
@@ -51,7 +53,7 @@ class AndroidStaffer extends StatelessWidget {
           ),
         ),
         onTap: () {
-          selectedStaffer(name);
+          onSelectStaffer(name);
         },
       ),
     );

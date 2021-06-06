@@ -9,6 +9,7 @@ import './screens/about/main.dart';
 import './screens/contacts/main.dart';
 import './screens/provider/main.dart';
 import './screens/book/main.dart';
+import './screens/checkout/main.dart';
 import '../api/utils/utils.dart';
 import '../common/constants/constants.dart';
 
@@ -71,6 +72,8 @@ class _AndroidAppState extends State<AndroidApp> {
         ProviderScreen.routeName: (_) => ProviderScreen(),
         // Book screen
         BookScreen.routeName: (_) => BookScreen(),
+        // Checkout screen
+        CheckoutScreen.routeName: (_) => CheckoutScreen(),
       },
     );
   }

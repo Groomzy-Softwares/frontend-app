@@ -66,6 +66,9 @@ class _AppState extends State<App> {
       ),
     );
 
-    return getAppAccordingToCurrentPlatform();
+    return GraphQLProvider(
+      client: client,
+      child: getAppAccordingToCurrentPlatform(),
+    );
   }
 }

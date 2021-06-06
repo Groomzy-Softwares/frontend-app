@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../center_horizontal_vertical/center_horizontal_vertical.dart';
 
-class AndroidLoadingWidget extends StatelessWidget {
+class AndroidLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AndroidCenterHorizontalVertical(

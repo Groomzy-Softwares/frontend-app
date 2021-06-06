@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:groomzy/android/screens/book/widgets/booking_times.dart';
-import 'package:groomzy/android/screens/home/main.dart';
-import 'package:groomzy/android/widgets/calender/calender.dart';
-import 'package:groomzy/android/widgets/checkbox/checkbox.dart';
-import 'package:groomzy/android/widgets/heading/heading.dart';
-import 'package:groomzy/android/widgets/text_field/text_field.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import './widgets/booking_times.dart';
+import '../checkout/main.dart';
+import '../../widgets/calender/calender.dart';
+import '../../widgets/checkbox/checkbox.dart';
+import '../../widgets/heading/heading.dart';
+import '../../widgets/text_field/text_field.dart';
 import '../../widgets/horizontal_scroll/staffers.dart';
 
 class Book extends StatefulWidget {
-  const Book({Key key}) : super(key: key);
+  final String name;
+  final String category;
+  final String description;
+  final double price;
+  final int serviceId;
+
+  const Book({
+    this.category,
+    this.description,
+    this.name,
+    this.price,
+    this.serviceId,
+    Key key,
+  }) : super(key: key);
 
   @override
   _BookState createState() => _BookState();
@@ -64,8 +77,7 @@ class _BookState extends State<Book> {
             },
           ),
           if (_selectedDay != null) Divider(),
-          if (_selectedDay != null)
-            AndroidHeading(title: 'Select time'),
+          if (_selectedDay != null) AndroidHeading(title: 'Select time'),
           if (_selectedDay != null)
             BookingTimes(
               selectTime: (time) {
@@ -73,7 +85,16 @@ class _BookState extends State<Book> {
                   _selectedTime = time;
                 });
               },
-              times: ['09:00', '09:30', '10:00', '10:30','11:00','11:30', '12:00', '12:30'],
+              times: [
+                '09:00',
+                '09:30',
+                '10:00',
+                '10:30',
+                '11:00',
+                '11:30',
+                '12:00',
+                '12:30'
+              ],
             ),
           if (_selectedTime != null) Divider(),
           if (_selectedTime != null)
@@ -151,12 +172,13 @@ class _BookState extends State<Book> {
                   _serviceCallAddress == null &&
                   _selectedTime != null))
             AndroidStaffers(
-              selectedStaffer: (selectedStaffer){
+              onSelectStaffer: (selectedStaffer) {
                 print(selectedStaffer);
                 setState(() {
                   _selectedStaffer = selectedStaffer;
                 });
               },
+              selectedStaffer: _selectedStaffer,
             ),
           if ((_inHouse &&
                   _serviceCallAddress != null &&
@@ -174,7 +196,16 @@ class _BookState extends State<Book> {
               color: Theme.of(context).primaryColor,
               child: TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(HomeScreen.routeName);
+                  Navigator.of(context).pushNamed(
+                    CheckoutScreen.routeName,
+                    arguments: {
+                      'serviceId': widget.serviceId,
+                      'name': widget.name,
+                      'description': widget.description,
+                      'price': widget.price,
+                      'category': widget.category,
+                    },
+                  );
                 },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,

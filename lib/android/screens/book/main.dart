@@ -13,11 +13,23 @@ class BookScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
-      appBar: AndroidAppBar(title: BOOK_TITLE,),
+      appBar: AndroidAppBar(
+        title: BOOK_TITLE,
+      ),
       drawer: AndroidDrawer(),
       body: SafeArea(
-        child: AndroidCenterHorizontalVertical(screenContent: Book(),),
+        child: AndroidCenterHorizontalVertical(
+          screenContent: Book(
+            category: arguments['category'],
+            price: arguments['price'],
+            description: arguments['description'],
+            name: arguments['name'],
+            serviceId: arguments['serviceId'],
+          ),
+        ),
       ),
     );
   }

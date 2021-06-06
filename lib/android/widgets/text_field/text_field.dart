@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AndroidTextField extends StatelessWidget {
   final String label;
+  final String value;
   final IconData prefixIcon;
   final IconData suffixIcon;
   final double borderRadius;
@@ -10,10 +11,13 @@ class AndroidTextField extends StatelessWidget {
   final Color suffixIconColor;
   final Color prefixIconColor;
   final Color cursorColor;
+  final bool obscureText;
   final Function onInputChange;
+  final Function onValidation;
 
   const AndroidTextField({
     this.label,
+    this.value,
     this.prefixIcon,
     this.suffixIcon,
     this.borderRadius = 0,
@@ -23,13 +27,18 @@ class AndroidTextField extends StatelessWidget {
     this.prefixIconColor = Colors.grey,
     this.cursorColor =  Colors.grey,
     this.onInputChange,
+    this.onValidation,
+    this.obscureText = false,
     Key key,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: TextField(
+      child: TextFormField(
+        initialValue: value,
+        obscureText: obscureText,
         onChanged: onInputChange,
+        validator: onValidation,
         cursorColor: cursorColor,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(

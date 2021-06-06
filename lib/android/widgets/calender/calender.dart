@@ -39,7 +39,6 @@ class AndroidCalendar extends StatelessWidget {
         // Use `CalendarStyle` to customize the UI
         isTodayHighlighted: true,
         selectedTextStyle: TextStyle(
-          backgroundColor: Theme.of(context).primaryColor,
           color: Colors.white,
         ),
       ),

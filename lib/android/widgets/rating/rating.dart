@@ -3,7 +3,18 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AndroidRating extends StatelessWidget {
-  const AndroidRating({Key key}) : super(key: key);
+  final double ratingPercentage;
+  final String ratingStatus;
+  final int ratingCounts;
+  final Function onRatingUpdate;
+
+  const AndroidRating({
+    this.ratingCounts = 0,
+    this.ratingPercentage = 0,
+    this.ratingStatus = 'no rated',
+    this.onRatingUpdate,
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +25,7 @@ class AndroidRating extends StatelessWidget {
           color: Colors.green,
         ),
         title: RatingBar.builder(
-          initialRating: 2.5,
+          initialRating: 0,
           minRating: 0,
           direction: Axis.horizontal,
           allowHalfRating: true,
@@ -24,14 +35,12 @@ class AndroidRating extends StatelessWidget {
             Icons.star,
             color: Colors.green,
           ),
-          onRatingUpdate: (rating) {
-            print(rating);
-          },
+          onRatingUpdate: onRatingUpdate,
         ),
-        subtitle: Text('80% Excellent service'),
+        subtitle: Text('$ratingPercentage% $ratingStatus service'),
         trailing: Column(
           children: [
-            Text('50 ratings'),
+            Text('$ratingCounts ratings'),
             SizedBox(height: 15.0),
           ],
         ),

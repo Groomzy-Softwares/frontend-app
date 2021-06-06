@@ -11,7 +11,7 @@ class AndroidProvider extends StatelessWidget {
 
   List<Widget> _widgetOptions() {
     return <Widget>[
-      AndroidServices(),
+      ProviderServices(),
       Container(child: Text('2')),
       Container(child: Text('3')),
     ];
