@@ -6,7 +6,7 @@ class AuthUtil {
   // Store signed in user token
   Future<void> setToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
+    await prefs.setString('token', token ?? '');
   }
 
   // Get currently signed in user
@@ -20,7 +20,7 @@ class AuthUtil {
   // Store logged in user
   Future<void> setUser(String user) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user', user);
+    await prefs.setString('user', user ?? '');
   }
 
   // Get currently signed in user

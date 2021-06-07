@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groomzy/api/utils/utils.dart';
 import '../../../../common/types/types.dart';
 
 class AndroidDrawerItem extends StatelessWidget {
@@ -25,17 +26,24 @@ class AndroidDrawerItem extends StatelessWidget {
         ),
         title: Text(title),
       ),
-      onTap: () {
+      onTap: () async {
         if (navigateTo != null) {
-          switch(navigateType){
-            case NavigatorNamedType.POP_AND_PUSH:
-              Navigator.of(context).popAndPushNamed(navigateTo);
-              break;
-            case NavigatorNamedType.PUSH_REPLACE:
-              Navigator.of(context).pushReplacementNamed(navigateTo);
-              break;
-            default:
-              Navigator.of(context).pushNamed(navigateTo);
+          if (title == 'Sign out') {
+            await AuthUtil().setToken(null);
+            await AuthUtil().setUser(null);
+
+            Navigator.of(context).pushReplacementNamed(navigateTo);
+          } else {
+            switch (navigateType) {
+              case NavigatorNamedType.POP_AND_PUSH:
+                Navigator.of(context).popAndPushNamed(navigateTo);
+                break;
+              case NavigatorNamedType.PUSH_REPLACE:
+                Navigator.of(context).pushReplacementNamed(navigateTo);
+                break;
+              default:
+                Navigator.of(context).pushNamed(navigateTo);
+            }
           }
         }
       },

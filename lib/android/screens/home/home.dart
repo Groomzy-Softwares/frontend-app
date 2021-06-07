@@ -1,25 +1,27 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
-import '../../widgets/horizontal_scroll/category_labels.dart';
-import '../../widgets/summary_service_provider/summary_service_provider.dart';
+import './explore_home.dart';
+import './client_home.dart';
+import './provider_home.dart';
 
 class Home extends StatelessWidget {
   final Map user;
-
   const Home({this.user, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          AndroidCategoryLabels(),
-          Divider(),
-          AndroidSummaryService(),
-          AndroidSummaryService(),
-          AndroidSummaryService(),
-        ],
-      ),
-    );
+    if (user != null) {
+      if (user['role'] == 'Client') {
+        return ClientHome(
+          user: user,
+        );
+      } else if (user['role'] == 'Provider') {
+        return ProviderHome(user: user);
+      }
+      return ExploreHome();
+    }
+    return ExploreHome();
   }
 }

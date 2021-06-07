@@ -23,8 +23,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _firstName;
-  String _lastName;
+  String _fullName;
   String _email;
   String _phoneNumber;
   String _password;
@@ -38,8 +37,7 @@ class _SignUpState extends State<SignUp> {
 
     await signUp({
       'email': _email,
-      'firstName': _firstName,
-      'lastName': _lastName,
+      'fullName': _fullName,
       'password': _password,
       'phoneNumber': _phoneNumber,
     });
@@ -127,35 +125,17 @@ class _SignUpState extends State<SignUp> {
                 ),
                 SizedBox(height: 20.0),
                 AndroidTextField(
-                  value: _firstName,
-                  label: 'First name',
+                  value: _fullName,
+                  label: 'Full name',
                   prefixIcon: Icons.person_outlined,
                   onInputChange: (input) {
                     setState(() {
-                      _firstName = input == '' ? null : input;
+                      _fullName = input == '' ? null : input;
                     });
                   },
                   onValidation: (String input) {
                     if (input.isEmpty) {
                       return 'First name is required';
-                    }
-
-                    return null;
-                  },
-                ),
-                SizedBox(height: 10.0),
-                AndroidTextField(
-                  value: _lastName,
-                  label: 'Last name',
-                  prefixIcon: Icons.person,
-                  onInputChange: (input) {
-                    setState(() {
-                      _lastName = input == '' ? null : input;
-                    });
-                  },
-                  onValidation: (String input) {
-                    if (input.isEmpty) {
-                      return 'Last name is required';
                     }
 
                     return null;

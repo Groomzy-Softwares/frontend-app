@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-import './provider.dart';
+import './client.dart';
 import '../../widgets/app_bar/app_bar.dart';
 import '../../widgets/center_horizontal/center_horizontal.dart';
 import '../../../common/constants/constants.dart';
 
-class ProviderScreen extends StatefulWidget {
+class ClientScreen extends StatefulWidget {
   static final String routeName = '/${PROVIDER_TITLE.toLowerCase()}';
 
-  const ProviderScreen({Key key}) : super(key: key);
+  const ClientScreen({Key key}) : super(key: key);
 
   @override
-  _ProviderScreenState createState() => _ProviderScreenState();
+  _ClientScreenState createState() => _ClientScreenState();
 }
 
-class _ProviderScreenState extends State<ProviderScreen> {
+class _ClientScreenState extends State<ClientScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -32,7 +32,7 @@ class _ProviderScreenState extends State<ProviderScreen> {
       // drawer: AndroidDrawer(),
       body: SafeArea(
         child: AndroidCenterHorizontal(
-          screenContent: AndroidProvider(selectedIndex: _selectedIndex,),
+          screenContent: Client(selectedIndex: _selectedIndex,),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

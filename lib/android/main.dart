@@ -7,7 +7,7 @@ import './screens/signup/main.dart';
 import './screens/home/main.dart';
 import './screens/about/main.dart';
 import './screens/contacts/main.dart';
-import './screens/provider/main.dart';
+import './screens/client/main.dart';
 import './screens/book/main.dart';
 import './screens/checkout/main.dart';
 import '../api/utils/utils.dart';
@@ -50,13 +50,12 @@ class _AndroidAppState extends State<AndroidApp> {
 
   @override
   Widget build(BuildContext context) {
-    print(_user);
     return MaterialApp(
       title: APP_TITLE,
       theme: ThemeData(
         primaryColor: Colors.blueGrey.shade800,
       ),
-      home: _user == null ? SignInScreen() : HomeScreen(user: {'name': 'Test'}),
+      home: _user == null ? SignInScreen() : HomeScreen(),
       routes: {
         // Home screen
         HomeScreen.routeName: (_) => HomeScreen(),
@@ -69,7 +68,7 @@ class _AndroidAppState extends State<AndroidApp> {
         // Contact screen
         ContactScreen.routeName: (_) => ContactScreen(),
         // Provider screen
-        ProviderScreen.routeName: (_) => ProviderScreen(),
+        ClientScreen.routeName: (_) => ClientScreen(),
         // Book screen
         BookScreen.routeName: (_) => BookScreen(),
         // Checkout screen

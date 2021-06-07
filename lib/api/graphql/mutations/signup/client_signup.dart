@@ -3,15 +3,13 @@ class SignUpClientMutation {
     return '''
       mutation SIGNUP_CLIENT_MUTATION (
         \$email: String!
-        \$firstName: String!
-        \$lastName: String!
+        \$fullName: String!
         \$password: String!
         \$phoneNumber: String!
       ){
         signupClient(
           email: \$email
-          firstName: \$firstName
-          lastName: \$lastName
+          fullName: \$fullName
           password: \$password
           phoneNumber: \$phoneNumber
         ){

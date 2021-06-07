@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import './widgets/services.dart';
 
-class AndroidProvider extends StatelessWidget {
+class Client extends StatelessWidget {
   final int selectedIndex;
 
-  const AndroidProvider({
+  const Client({
     this.selectedIndex,
     Key key,
   }) : super(key: key);
