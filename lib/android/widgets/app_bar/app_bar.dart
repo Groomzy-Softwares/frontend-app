@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../screens/home/main.dart';
-
 class AndroidAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
@@ -23,17 +21,6 @@ class AndroidAppBar extends StatelessWidget with PreferredSizeWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      actions: [
-        Container(
-          margin: EdgeInsets.only(right: 20),
-          child: GestureDetector(
-            onTap: (){
-              Navigator.of(context).pushNamed(HomeScreen.routeName);
-            },
-            child: Icon(Icons.home_outlined, size: 30,),
-          ),
-        )
-      ],
       elevation: 0.0,
     );
   }

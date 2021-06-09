@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
-import './client.dart';
-import '../../widgets/drawer/drawer.dart';
+import './provider.dart';
 import '../../widgets/app_bar/app_bar.dart';
+import '../../widgets/drawer/drawer.dart';
+import '../../widgets/center_horizontal_vertical/center_horizontal_vertical.dart';
 import '../../../common/constants/constants.dart';
 
-class ClientScreen extends StatefulWidget {
-  static final String routeName = '/${CLIENT_TITLE.toLowerCase()}';
+class ProviderScreen extends StatefulWidget {
+  static final String routeName = '/${PROVIDER_TITLE.toLowerCase()}';
 
-  const ClientScreen({Key key}) : super(key: key);
+  const ProviderScreen({Key key}) : super(key: key);
 
   @override
-  _ProviderTradingScreenState createState() => _ProviderTradingScreenState();
+  _ProviderScreenState createState() => _ProviderScreenState();
 }
 
-class _ProviderTradingScreenState extends State<ClientScreen> {
+class _ProviderScreenState extends State<ProviderScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -27,20 +28,26 @@ class _ProviderTradingScreenState extends State<ClientScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AndroidAppBar(
-        title: EXPLORER_TITLE,
+        title: PROVIDER_TITLE,
       ),
       drawer: AndroidDrawer(),
       body: SafeArea(
-        child: Client(selectedIndex: _selectedIndex,),
+        child: AndroidCenterHorizontalVertical(
+          screenContent: Provider(selectedIndex: _selectedIndex,),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.business_center_outlined),
-            label: 'Providers',
+            label: 'Business',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.info_outline),
+            icon: Icon(Icons.timelapse_outlined),
+            label: 'Time',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history_outlined),
             label: 'Bookings',
           ),
         ],

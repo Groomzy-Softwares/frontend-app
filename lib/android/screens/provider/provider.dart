@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:groomzy/android/screens/explorer/explorer.dart';
 import 'package:groomzy/android/widgets/center_horizontal_vertical/center_horizontal_vertical.dart';
 
-class Client extends StatelessWidget {
+import './widgets/business.dart';
+import './widgets/operating_times.dart';
+
+class Provider extends StatelessWidget {
   final int selectedIndex;
 
-  const Client({
+  const Provider({
     this.selectedIndex,
     Key key,
   }) : super(key: key);
 
   List<Widget> _widgetOptions() {
     return <Widget>[
-      AndroidCenterHorizontalVertical(
-        showSearch: true,
-        screenContent: Explore(),
-      ),
-      AndroidCenterHorizontalVertical(
-        screenContent: Container(child: Text('Bookings')),
-      ),
+      Business(),
+      OperatingTimes(),
+      Container(child: Text('3')),
     ];
   }
 

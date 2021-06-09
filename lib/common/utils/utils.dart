@@ -163,4 +163,16 @@ class CommonUtils {
 
     return nailTechnicianBookingMadePayloadId;
   }
+
+  List<String> weekDays() {
+    return [
+      'Mon',
+      'Tue',
+      'Wed',
+      'Thu',
+      'Fri',
+      'Sat',
+      'Sun',
+    ];
+  }
 }

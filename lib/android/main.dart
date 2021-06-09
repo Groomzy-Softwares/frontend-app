@@ -2,16 +2,22 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import './screens/explorer/main.dart';
 import './screens/signin/main.dart';
 import './screens/signup/main.dart';
-import './screens/home/main.dart';
 import './screens/about/main.dart';
 import './screens/contacts/main.dart';
-import './screens/client/main.dart';
+import './screens/provider_trading/main.dart';
 import './screens/book/main.dart';
 import './screens/checkout/main.dart';
-import '../api/utils/utils.dart';
+import './screens/provider/main.dart';
+import './screens/client/main.dart';
+
+import './utils/utils.dart';
+
 import '../common/constants/constants.dart';
+
+import '../api/utils/utils.dart';
 
 class AndroidApp extends StatefulWidget {
   // This widget is the root of android platform application.
@@ -55,10 +61,10 @@ class _AndroidAppState extends State<AndroidApp> {
       theme: ThemeData(
         primaryColor: Colors.blueGrey.shade800,
       ),
-      home: _user == null ? SignInScreen() : HomeScreen(),
+      home: Utils().homeScreen(_user != null ? _user['role'] : ''),
       routes: {
-        // Home screen
-        HomeScreen.routeName: (_) => HomeScreen(),
+        // Explorer screen
+        ExploreScreen.routeName: (_) => ExploreScreen(),
         // Signin screen
         SignInScreen.routeName: (_) => SignInScreen(),
         // Signup screen
@@ -67,12 +73,16 @@ class _AndroidAppState extends State<AndroidApp> {
         AboutScreen.routeName: (_) =>  AboutScreen(),
         // Contact screen
         ContactScreen.routeName: (_) => ContactScreen(),
-        // Provider screen
-        ClientScreen.routeName: (_) => ClientScreen(),
+        // ProviderTrading screen
+        ProviderTradingScreen.routeName: (_) => ProviderTradingScreen(),
         // Book screen
         BookScreen.routeName: (_) => BookScreen(),
         // Checkout screen
         CheckoutScreen.routeName: (_) => CheckoutScreen(),
+        // Provider screen
+        ProviderScreen.routeName: (_) => ProviderScreen(),
+        // Client screen
+        ClientScreen.routeName: (_) => ClientScreen(),
       },
     );
   }

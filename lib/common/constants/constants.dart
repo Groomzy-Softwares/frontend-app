@@ -8,8 +8,11 @@ const String SIGNUP_TITLE='Signup';
 const String ABOUT_TITLE='About';
 const String CONTACTS_TITLE='Contacts';
 const String PROVIDER_TITLE='Provider';
+const String PROVIDER_TRADING_TITLE='Provider trading';
 const String BOOK_TITLE='Book';
 const String CHECKOUT_TITLE='Checkout';
+const String EXPLORER_TITLE='Home';
+const String CLIENT_TITLE='Client';
 
 /*
  * Assets constants

@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:groomzy/android/screens/client/main.dart';
+
+import '../../screens/provider_trading/main.dart';
 
 import '../../widgets/horizontal_scroll/labels.dart';
 import '../../widgets/rating/rating.dart';
@@ -57,7 +58,7 @@ class AndroidSummaryService extends StatelessWidget {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamed(
-                        ClientScreen.routeName,
+                        ProviderTradingScreen.routeName,
                       );
                     },
                   ),

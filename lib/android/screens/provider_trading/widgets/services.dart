@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import './service.dart';
+import 'service.dart';
 
-class ProviderServices extends StatelessWidget {
-  const ProviderServices({Key key}) : super(key: key);
+class Services extends StatelessWidget {
+  const Services({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class ProviderServices extends StatelessWidget {
             .map(
               (service) => Column(
                 children: [
-                  ProviderService(
+                  Service(
                     serviceId: service['id'],
                     name: service['name'],
                     description: service['description'],

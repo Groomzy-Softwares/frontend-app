@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-import '../home/main.dart';
+import '../client/main.dart';
 import '../../widgets/loading/loading.dart';
 
 class Checkout extends StatelessWidget {
@@ -66,7 +66,7 @@ class Checkout extends StatelessWidget {
       if (url == successUrl) {
         await _submit(true);
         _webViewController.close();
-        Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+        Navigator.of(context).pushReplacementNamed(ClientScreen.routeName);
       }
     });
 

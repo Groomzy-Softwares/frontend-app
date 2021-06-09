@@ -7,11 +7,14 @@ import './drawer_item/item.dart';
 import './drawer_item/item_header.dart';
 import '../../screens/signin/main.dart';
 import '../../screens/signup/main.dart';
-import '../../screens/home/main.dart';
 import '../../screens/about/main.dart';
 import '../../screens/contacts/main.dart';
+import '../../screens/explorer/main.dart';
 import '../../../common/types/types.dart';
 import '../../../common/constants/constants.dart';
+
+import '../../utils/utils.dart';
+
 
 import '../../../api/utils/utils.dart';
 
@@ -72,7 +75,7 @@ class _AndroidDrawerState extends State<AndroidDrawer> {
                 AndroidDrawerItem(
                   icon: Icons.home_outlined,
                   title: HOME_TITLE,
-                  navigateTo: HomeScreen.routeName,
+                  navigateTo: Utils().navigateToHome(_user != null ? _user['role'] : ''),
                   navigateType: NavigatorNamedType.POP_AND_PUSH,
                 ),
                 AndroidDrawerItem(
@@ -111,7 +114,7 @@ class _AndroidDrawerState extends State<AndroidDrawer> {
                   AndroidDrawerItem(
                     icon: Icons.logout_outlined,
                     title: 'Sign out',
-                    navigateTo: SignInScreen.routeName,
+                    navigateTo: ExploreScreen.routeName,
                   ),
                 Divider(),
                 AndroidDrawerItem(

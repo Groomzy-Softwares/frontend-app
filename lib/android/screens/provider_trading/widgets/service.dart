@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../book/main.dart';
 
-class ProviderService extends StatelessWidget {
+class Service extends StatelessWidget {
   final String name;
   final String category;
   final String description;
   final double price;
   final int serviceId;
 
-  const ProviderService({
+  const Service({
     this.price,
     this.name,
     this.description,

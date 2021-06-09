@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../home/main.dart';
+import '../client/main.dart';
+import '../provider/main.dart';
 import '../../widgets/alert_dialog/alert_dialog.dart';
 import '../../widgets/loading/loading.dart';
 import '../../widgets/text_field/text_field.dart';
@@ -95,7 +96,7 @@ class _SignInState extends State<SignIn> {
                 await AuthUtil().setUser(jsonEncode(user));
 
                 Navigator.of(context).pushReplacementNamed(
-                    _isProvider ? HomeScreen.routeName : HomeScreen.routeName,);
+                    _isProvider ? ProviderScreen.routeName : ClientScreen.routeName,);
               }
             }
           },
