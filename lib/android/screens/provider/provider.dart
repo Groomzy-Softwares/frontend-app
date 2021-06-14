@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:groomzy/android/widgets/center_horizontal_vertical/center_horizontal_vertical.dart';
 
 import './widgets/business.dart';
 import './widgets/operating_times.dart';
+import './widgets/bookings.dart';
 
 class Provider extends StatelessWidget {
   final int selectedIndex;
@@ -15,8 +15,8 @@ class Provider extends StatelessWidget {
   List<Widget> _widgetOptions() {
     return <Widget>[
       Business(),
+      Bookings(),
       OperatingTimes(),
-      Container(child: Text('3')),
     ];
   }
 

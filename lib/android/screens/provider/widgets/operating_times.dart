@@ -1,7 +1,6 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
+import './operating_time.dart';
 import '../../../widgets/checkbox/checkbox.dart';
 import '../../../widgets/button/button.dart';
 
@@ -11,11 +10,10 @@ class OperatingTimes extends StatefulWidget {
   OperatingTimes({Key key}) : super(key: key);
 
   @override
-  _OperatingTimeScreenWidgetState createState() =>
-      _OperatingTimeScreenWidgetState();
+  _OperatingTimeState createState() => _OperatingTimeState();
 }
 
-class _OperatingTimeScreenWidgetState extends State<OperatingTimes> {
+class _OperatingTimeState extends State<OperatingTimes> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,7 +27,9 @@ class _OperatingTimeScreenWidgetState extends State<OperatingTimes> {
             color: Colors.black87,
           ),
         ),
-        SizedBox(height: 20.0,),
+        SizedBox(
+          height: 20.0,
+        ),
         Column(
           children: [
             Row(
@@ -62,133 +62,14 @@ class _OperatingTimeScreenWidgetState extends State<OperatingTimes> {
             color: Colors.black87,
           ),
         ),
-        SizedBox(height: 20.0,),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Container(
-              width: 170.0,
-              child: Column(
-                children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.calendar_today,
-                          size: 20.0,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            DatePicker.showTime12hPicker(
-                              context,
-                              showTitleActions: true,
-                              onConfirm: (time) {},
-                              currentTime: DateTime.now(),
-                            );
-                          },
-                          child: AutoSizeText('Business starts not set.', softWrap: true),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: 170.0,
-              child: Column(
-                children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.calendar_today,
-                          size: 20.0,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            DatePicker.showTime12hPicker(
-                              context,
-                              showTitleActions: true,
-                              onConfirm: (time) {},
-                              currentTime: DateTime.now(),
-                            );
-                          },
-                          child: AutoSizeText('Business ends not set.', softWrap: true,),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+        SizedBox(
+          height: 20.0,
         ),
-        Divider(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Container(
-              width: 170.0,
-              child: Column(
-                children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.calendar_today,
-                          size: 20.0,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            DatePicker.showTime12hPicker(
-                              context,
-                              showTitleActions: true,
-                              onConfirm: (time) {},
-                              currentTime: DateTime.now(),
-                            );
-                          },
-                          child: AutoSizeText('Break starts not set.', softWrap: true),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: 170.0,
-              child: Column(
-                children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.calendar_today,
-                          size: 20.0,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            DatePicker.showTime12hPicker(
-                              context,
-                              showTitleActions: true,
-                              onConfirm: (time) {},
-                              currentTime: DateTime.now(),
-                            );
-                          },
-                          child: AutoSizeText('Break ends not set.', softWrap: true),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            OperatingTime(selectedTime: 'Start time not set.',),
+            OperatingTime(selectedTime: 'End time not set.',),
           ],
         ),
         Divider(
@@ -198,7 +79,7 @@ class _OperatingTimeScreenWidgetState extends State<OperatingTimes> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              width: 170.0,
+              width: 180.0,
               child: AndroidButton(
                 color: Colors.white,
                 label: 'Set',
@@ -206,7 +87,7 @@ class _OperatingTimeScreenWidgetState extends State<OperatingTimes> {
               ),
             ),
             Container(
-              width: 170.0,
+              width: 180.0,
               child: AndroidButton(
                 color: Colors.white,
                 label: 'Reset',

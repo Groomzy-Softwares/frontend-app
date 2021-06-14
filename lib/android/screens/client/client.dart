@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:groomzy/android/screens/explorer/explorer.dart';
-import 'package:groomzy/android/widgets/center_horizontal_vertical/center_horizontal_vertical.dart';
+
+import 'widgets/bookings.dart';
+import '../explorer/explorer.dart';
+import '../../widgets/center_horizontal_vertical/center_horizontal_vertical.dart';
 
 class Client extends StatelessWidget {
   final int selectedIndex;
@@ -17,7 +19,7 @@ class Client extends StatelessWidget {
         screenContent: Explore(),
       ),
       AndroidCenterHorizontalVertical(
-        screenContent: Container(child: Text('Bookings')),
+        screenContent: Bookings(),
       ),
     ];
   }
