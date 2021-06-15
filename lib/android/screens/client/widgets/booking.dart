@@ -8,41 +8,66 @@ class Booking extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Card(
+        color: Colors.grey.shade50,
+        elevation: 0.5,
         child: Column(
           children: [
             ListTile(
+              contentPadding: EdgeInsets.all(5.0),
               title: Text('Title'),
-              subtitle: Column(
-                children: [
-                  SizedBox(height: 5.0,),
-                  Row(
-                    children: [
-                      Text('Date: '),
-                      Text('2021/10/11')
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text('Time: '),
-                      Text('16:99 hrz')
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text('Price: '),
-                      Text('R200.0')
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text('InHouse call: '),
-                      Text('No')
-                    ],
-                  ),
-                ],
+              subtitle: Container(
+                margin: EdgeInsets.only(
+                  top: 10.0,
+                ),
+                child: Table(
+                  children: [
+                    TableRow(children: [
+                      TableCell(
+                        child: Text(
+                          'Provider',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Text(
+                          'Date',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Text(
+                          'Time',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      Divider(),
+                      Divider(),
+                      Divider(),
+                    ]),
+                    TableRow(children: [
+                      TableCell(
+                        child: Text('Sifiso Myeza'),
+                      ),
+                      TableCell(
+                        child: Text('2021/10/11'),
+                      ),
+                      TableCell(
+                        child: Text('04:00 pm'),
+                      ),
+                    ]),
+                  ],
+                ),
               ),
               trailing: Container(
-                width: MediaQuery.of(context).size.width * 0.45,
+                width: 90.0,
                 margin: EdgeInsets.only(top: 5.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

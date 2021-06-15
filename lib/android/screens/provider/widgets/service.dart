@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../book/main.dart';
-
 class Service extends StatelessWidget {
   final String name;
   final String category;
@@ -24,7 +22,7 @@ class Service extends StatelessWidget {
       color: Colors.grey.shade50,
       elevation: 0.5,
       child: Container(
-        margin: EdgeInsets.only(left: 10.0, right: 10.0),
+        margin: EdgeInsets.all(10.0),
         child: ListTile(
           contentPadding: EdgeInsets.zero,
           title: Text(name),
@@ -34,20 +32,31 @@ class Service extends StatelessWidget {
                 TableCell(
                   child: Text(
                     'Price',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
                   ),
                 ),
                 TableCell(
                   child: Text(
                     'Duration',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
                   ),
                 ),
                 TableCell(
                   child: Text(
                     'In-house',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
                   ),
+                ),
+              ]),
+              TableRow(children: [
+                TableCell(
+                  child: Divider(),
+                ),
+                TableCell(
+                  child: Divider(),
+                ),
+                TableCell(
+                  child: Divider(),
                 ),
               ]),
               TableRow(children: [
@@ -81,6 +90,7 @@ class Service extends StatelessWidget {
                     color: Colors.amber,
                   ),
                 ),
+                VerticalDivider(),
                 GestureDetector(
                   onTap: () {},
                   child: Icon(

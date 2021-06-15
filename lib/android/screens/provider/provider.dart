@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './widgets/business.dart';
+import './widgets/services.dart';
 import './widgets/operating_times.dart';
 import './widgets/bookings.dart';
 
@@ -14,7 +14,7 @@ class Provider extends StatelessWidget {
 
   List<Widget> _widgetOptions() {
     return <Widget>[
-      Business(),
+      Services(),
       Bookings(),
       OperatingTimes(),
     ];

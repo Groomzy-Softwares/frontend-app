@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import './widgets/services.dart';
+import './widgets/details.dart';
+import './widgets/reviews.dart';
 
 class ProviderTrading extends StatelessWidget {
   final int selectedIndex;
@@ -12,8 +15,8 @@ class ProviderTrading extends StatelessWidget {
   List<Widget> _widgetOptions() {
     return <Widget>[
       Services(),
-      Container(child: Text('2')),
-      Container(child: Text('3')),
+      Details(),
+      Reviews(),
     ];
   }
 

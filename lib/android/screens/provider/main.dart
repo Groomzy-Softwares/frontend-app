@@ -80,7 +80,7 @@ class _ProviderScreenState extends State<ProviderScreen> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.business_center_outlined),
-              label: 'Business',
+              label: 'Services',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.history_outlined),

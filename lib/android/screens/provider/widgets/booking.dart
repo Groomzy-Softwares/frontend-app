@@ -8,67 +8,112 @@ class Booking extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Card(
+        color: Colors.grey.shade50,
+        elevation: 0.5,
         child: Column(
           children: [
-            ListTile(
-              title: Text('Title'),
-              subtitle: Column(
+            Container(
+              margin: EdgeInsets.only(
+                left: 10.0,
+                top: 10.0,
+              ),
+              child: Table(
                 children: [
-                  SizedBox(height: 5.0,),
-                  Row(
+                  TableRow(children: [
+                    TableCell(
+                      child: Text(
+                        'Booked by',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Text(
+                        'Date',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Text(
+                        'Time',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Text(
+                        'InHouse',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ]),
+                  TableRow(children: [
+                    Divider(),
+                    Divider(),
+                    Divider(),
+                    Divider(),
+                  ]),
+                  TableRow(children: [
+                    TableCell(
+                      child: Text('Sifiso Myeza'),
+                    ),
+                    TableCell(
+                      child: Text('2021/10/11'),
+                    ),
+                    TableCell(
+                      child: Text('04:00 pm'),
+                    ),
+
+                    TableCell(
+                      child: Text('Yes'),
+                    ),
+                  ]),
+                ],
+              ),
+            ),
+            SizedBox(height: 20.0,),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.45,
+              margin: EdgeInsets.only(top: 5.0, bottom: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
                     children: [
-                      Text('Date: '),
-                      Text('2021/10/11')
+                      Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: Colors.blue,
+                      ),
+                      Text('View'),
                     ],
                   ),
-                  Row(
+                  VerticalDivider(),
+                  Column(
                     children: [
-                      Text('Time: '),
-                      Text('16:99 hrz')
+                      Icon(
+                        Icons.done_outline,
+                        color: Colors.green,
+                      ),
+                      Text('Completed'),
                     ],
                   ),
-                  Row(
+                  VerticalDivider(),
+                  Column(
                     children: [
-                      Text('Price: '),
-                      Text('R200.0')
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text('InHouse call: '),
-                      Text('No')
+                      Icon(
+                        Icons.cancel_outlined,
+                        color: Colors.redAccent,
+                      ),
+                      Text('Cancel'),
                     ],
                   ),
                 ],
-              ),
-              trailing: Container(
-                width: MediaQuery.of(context).size.width * 0.45,
-                margin: EdgeInsets.only(top: 5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        Icon(Icons.remove_red_eye_outlined, color: Colors.blue,),
-                        Text('View'),
-                      ],
-                    ),
-                    VerticalDivider(),
-                    Column(
-                      children: [
-                        Icon(Icons.done_outline, color: Colors.green,),
-                        Text('Completed'),
-                      ],
-                    ),
-                    VerticalDivider(),
-                    Column(
-                      children: [
-                        Icon(Icons.cancel_outlined, color: Colors.redAccent,),
-                        Text('Cancel'),
-                      ],
-                    ),
-                  ],
-                ),
               ),
             ),
           ],
