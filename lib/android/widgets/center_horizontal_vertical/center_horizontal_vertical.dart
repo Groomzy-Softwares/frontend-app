@@ -33,7 +33,7 @@ class AndroidCenterHorizontalVertical extends StatelessWidget {
                   ),
                 ),
               Container(
-                margin: EdgeInsets.all(10.0),
+                // padding: EdgeInsets.all(10.0),
                 child: screenContent,
               )
             ],

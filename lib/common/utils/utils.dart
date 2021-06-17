@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CommonUtils {
@@ -72,8 +75,8 @@ class CommonUtils {
   }
 
   Map<String, dynamic> providerRating(List<dynamic> ratings) {
-    double rating;
-    double ratingStar;
+    double ratingPercentage;
+    double ratingCounts;
     String ratingStatus;
 
     if (ratings.length <= 0) {
@@ -84,22 +87,22 @@ class CommonUtils {
     }
 
     double totalRating = ratings.fold(0, (total, rating) {
-      return total += rating['rating'];
+      return total += rating['rate'];
     });
-    rating = totalRating / (5 * ratings.length) * 100;
-    ratingStar = (totalRating / (5 * ratings.length)) * 5;
+    ratingPercentage = totalRating / (5 * ratings.length) * 100;
+    ratingCounts = (totalRating / (5 * ratings.length)) * 5;
 
-    if (rating >= 70) {
+    if (ratingPercentage >= 70) {
       ratingStatus = 'Superb';
-    } else if (rating >= 50) {
+    } else if (ratingPercentage >= 50) {
       ratingStatus = 'Fair';
     } else {
       ratingStatus = 'Poor';
     }
 
     return {
-      'rating': '${rating.toStringAsFixed(2)}',
-      'ratingStar': ratingStar,
+      'ratingPercentage': '${ratingPercentage.toStringAsFixed(2)}',
+      'ratingCounts': ratingCounts,
       'ratingStatus': ratingStatus,
     };
   }
@@ -174,5 +177,26 @@ class CommonUtils {
       'Sat',
       'Sun',
     ];
+  }
+
+  Future<Widget> getImage(String url) async {
+    final Completer<Widget> completer = Completer();
+    final image = NetworkImage(url);
+
+    final load = image.resolve(const ImageConfiguration());
+
+    final listener = new ImageStreamListener((ImageInfo info, isSync) async {
+      print(info.image.width);
+      print(info.image.height);
+
+      if (info.image.width == 80 && info.image.height == 160) {
+        completer.complete(Container(child: Text('AZAZA')));
+      } else {
+        completer.complete(Container(child: Image(image: image)));
+      }
+    });
+
+    load.addListener(listener);
+    return completer.future;
   }
 }

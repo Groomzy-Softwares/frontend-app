@@ -14,8 +14,8 @@ import '../../widgets/checkbox/checkbox.dart';
 import '../../../common/constants/constants.dart';
 
 import '../../../api/utils/utils.dart';
-import '../../../api/graphql/mutations/signin/client_signin.dart';
-import '../../../api/graphql/mutations/signin/provider_signin.dart';
+import '../../../api/graphql/mutations/client/signin.dart';
+import '../../../api/graphql/mutations/provider/provider_signin.dart';
 
 
 class SignIn extends StatefulWidget {

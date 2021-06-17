@@ -10,8 +10,8 @@ import '../../widgets/alert_dialog/alert_dialog.dart';
 import '../../widgets/loading/loading.dart';
 import '../../../common/constants/constants.dart';
 
-import '../../../api/graphql/mutations/signup/client_signup.dart';
-import '../../../api/graphql/mutations/signup/provider_signup.dart';
+import '../../../api/graphql/mutations/client/signup.dart';
+import '../../../api/graphql/mutations/provider/provider_signup.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key key}) : super(key: key);

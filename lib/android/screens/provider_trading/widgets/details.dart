@@ -139,7 +139,7 @@ class Details extends StatelessWidget {
                         day,
                         style: TextStyle(color: Colors.black54),
                       ),
-                      Text('07:00 am - 07:00 pm'),
+                      Text('$businessStartTime - $businessEndTime'),
                     ],
                   ),
                   Divider(),

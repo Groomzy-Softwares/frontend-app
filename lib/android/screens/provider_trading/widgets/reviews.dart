@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:groomzy/android/widgets/rating/rating.dart';
 
 class Reviews extends StatelessWidget {
   const Reviews({Key key}) : super(key: key);
@@ -31,18 +31,14 @@ class Reviews extends StatelessWidget {
                         ),
                       ),
                     ),
-                    title: RatingBar.builder(
-                      initialRating: rating.toDouble(),
-                      minRating: 0,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemSize: 18,
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.green,
-                      ),
-                      onRatingUpdate: null,
+                    title: AndroidRating(
+                      ratingCounts: rating.toDouble(),
+                      icon: Icons.star_outline,
+                      iconColor: rating >= 3.75
+                          ? Colors.green
+                          : rating >= 2.5
+                              ? Colors.amber
+                              : Colors.red,
                     ),
                     subtitle: Text(
                       'Comment here.',
