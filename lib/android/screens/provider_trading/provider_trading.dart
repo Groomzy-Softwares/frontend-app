@@ -6,15 +6,25 @@ import './widgets/reviews.dart';
 
 class ProviderTrading extends StatelessWidget {
   final int selectedIndex;
+  final int providerId;
+  final List services;
+  final List staffs;
 
   const ProviderTrading({
     this.selectedIndex,
+    this.providerId,
+    this.services,
+    this.staffs,
     Key key,
   }) : super(key: key);
 
   List<Widget> _widgetOptions() {
     return <Widget>[
-      Services(),
+      Services(
+        providerId: providerId,
+        services: services,
+        staffs: staffs,
+      ),
       Details(),
       Reviews(),
     ];

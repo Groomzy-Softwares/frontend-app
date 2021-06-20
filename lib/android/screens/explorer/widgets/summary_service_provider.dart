@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:groomzy/common/utils/utils.dart';
 import 'package:map_launcher/map_launcher.dart';
 
-import '../../provider_trading/main.dart';
 import './rating.dart';
-
+import '../../provider_trading/main.dart';
 import '../../../widgets/horizontal_scroll/labels.dart';
+
 import '../../../../common/constants/constants.dart';
+import '../../../../common/utils/utils.dart';
 
 class AndroidSummaryService extends StatelessWidget {
-  final String address;
-  final String fullName;
-  final double latitude;
-  final double longitude;
+  final int id;
+  final Map address;
+  final String name;
   final String category;
   final List categories;
+  final List services;
   final List ratings;
+  final List staffs;
 
   AndroidSummaryService({
+    this.id,
     this.address,
-    this.fullName,
-    this.latitude,
-    this.longitude,
+    this.name,
     this.category,
     this.categories,
+    this.services,
     this.ratings,
+    this.staffs,
     Key key,
   }) : super(key: key);
 
@@ -41,20 +43,24 @@ class AndroidSummaryService extends StatelessWidget {
                 ListTile(
                   leading: GestureDetector(
                     onTap: () async {
+                      double latitude = address["latitude"];
+                      double longitude = address["longitude"];
+
                       if (latitude != null && longitude != null) {
+                        // TODO This should be in the common utils expanding to other map types.
                         if (await MapLauncher.isMapAvailable(MapType.google)) {
                           await MapLauncher.showMarker(
                             mapType: MapType.google,
                             coords: Coords(latitude, longitude),
-                            title: address,
+                            title: address['address'],
                           );
                         }
                       }
                     },
                     child: Icon(Icons.location_on_outlined),
                   ),
-                  title: Text(fullName ?? 'No name or business name'),
-                  subtitle: Text(address ?? 'No address'),
+                  title: Text(name ?? 'No name or business name'),
+                  subtitle: Text(address['address'] ?? 'No address'),
                 ),
                 Container(
                   height: 180,
@@ -67,6 +73,11 @@ class AndroidSummaryService extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).pushNamed(
                         ProviderTradingScreen.routeName,
+                        arguments: {
+                          "providerId": id,
+                          "services": services,
+                          "staffs": staffs,
+                        }
                       );
                     },
                   ),

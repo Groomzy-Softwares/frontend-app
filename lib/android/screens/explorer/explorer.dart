@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:groomzy/android/widgets/loading/loading.dart';
-import 'package:groomzy/api/graphql/queries/provider/providers.dart';
 
+import './widgets/summary_service_provider.dart';
 import '../../widgets/horizontal_scroll/category_labels.dart';
-import 'widgets/summary_service_provider.dart';
+import '../../widgets/loading/loading.dart';
+
+import '../../../api/graphql/queries/provider/providers.dart';
+import '../../../api/utils/utils.dart';
 
 class Explore extends StatelessWidget {
   const Explore({Key key}) : super(key: key);
@@ -12,36 +14,36 @@ class Explore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Query(
-        options: QueryOptions(document: gql(ProvidersQuery().providers)),
-        builder: (
-          QueryResult providersResult, {
-          VoidCallback refetch,
-          FetchMore fetchMore,
-        }) {
-          String errorMessage;
-          if (providersResult.hasException) {
-            if (providersResult.exception.graphqlErrors.length > 0) {
-              errorMessage = providersResult.exception.graphqlErrors[0].message;
-            } else {
-              errorMessage = 'Oops! seems like there is something wrong, '
-                  'please alert us at support@groomzy.co.za with this issue.';
-            }
+      options: QueryOptions(document: gql(ProvidersQuery().providers)),
+      builder: (
+        QueryResult providersResult, {
+        VoidCallback refetch,
+        FetchMore fetchMore,
+      }) {
+        String errorMessage;
+        if (providersResult.hasException) {
+          if (providersResult.exception.graphqlErrors.length > 0) {
+            errorMessage = providersResult.exception.graphqlErrors[0].message;
+          } else {
+            errorMessage = 'Oops! seems like there is something wrong, '
+                'please alert us at support@groomzy.co.za with this issue.';
           }
+        }
 
-          if (providersResult.isLoading) {
-            return AndroidLoading();
-          }
+        if (providersResult.isLoading) {
+          return AndroidLoading();
+        }
 
-          Map data = providersResult.data;
-          List providers = [];
+        Map data = providersResult.data;
+        List providers = [];
 
-          if (data != null && data['providers'] != null) {
-            providers = providersResult.data['providers'];
-          }
+        if (data != null && data['providers'] != null) {
+          providers = providersResult.data['providers'];
+        }
 
-          print(providers);
-
-          return RefreshIndicator(
+        return RefreshIndicator(
+          child: SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
             child: Column(
               children: [
                 AndroidCategoryLabels(),
@@ -74,35 +76,29 @@ class Explore extends StatelessWidget {
                     ),
                   ),
                 if (providers.length > 0)
-                  ...providers.map((provider) {
-                    Map address = provider['address'];
-                    List bookings = provider['bookings'];
-                    List serviceProviderCategories = provider['serviceProviderCategories'];
+                  ...providers.map(
+                    (provider) {
+                      print(provider);
+                      Map providerDetails =
+                          APIUtils().getProviderProperties(provider);
 
-                    List categories = [];
-                    List ratings = [];
-
-                    if (serviceProviderCategories != null && serviceProviderCategories.length > 0) {
-                      categories = serviceProviderCategories.map((serviceProviderCategory) => serviceProviderCategory['category']['category']).toList();
-                    }
-
-                    if (bookings != null && bookings.length > 0) {
-                      ratings = bookings.map((booking) => booking['rating']).toList();
-                    }
-
-                    return AndroidSummaryService(
-                      categories: categories.toSet().toList(),
-                      address: address['address'],
-                      fullName: provider['fullName'],
-                      latitude: address['latitude'],
-                      longitude: address['longitude'],
-                      ratings: ratings,
-                    );
-                  }).toList(),
+                      return AndroidSummaryService(
+                        id: providerDetails["id"],
+                        categories: providerDetails['categories'],
+                        address: providerDetails['address'],
+                        name: providerDetails['name'],
+                        services: providerDetails['services'],
+                        ratings: providerDetails['ratings'],
+                        staffs: providerDetails['staffs'],
+                      );
+                    },
+                  ).toList(),
               ],
             ),
-            onRefresh: refetch,
-          );
-        });
+          ),
+          onRefresh: refetch,
+        );
+      },
+    );
   }
 }

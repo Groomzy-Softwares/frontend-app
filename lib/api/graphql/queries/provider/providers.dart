@@ -29,6 +29,19 @@ class ProvidersQuery {
             category {
               category
             }
+            service {
+              id
+              description
+              duration
+              durationUnit
+              inHouse
+              price
+              title
+            }
+          }
+          staffs {
+            id
+            fullName
           }
         }
       }

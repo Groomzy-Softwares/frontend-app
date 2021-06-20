@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import './provider.dart';
 import '../explorer/main.dart';
@@ -13,50 +14,34 @@ import '../../../common/constants/constants.dart';
 
 import '../../../api/utils/utils.dart';
 
-class ProviderScreen extends StatefulWidget {
+class ProviderScreen extends HookWidget {
   static final String routeName = '/${PROVIDER_TITLE.toLowerCase()}';
 
   const ProviderScreen({Key key}) : super(key: key);
 
   @override
-  _ProviderScreenState createState() => _ProviderScreenState();
-}
-
-class _ProviderScreenState extends State<ProviderScreen> {
-  int _selectedIndex = 0;
-  Map _user;
-  bool _isLoading = true;
-
-  @override
-  void didChangeDependencies() {
-    AuthUtil().getUser().then((res) {
-      if (res != null) {
-        setState(() {
-          _user = jsonDecode(res);
-        });
-      }
-    }).catchError((error) {
-      if (mounted) {
-        setState(() {
-          _user = null;
-        });
-      }
-    });
-    setState(() {
-      _isLoading = false;
-    });
-    super.didChangeDependencies();
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
+    final _selectedIndex = useState(0);
+    final _user = useState(null);
+    final _isLoading = useState(true);
+
+    void _onItemTapped(int index) {
+      _selectedIndex.value = index;
+    }
+
+    useEffect(() {
+      APIUtils().getUser().then((res) {
+        if (res != null) {
+          _user.value = jsonDecode(res);
+        }
+      }).catchError((error) {
+        _user.value = null;
+      });
+      _isLoading.value = false;
+      return;
+    }, const []);
+
+    if (_isLoading.value) {
       return AndroidLoading();
     } else if(_user == null) {
       return AndroidAlertDialog(
@@ -73,7 +58,7 @@ class _ProviderScreenState extends State<ProviderScreen> {
         drawer: AndroidDrawer(),
         body: SafeArea(
           child: AndroidCenterHorizontalVertical(
-            screenContent: Provider(selectedIndex: _selectedIndex,),
+            screenContent: Provider(selectedIndex: _selectedIndex.value,),
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -91,7 +76,7 @@ class _ProviderScreenState extends State<ProviderScreen> {
               label: 'Time',
             ),
           ],
-          currentIndex: _selectedIndex,
+          currentIndex: _selectedIndex.value,
           selectedItemColor: Theme.of(context).primaryColor,
           selectedIconTheme: IconThemeData(size: 30.0),
           selectedLabelStyle: TextStyle(color: Theme.of(context).primaryColor),

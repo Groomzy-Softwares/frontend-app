@@ -35,7 +35,7 @@ class _AndroidAppState extends State<AndroidApp> {
       _isLoading = true;
     });
 
-    AuthUtil().getUser().then((res) {
+    APIUtils().getUser().then((res) {
       if (res != null) {
         setState(() {
           _user = jsonDecode(res);

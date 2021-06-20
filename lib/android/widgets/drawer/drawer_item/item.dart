@@ -29,8 +29,8 @@ class AndroidDrawerItem extends StatelessWidget {
       onTap: () async {
         if (navigateTo != null) {
           if (title == 'Sign out') {
-            await AuthUtil().setToken(null);
-            await AuthUtil().setUser(null);
+            await APIUtils().setToken(null);
+            await APIUtils().setUser(null);
 
             Navigator.of(context).pushReplacementNamed(navigateTo);
           } else {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import './widgets/booking_times.dart';
@@ -9,14 +11,14 @@ import '../../widgets/heading/heading.dart';
 import '../../widgets/text_field/text_field.dart';
 import '../../widgets/horizontal_scroll/staffers.dart';
 
-class Book extends StatefulWidget {
+class Book extends HookWidget {
   final String name;
   final String category;
   final String description;
   final double price;
   final int serviceId;
 
-  const Book({
+  Book({
     this.category,
     this.description,
     this.name,
@@ -26,26 +28,17 @@ class Book extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _BookState createState() => _BookState();
-}
-
-class _BookState extends State<Book> {
-  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
-  DateTime _dateNow = DateTime.now();
-  DateTime _selectedDay;
-  String _selectedTime;
-  String _selectedStaffer;
-  String _serviceCallAddress;
-  bool _inHouse = false;
-
-  @override
   Widget build(BuildContext context) {
-    print(_selectedDay);
-    print(_selectedTime);
-    print(_selectedStaffer);
-    print(_inHouse);
-    print(_serviceCallAddress);
+    final _calendarFormat = useState(CalendarFormat.twoWeeks);
+    final _dateNow = useState<DateTime>(DateTime.now());
+    final _selectedDay = useState<DateTime>(null);
+    final _selectedTime = useState<String>(null);
+    final _selectedStaffer = useState<String>(null);
+    final _serviceCallAddress = useState<String>(null);
+    final _inHouse = useState<bool>(false);
+
     return Container(
+      margin: EdgeInsets.all(10.0,),
       child: Column(
         children: [
           Align(
@@ -59,31 +52,25 @@ class _BookState extends State<Book> {
             ),
           ),
           AndroidCalendar(
-            dateNow: _dateNow,
-            calendarFormat: _calendarFormat,
-            selectedDay: _selectedDay,
+            dateNow: _dateNow.value,
+            calendarFormat: _calendarFormat.value,
+            selectedDay: _selectedDay.value,
             onDaySelected: (selectedDay, focusedDa) {
-              setState(() {
-                _selectedDay = selectedDay;
-              });
+              _selectedDay.value = selectedDay;
             },
             onFormatChanged: (format) {
               if (_calendarFormat != format) {
                 // Call `setState()` when updating calendar format
-                setState(() {
-                  _calendarFormat = format;
-                });
+                _calendarFormat.value = format;
               }
             },
           ),
-          if (_selectedDay != null) Divider(),
-          if (_selectedDay != null) AndroidHeading(title: 'Select time'),
-          if (_selectedDay != null)
+          if (_selectedDay.value != null) Divider(),
+          if (_selectedDay.value != null) AndroidHeading(title: 'Select time'),
+          if (_selectedDay.value != null)
             BookingTimes(
               selectTime: (time) {
-                setState(() {
-                  _selectedTime = time;
-                });
+                _selectedTime.value = time;
               },
               times: [
                 '09:00',
@@ -96,8 +83,8 @@ class _BookState extends State<Book> {
                 '12:30'
               ],
             ),
-          if (_selectedTime != null) Divider(),
-          if (_selectedTime != null)
+          if (_selectedTime.value != null) Divider(),
+          if (_selectedTime.value != null)
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -108,20 +95,18 @@ class _BookState extends State<Book> {
                 ),
               ),
             ),
-          if (_selectedTime != null)
+          if (_selectedTime.value != null)
             AndroidCheckBox(
               label: 'Is this an in house service call?',
-              checked: _inHouse,
+              checked: _inHouse.value,
               onChecked: (check) {
-                setState(() {
-                  _inHouse = check;
-                  _serviceCallAddress = null;
-                  _selectedStaffer = null;
-                });
+                _inHouse.value = check;
+                _serviceCallAddress.value = null;
+                _selectedStaffer.value = null;
               },
             ),
-          if (_inHouse) Divider(),
-          if (_inHouse)
+          if (_inHouse.value) Divider(),
+          if (_inHouse.value)
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -132,29 +117,27 @@ class _BookState extends State<Book> {
                 ),
               ),
             ),
-          if (_inHouse)
+          if (_inHouse.value)
             AndroidTextField(
               prefixIcon: Icons.location_on_outlined,
               label: 'Address',
               onInputChange: (input) {
-                setState(() {
-                  _serviceCallAddress = input == '' ? null : input;
-                });
+                _serviceCallAddress.value = input;
               },
             ),
-          if ((_inHouse &&
-                  _serviceCallAddress != null &&
-                  _selectedTime != null) ||
-              (!_inHouse &&
-                  _serviceCallAddress == null &&
-                  _selectedTime != null))
+          if ((_inHouse.value &&
+                  _serviceCallAddress.value != null &&
+                  _selectedTime.value != null) ||
+              (!_inHouse.value &&
+                  _serviceCallAddress.value == null &&
+                  _selectedTime.value != null))
             Divider(),
-          if ((_inHouse &&
-                  _serviceCallAddress != null &&
-                  _selectedTime != null) ||
-              (!_inHouse &&
-                  _serviceCallAddress == null &&
-                  _selectedTime != null))
+          if ((_inHouse.value &&
+                  _serviceCallAddress.value != null &&
+                  _selectedTime.value != null) ||
+              (!_inHouse.value &&
+                  _serviceCallAddress.value == null &&
+                  _selectedTime.value != null))
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -165,31 +148,28 @@ class _BookState extends State<Book> {
                 ),
               ),
             ),
-          if ((_inHouse &&
-                  _serviceCallAddress != null &&
-                  _selectedTime != null) ||
-              (!_inHouse &&
-                  _serviceCallAddress == null &&
-                  _selectedTime != null))
+          if ((_inHouse.value &&
+                  _serviceCallAddress.value != null &&
+                  _selectedTime.value != null) ||
+              (!_inHouse.value &&
+                  _serviceCallAddress.value == null &&
+                  _selectedTime.value != null))
             AndroidStaffers(
               onSelectStaffer: (selectedStaffer) {
-                print(selectedStaffer);
-                setState(() {
-                  _selectedStaffer = selectedStaffer;
-                });
+                _selectedStaffer.value = selectedStaffer;
               },
-              selectedStaffer: _selectedStaffer,
+              selectedStaffer: _selectedStaffer.value,
             ),
-          if ((_inHouse &&
-                  _serviceCallAddress != null &&
-                  _selectedDay != null &&
-                  _selectedTime != null &&
-                  _selectedStaffer != null) ||
-              (!_inHouse &&
-                  _serviceCallAddress == null &&
-                  _selectedDay != null &&
-                  _selectedTime != null &&
-                  _selectedStaffer != null))
+          if ((_inHouse.value &&
+                  _serviceCallAddress.value != null &&
+                  _selectedDay.value != null &&
+                  _selectedTime.value != null &&
+                  _selectedStaffer.value != null) ||
+              (!_inHouse.value &&
+                  _serviceCallAddress.value == null &&
+                  _selectedDay.value != null &&
+                  _selectedTime.value != null &&
+                  _selectedStaffer.value != null))
             Container(
               width: double.infinity,
               height: 50.0,
@@ -199,11 +179,11 @@ class _BookState extends State<Book> {
                   Navigator.of(context).pushNamed(
                     CheckoutScreen.routeName,
                     arguments: {
-                      'serviceId': widget.serviceId,
-                      'name': widget.name,
-                      'description': widget.description,
-                      'price': widget.price,
-                      'category': widget.category,
+                      'serviceId': serviceId,
+                      'name': name,
+                      'description': description,
+                      'price': price,
+                      'category': category,
                     },
                   );
                 },
@@ -212,7 +192,7 @@ class _BookState extends State<Book> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      Icons.money_outlined,
+                      FontAwesomeIcons.moneyBill,
                       color: Colors.white,
                       size: 30,
                     ),

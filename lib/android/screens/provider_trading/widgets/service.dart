@@ -4,7 +4,6 @@ import '../../book/main.dart';
 
 class Service extends StatelessWidget {
   final String name;
-  final String category;
   final String description;
   final double price;
   final int serviceId;
@@ -13,7 +12,6 @@ class Service extends StatelessWidget {
     this.price,
     this.name,
     this.description,
-    this.category,
     this.serviceId,
     Key key,
   }) : super(key: key);
@@ -25,10 +23,9 @@ class Service extends StatelessWidget {
         Navigator.of(context).pushNamed(
           BookScreen.routeName,
           arguments: {
-            'category': category,
             'name': name,
             'description': description,
-            'bookingId': 1,
+            'serviceId': 1,
             'price': price,
           },
         );
@@ -37,14 +34,11 @@ class Service extends StatelessWidget {
         color: Colors.grey.shade50,
         elevation: 0.5,
         child: ListTile(
-          contentPadding: EdgeInsets.zero,
-          leading: CircleAvatar(
-            radius: 20.0,
-            backgroundColor: Theme.of(context).primaryColor,
-            child: Icon(Icons.image_outlined, size: 30),
-          ),
           title: Text(name),
-          subtitle: Text(description),
+          subtitle: Padding(
+            padding: EdgeInsets.only(top: 10.0, bottom: 10.0,),
+            child: Text(description),
+          ),
           trailing: Container(
             // height: 80,
             width: 70.0,
@@ -60,11 +54,15 @@ class Service extends StatelessWidget {
                         fontSize: 16.0,
                       ),
                     ),
-                    Icon(Icons.chevron_right_outlined),
+                    Icon(
+                      Icons.chevron_right_outlined,
+                      size: 30.0,
+                      color: Colors.blue,
+                    ),
                   ],
                 ),
                 SizedBox(height: 5.0),
-                Text(price.toString()),
+                Text('R $price'),
               ],
             ),
           ),

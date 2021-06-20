@@ -21,7 +21,6 @@ class BookScreen extends StatelessWidget {
       body: SafeArea(
         child: AndroidCenterHorizontalVertical(
           screenContent: Book(
-            category: arguments['category'],
             price: arguments['price'],
             description: arguments['description'],
             name: arguments['name'],

@@ -4,15 +4,19 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../widgets/rating/rating.dart';
 
 class Rating extends StatelessWidget {
+  final IconData ratingIcon;
+  final Color ratingColor;
   final double ratingPercentage;
   final String ratingStatus;
   final double ratingCounts;
   final Function onRatingUpdate;
 
   const Rating({
+    this.ratingIcon,
+    this.ratingColor,
     this.ratingCounts = 0,
     this.ratingPercentage = 0,
-    this.ratingStatus = 'no rated',
+    this.ratingStatus = 'not rated',
     this.onRatingUpdate,
     Key key,
   }) : super(key: key);
@@ -21,9 +25,9 @@ class Rating extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ListTile(
-        leading: Icon(
-          FontAwesomeIcons.smile,
-          color: Colors.green,
+        leading: ratingCounts == 0 ? null : Icon(
+          ratingIcon,
+          color: ratingColor,
         ),
         title: AndroidRating(
           ratingCounts: ratingCounts,

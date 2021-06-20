@@ -35,7 +35,7 @@ class _AndroidDrawerState extends State<AndroidDrawer> {
       });
     }
 
-    AuthUtil().getUser().then((res) {
+    APIUtils().getUser().then((res) {
       if (res != null) {
         if (mounted) {
           setState(() {

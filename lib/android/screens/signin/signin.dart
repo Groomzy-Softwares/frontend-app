@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../client/main.dart';
@@ -18,39 +19,34 @@ import '../../../api/graphql/mutations/client/signin.dart';
 import '../../../api/graphql/mutations/provider/provider_signin.dart';
 
 
-class SignIn extends StatefulWidget {
-  const SignIn({Key key}) : super(key: key);
+class SignIn extends HookWidget {
+  SignIn({Key key}) : super(key: key);
 
-  @override
-  _SignInState createState() => _SignInState();
-}
-
-class _SignInState extends State<SignIn> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  String _email;
-  String _password;
-  bool _isProvider = false;
-
-  Future<void> _submit({Function signIn}) async {
-    if (!_formKey.currentState.validate()) {
-      return;
-    }
-    _formKey.currentState.save();
-
-    await signIn({
-      'email': _email,
-      'password': _password,
-    });
-  }
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final _email = useState('');
+    final _password = useState('');
+    final _isProvider = useState(false);
+
+    Future<void> _submit({Function signIn}) async {
+      if (!_formKey.currentState.validate()) {
+        return;
+      }
+      _formKey.currentState.save();
+
+      await signIn({
+        'email': _email.value,
+        'password': _password.value,
+      });
+    }
+
+    return SingleChildScrollView(
       child: Mutation(
         options: MutationOptions(
           document: gql(
-            _isProvider
+            _isProvider.value
                 ? SignInProviderMutation().signinProvider
                 : SignInClientMutation().signinClient,
           ),
@@ -81,7 +77,7 @@ class _SignInState extends State<SignIn> {
             if (signInResult != null) {
               print(signInResult);
               Map signedIn =
-                  signInResult[_isProvider ? 'signinProvider' : 'signinClient'];
+                  signInResult[_isProvider.value ? 'signinProvider' : 'signinClient'];
               String token = signedIn['token'];
               if (token.isNotEmpty) {
                 Map user = {
@@ -91,12 +87,12 @@ class _SignInState extends State<SignIn> {
                   'phoneNumber': signedIn['phoneNumber'],
                   'role': signedIn['role'],
                 };
-                await AuthUtil().setToken(token);
+                await APIUtils().setToken(token);
 
-                await AuthUtil().setUser(jsonEncode(user));
+                await APIUtils().setUser(jsonEncode(user));
 
                 Navigator.of(context).pushReplacementNamed(
-                    _isProvider ? ProviderScreen.routeName : ClientScreen.routeName,);
+                    _isProvider.value ? ProviderScreen.routeName : ClientScreen.routeName,);
               }
             }
           },
@@ -119,13 +115,11 @@ class _SignInState extends State<SignIn> {
                 ),
                 SizedBox(height: 20.0),
                 AndroidTextField(
-                    value: _email,
+                    value: _email.value,
                     label: 'Email',
                     prefixIcon: Icons.email_outlined,
                     onInputChange: (input) {
-                      setState(() {
-                        _email = input == '' ? null : input;
-                      });
+                      _email.value = input;
                     },
                     onValidation: (String input) {
                       if (input.isEmpty) {
@@ -139,14 +133,12 @@ class _SignInState extends State<SignIn> {
                     }),
                 SizedBox(height: 10.0),
                 AndroidTextField(
-                    value: _password,
+                    value: _password.value,
                     label: 'Password',
                     obscureText: true,
                     prefixIcon: Icons.password_outlined,
                     onInputChange: (input) {
-                      setState(() {
-                        _password = input == '' ? null : input;
-                      });
+                      _password.value = input;
                     },
                     onValidation: (String input) {
                       if (input.isEmpty) {
@@ -161,11 +153,9 @@ class _SignInState extends State<SignIn> {
                 SizedBox(height: 10.0),
                 AndroidCheckBox(
                   label: 'Signing up as a service provider?',
-                  checked: _isProvider,
+                  checked: _isProvider.value,
                   onChecked: (checked) {
-                    setState(() {
-                      _isProvider = checked;
-                    });
+                    _isProvider.value = checked;
                   },
                 ),
                 AndroidButton(

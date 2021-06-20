@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CommonUtils {
@@ -100,13 +101,34 @@ class CommonUtils {
       ratingStatus = 'Poor';
     }
 
+    Map _ratingReview = ratingReview(ratingCounts);
+
     return {
       'ratingPercentage': '${ratingPercentage.toStringAsFixed(2)}',
       'ratingCounts': ratingCounts,
       'ratingStatus': ratingStatus,
+      'ratingIcon': _ratingReview['icon'],
+      'ratingColor': _ratingReview['color'],
     };
   }
 
+  Map ratingReview(rating) {
+    if (rating >= 3.75) {
+      return {
+        "icon": FontAwesomeIcons.grinStars,
+        "color": Colors.green,
+      };
+    } else if (rating >= 2.5) {
+      return {
+        "icon": FontAwesomeIcons.smile,
+        "color": Colors.amber,
+      };
+    }
+    return {
+      "icon": FontAwesomeIcons.frown,
+      "color": Colors.red,
+    };
+  }
 
   Future<void> setBookingMadePayloadId(
       int barberBookingMadePayloadId) async {

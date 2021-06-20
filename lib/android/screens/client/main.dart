@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:groomzy/android/screens/explorer/main.dart';
 import 'package:groomzy/android/widgets/alert_dialog/alert_dialog.dart';
 import 'package:groomzy/android/widgets/loading/loading.dart';
@@ -12,51 +13,35 @@ import '../../../common/constants/constants.dart';
 
 import '../../../api/utils/utils.dart';
 
-class ClientScreen extends StatefulWidget {
+class ClientScreen extends HookWidget {
   static final String routeName = '/${CLIENT_TITLE.toLowerCase()}';
 
   const ClientScreen({Key key}) : super(key: key);
 
   @override
-  _ProviderTradingScreenState createState() => _ProviderTradingScreenState();
-}
-
-class _ProviderTradingScreenState extends State<ClientScreen> {
-  int _selectedIndex = 0;
-
-  Map _user;
-  bool _isLoading = true;
-
-  @override
-  void didChangeDependencies() {
-    AuthUtil().getUser().then((res) {
-      if (res != null) {
-        setState(() {
-          _user = jsonDecode(res);
-        });
-      }
-    }).catchError((error) {
-      if (mounted) {
-        setState(() {
-          _user = null;
-        });
-      }
-    });
-    setState(() {
-      _isLoading = false;
-    });
-    super.didChangeDependencies();
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
+    final _selectedIndex = useState(0);
+    final _user = useState({});
+    final _isLoading = useState(true);
+
+    void _onItemTapped(int index) {
+      _selectedIndex.value = index;
+    }
+
+    useEffect(() {
+      APIUtils().getUser().then((res) {
+        if (res != null) {
+          _user.value = jsonDecode(res);
+        }
+      }).catchError((error) {
+        _user.value = null;
+      });
+      _isLoading.value = false;
+
+      return;
+    }, const []);
+
+    if (_isLoading.value) {
       return AndroidLoading();
     } else if(_user == null) {
       return AndroidAlertDialog(
@@ -72,7 +57,7 @@ class _ProviderTradingScreenState extends State<ClientScreen> {
         ),
         drawer: AndroidDrawer(),
         body: SafeArea(
-          child: Client(selectedIndex: _selectedIndex,),
+          child: Client(selectedIndex: _selectedIndex.value,),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
@@ -85,7 +70,7 @@ class _ProviderTradingScreenState extends State<ClientScreen> {
               label: 'Bookings',
             ),
           ],
-          currentIndex: _selectedIndex,
+          currentIndex: _selectedIndex.value,
           selectedItemColor: Theme.of(context).primaryColor,
           selectedIconTheme: IconThemeData(size: 30.0),
           selectedLabelStyle: TextStyle(color: Theme.of(context).primaryColor),

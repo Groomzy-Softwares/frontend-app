@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:groomzy/android/widgets/filters/filters.dart';
-import 'package:groomzy/android/widgets/search/search.dart';
+
+import '../../widgets/filters/filters.dart';
+import '../../widgets/search/search.dart';
 
 class AndroidCenterHorizontalVertical extends StatelessWidget {
   final Widget screenContent;
@@ -22,7 +23,11 @@ class AndroidCenterHorizontalVertical extends StatelessWidget {
             children: [
               if (showSearch)
                 Container(
-                  padding: EdgeInsets.only(left: 15.0, right: 10.0, bottom: 20.0),
+                  padding: EdgeInsets.only(
+                    left: 15.0,
+                    right: 10.0,
+                    bottom: 20.0,
+                  ),
                   color: Theme.of(context).primaryColor,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

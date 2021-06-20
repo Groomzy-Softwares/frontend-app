@@ -2,7 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:jaguar_jwt/jaguar_jwt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthUtil {
+class APIUtils {
   // Store signed in user token
   Future<void> setToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -46,5 +46,42 @@ class AuthUtil {
       await prefs.setString('user', null);
       return null;
     }
+  }
+
+  Map getProviderProperties(Map provider) {
+    Map address = provider['address'];
+    List bookings = provider['bookings'] ?? [];
+    List serviceProviderCategories =
+        provider['serviceProviderCategories'] ?? [];
+    List staffs = provider['staffs'] ?? [];
+
+    List categories = [];
+    List services = [];
+    List ratings = [];
+
+    if (serviceProviderCategories.length > 0) {
+      categories = serviceProviderCategories.map((serviceProviderCategory) {
+        return serviceProviderCategory['category']['category'];
+      }).toList().toSet().toList();
+
+      services = serviceProviderCategories.map((serviceProviderCategory) {
+        return serviceProviderCategory['service'];
+      }).toList();
+    }
+
+    if (bookings.length > 0) {
+      ratings = bookings.map((booking) => booking['rating']).toList();
+    }
+
+    return {
+      "id": provider["id"],
+      "name": provider['tradingName'] ?? provider['fullName'],
+      "address": address,
+      "bookings": bookings,
+      "categories": categories,
+      "services": services,
+      "ratings": ratings,
+      "staffs": staffs,
+    };
   }
 }

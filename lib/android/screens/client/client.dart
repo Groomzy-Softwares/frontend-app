@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'widgets/bookings.dart';
 import '../explorer/explorer.dart';
 import '../../widgets/center_horizontal_vertical/center_horizontal_vertical.dart';
+import '../../widgets/center_horizontal_vertical/center_horizontal_vertical_expanded.dart';
 
 class Client extends StatelessWidget {
   final int selectedIndex;
@@ -14,7 +15,7 @@ class Client extends StatelessWidget {
 
   List<Widget> _widgetOptions() {
     return <Widget>[
-      AndroidCenterHorizontalVertical(
+      AndroidCenterHorizontalVerticalExpanded(
         showSearch: true,
         screenContent: Explore(),
       ),

@@ -50,7 +50,7 @@ class _AppState extends State<App> {
 
     final AuthLink authLink = AuthLink(
       getToken: () async {
-        token = await AuthUtil().getToken();
+        token = await APIUtils().getToken();
 
         return token != null ? 'Bearer $token' : null;
       },

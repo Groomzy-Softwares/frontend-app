@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -13,43 +14,38 @@ import '../../../common/constants/constants.dart';
 import '../../../api/graphql/mutations/client/signup.dart';
 import '../../../api/graphql/mutations/provider/provider_signup.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({Key key}) : super(key: key);
+class SignUp extends HookWidget {
+  SignUp({Key key}) : super(key: key);
 
-  @override
-  _SignUpState createState() => _SignUpState();
-}
-
-class _SignUpState extends State<SignUp> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  String _fullName;
-  String _email;
-  String _phoneNumber;
-  String _password;
-  bool _isProvider = false;
-
-  Future<void> _submit({Function signUp}) async {
-    if (!_formKey.currentState.validate()) {
-      return;
-    }
-    _formKey.currentState.save();
-
-    await signUp({
-      'email': _email,
-      'fullName': _fullName,
-      'password': _password,
-      'phoneNumber': _phoneNumber,
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final _fullName = useState('');
+    final _email = useState('');
+    final _phoneNumber = useState('');
+    final _password = useState('');
+    final _isProvider = useState(false);
+
+    Future<void> _submit({Function signUp}) async {
+      if (!_formKey.currentState.validate()) {
+        return;
+      }
+      _formKey.currentState.save();
+
+      await signUp({
+        'email': _email.value,
+        'fullName': _fullName.value,
+        'password': _password.value,
+        'phoneNumber': _phoneNumber.value,
+      });
+    }
+
     return Container(
       child: Mutation(
         options: MutationOptions(
           document: gql(
-            _isProvider
+            _isProvider.value
                 ? SignUpProviderMutation().signupProvider
                 : SignUpClientMutation().signupClient,
           ),
@@ -80,7 +76,7 @@ class _SignUpState extends State<SignUp> {
             if (signUpResult != null) {
               print(signUpResult);
               String message =
-                  signUpResult[_isProvider ? 'signupProvider' : 'signupClient']
+                  signUpResult[_isProvider.value ? 'signupProvider' : 'signupClient']
                       ['message'];
               if (message.isNotEmpty) {
                 showDialog(
@@ -125,13 +121,11 @@ class _SignUpState extends State<SignUp> {
                 ),
                 SizedBox(height: 20.0),
                 AndroidTextField(
-                  value: _fullName,
+                  value: _fullName.value,
                   label: 'Full name',
                   prefixIcon: Icons.person_outlined,
                   onInputChange: (input) {
-                    setState(() {
-                      _fullName = input == '' ? null : input;
-                    });
+                    _fullName.value = input;
                   },
                   onValidation: (String input) {
                     if (input.isEmpty) {
@@ -143,13 +137,12 @@ class _SignUpState extends State<SignUp> {
                 ),
                 SizedBox(height: 10.0),
                 AndroidTextField(
-                    value: _email,
+                    value: _email.value,
                     label: 'Email',
                     prefixIcon: Icons.email_outlined,
                     onInputChange: (input) {
-                      setState(() {
-                        _email = input == '' ? null : input;
-                      });
+                      _email.value = input;
+
                     },
                     onValidation: (String input) {
                       if (input.isEmpty) {
@@ -163,13 +156,11 @@ class _SignUpState extends State<SignUp> {
                     }),
                 SizedBox(height: 10.0),
                 AndroidTextField(
-                    value: _phoneNumber,
+                    value: _phoneNumber.value,
                     label: 'Phone number',
                     prefixIcon: Icons.phone_android_outlined,
                     onInputChange: (input) {
-                      setState(() {
-                        _phoneNumber = input == '' ? null : input;
-                      });
+                      _phoneNumber.value = input;
                     },
                     onValidation: (String input) {
                       if (input.isEmpty) {
@@ -180,14 +171,12 @@ class _SignUpState extends State<SignUp> {
                     }),
                 SizedBox(height: 10.0),
                 AndroidTextField(
-                    value: _password,
+                    value: _password.value,
                     label: 'Password',
                     obscureText: true,
                     prefixIcon: Icons.password_outlined,
                     onInputChange: (input) {
-                      setState(() {
-                        _password = input == '' ? null : input;
-                      });
+                      _password.value = input;
                     },
                     onValidation: (String input) {
                       if (input.isEmpty) {
@@ -202,11 +191,9 @@ class _SignUpState extends State<SignUp> {
                 SizedBox(height: 10.0),
                 AndroidCheckBox(
                   label: 'Signing up as a service provider?',
-                  checked: _isProvider,
+                  checked: _isProvider.value,
                   onChecked: (checked) {
-                    setState(() {
-                      _isProvider = checked;
-                    });
+                    _isProvider.value = checked;
                   },
                 ),
                 AndroidButton(
