@@ -17,6 +17,10 @@ class Book extends HookWidget {
   final String description;
   final double price;
   final int serviceId;
+  final int minimumDuration;
+  final int duration;
+  final List staffs;
+  final List dayTimes;
 
   Book({
     this.category,
@@ -24,6 +28,10 @@ class Book extends HookWidget {
     this.name,
     this.price,
     this.serviceId,
+    this.staffs,
+    this.dayTimes,
+    this.minimumDuration,
+    this.duration,
     Key key,
   }) : super(key: key);
 
@@ -37,8 +45,32 @@ class Book extends HookWidget {
     final _serviceCallAddress = useState<String>(null);
     final _inHouse = useState<bool>(false);
 
+    bool canBook() {
+      return (_inHouse.value &&
+              _serviceCallAddress.value != null &&
+              _selectedDay.value != null &&
+              _selectedTime.value != null &&
+              _selectedStaffer.value != null) ||
+          (!_inHouse.value &&
+              _serviceCallAddress.value == null &&
+              _selectedDay.value != null &&
+              _selectedTime.value != null &&
+              _selectedStaffer.value != null);
+    }
+
+    bool canSelectStaff() {
+      return (_inHouse.value &&
+              _serviceCallAddress.value != null &&
+              _selectedTime.value != null) ||
+          (!_inHouse.value &&
+              _serviceCallAddress.value == null &&
+              _selectedTime.value != null);
+    }
+
     return Container(
-      margin: EdgeInsets.all(10.0,),
+      margin: EdgeInsets.all(
+        10.0,
+      ),
       child: Column(
         children: [
           Align(
@@ -65,111 +97,92 @@ class Book extends HookWidget {
               }
             },
           ),
-          if (_selectedDay.value != null) Divider(),
-          if (_selectedDay.value != null) AndroidHeading(title: 'Select time'),
           if (_selectedDay.value != null)
-            BookingTimes(
-              selectTime: (time) {
-                _selectedTime.value = time;
-              },
-              times: [
-                '09:00',
-                '09:30',
-                '10:00',
-                '10:30',
-                '11:00',
-                '11:30',
-                '12:00',
-                '12:30'
+            Column(
+              children: [
+                Divider(),
+                AndroidHeading(title: 'Select time'),
+                BookingTimes(
+                  selectTime: (time) {
+                    _selectedTime.value = time;
+                  },
+                  dayTimes: dayTimes,
+                  selectedDay: _selectedDay.value,
+                  minimumDuration: minimumDuration,
+                ),
               ],
             ),
-          if (_selectedTime.value != null) Divider(),
           if (_selectedTime.value != null)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Choose service location',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18.0,
+            Column(
+              children: [
+                Divider(),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Choose service location',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.0,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          if (_selectedTime.value != null)
-            AndroidCheckBox(
-              label: 'Is this an in house service call?',
-              checked: _inHouse.value,
-              onChecked: (check) {
-                _inHouse.value = check;
-                _serviceCallAddress.value = null;
-                _selectedStaffer.value = null;
-              },
-            ),
-          if (_inHouse.value) Divider(),
-          if (_inHouse.value)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Enter address',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18.0,
+                AndroidCheckBox(
+                  label: 'Is this an in house service call?',
+                  checked: _inHouse.value,
+                  onChecked: (check) {
+                    _inHouse.value = check;
+                    _serviceCallAddress.value = null;
+                    _selectedStaffer.value = null;
+                  },
                 ),
-              ),
+              ],
             ),
           if (_inHouse.value)
-            AndroidTextField(
-              prefixIcon: Icons.location_on_outlined,
-              label: 'Address',
-              onInputChange: (input) {
-                _serviceCallAddress.value = input;
-              },
-            ),
-          if ((_inHouse.value &&
-                  _serviceCallAddress.value != null &&
-                  _selectedTime.value != null) ||
-              (!_inHouse.value &&
-                  _serviceCallAddress.value == null &&
-                  _selectedTime.value != null))
-            Divider(),
-          if ((_inHouse.value &&
-                  _serviceCallAddress.value != null &&
-                  _selectedTime.value != null) ||
-              (!_inHouse.value &&
-                  _serviceCallAddress.value == null &&
-                  _selectedTime.value != null))
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Select staffer',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18.0,
+            Column(
+              children: [
+                Divider(),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Enter address',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.0,
+                    ),
+                  ),
                 ),
-              ),
+                AndroidTextField(
+                  prefixIcon: Icons.location_on_outlined,
+                  label: 'Address',
+                  onInputChange: (input) {
+                    _serviceCallAddress.value = input;
+                  },
+                ),
+              ],
             ),
-          if ((_inHouse.value &&
-                  _serviceCallAddress.value != null &&
-                  _selectedTime.value != null) ||
-              (!_inHouse.value &&
-                  _serviceCallAddress.value == null &&
-                  _selectedTime.value != null))
-            AndroidStaffers(
-              onSelectStaffer: (selectedStaffer) {
-                _selectedStaffer.value = selectedStaffer;
-              },
-              selectedStaffer: _selectedStaffer.value,
+          if (canSelectStaff())
+            Column(
+              children: [
+                Divider(),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Select staffer',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ),
+                AndroidStaffers(
+                  onSelectStaffer: (selectedStaffer) {
+                    _selectedStaffer.value = selectedStaffer;
+                  },
+                  selectedStaffer: _selectedStaffer.value,
+                ),
+              ],
             ),
-          if ((_inHouse.value &&
-                  _serviceCallAddress.value != null &&
-                  _selectedDay.value != null &&
-                  _selectedTime.value != null &&
-                  _selectedStaffer.value != null) ||
-              (!_inHouse.value &&
-                  _serviceCallAddress.value == null &&
-                  _selectedDay.value != null &&
-                  _selectedTime.value != null &&
-                  _selectedStaffer.value != null))
+          if (canBook())
             Container(
               width: double.infinity,
               height: 50.0,

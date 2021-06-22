@@ -17,6 +17,8 @@ class AndroidSummaryService extends StatelessWidget {
   final List services;
   final List ratings;
   final List staffs;
+  final List dayTimes;
+  final int minimumDuration;
 
   AndroidSummaryService({
     this.id,
@@ -27,6 +29,8 @@ class AndroidSummaryService extends StatelessWidget {
     this.services,
     this.ratings,
     this.staffs,
+    this.dayTimes,
+    this.minimumDuration,
     Key key,
   }) : super(key: key);
 
@@ -74,9 +78,11 @@ class AndroidSummaryService extends StatelessWidget {
                       Navigator.of(context).pushNamed(
                         ProviderTradingScreen.routeName,
                         arguments: {
-                          "providerId": id,
-                          "services": services,
-                          "staffs": staffs,
+                          'providerId': id,
+                          'services': services,
+                          'staffs': staffs,
+                          'dayTimes': dayTimes,
+                          'minimumDuration': minimumDuration,
                         }
                       );
                     },

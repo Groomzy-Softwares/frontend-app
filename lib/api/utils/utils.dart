@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:jaguar_jwt/jaguar_jwt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,6 +53,7 @@ class APIUtils {
   Map getProviderProperties(Map provider) {
     Map address = provider['address'];
     List bookings = provider['bookings'] ?? [];
+    List dayTimes = provider['dayTimes'] ?? [];
     List serviceProviderCategories =
         provider['serviceProviderCategories'] ?? [];
     List staffs = provider['staffs'] ?? [];
@@ -60,9 +63,13 @@ class APIUtils {
     List ratings = [];
 
     if (serviceProviderCategories.length > 0) {
-      categories = serviceProviderCategories.map((serviceProviderCategory) {
-        return serviceProviderCategory['category']['category'];
-      }).toList().toSet().toList();
+      categories = serviceProviderCategories
+          .map((serviceProviderCategory) {
+            return serviceProviderCategory['category']['category'];
+          })
+          .toList()
+          .toSet()
+          .toList();
 
       services = serviceProviderCategories.map((serviceProviderCategory) {
         return serviceProviderCategory['service'];
@@ -73,15 +80,25 @@ class APIUtils {
       ratings = bookings.map((booking) => booking['rating']).toList();
     }
 
+    List durations = services.map((service) {
+      bool isHours = service['durationUnit'] == 'hrz';
+      return isHours ? service['duration'] * 60 : service['duration'];
+    }).toList();
+
+    int minimumDuration = durations != null && durations.length > 0 ?
+        durations.reduce((curr, next) => curr < next ? curr : next) : 0;
+
     return {
-      "id": provider["id"],
-      "name": provider['tradingName'] ?? provider['fullName'],
-      "address": address,
-      "bookings": bookings,
-      "categories": categories,
-      "services": services,
-      "ratings": ratings,
-      "staffs": staffs,
+      'id': provider['id'],
+      'name': provider['tradingName'] ?? provider['fullName'],
+      'address': address,
+      'bookings': bookings,
+      'categories': categories,
+      'services': services,
+      'ratings': ratings,
+      'staffs': staffs,
+      'dayTimes': dayTimes,
+      'minimumDuration': minimumDuration,
     };
   }
 }

@@ -7,12 +7,20 @@ class Service extends StatelessWidget {
   final String description;
   final double price;
   final int serviceId;
+  final int minimumDuration;
+  final int duration;
+  final List staffs;
+  final List dayTimes;
 
   const Service({
     this.price,
     this.name,
     this.description,
     this.serviceId,
+    this.staffs,
+    this.dayTimes,
+    this.minimumDuration,
+    this.duration,
     Key key,
   }) : super(key: key);
 
@@ -27,6 +35,10 @@ class Service extends StatelessWidget {
             'description': description,
             'serviceId': 1,
             'price': price,
+            'staffs': staffs,
+            'dayTimes': dayTimes,
+            'minimumDuration': minimumDuration,
+            'duration': duration,
           },
         );
       },
@@ -36,17 +48,30 @@ class Service extends StatelessWidget {
         child: ListTile(
           title: Text(name),
           subtitle: Padding(
-            padding: EdgeInsets.only(top: 10.0, bottom: 10.0,),
+            padding: EdgeInsets.only(
+              top: 10.0,
+              bottom: 10.0,
+            ),
             child: Text(description),
           ),
           trailing: Container(
             // height: 80,
-            width: 70.0,
+            width: 130.0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Text(
+                      'R$price',
+                      style: TextStyle(
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
                     Text(
                       'Book',
                       style: TextStyle(
@@ -62,7 +87,7 @@ class Service extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 5.0),
-                Text('R $price'),
+                Text('duration $duration'),
               ],
             ),
           ),

@@ -13,6 +13,7 @@ class Explore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('');
     return Query(
       options: QueryOptions(document: gql(ProvidersQuery().providers)),
       builder: (
@@ -78,7 +79,7 @@ class Explore extends StatelessWidget {
                 if (providers.length > 0)
                   ...providers.map(
                     (provider) {
-                      print(provider);
+                      // print(provider);
                       Map providerDetails =
                           APIUtils().getProviderProperties(provider);
 
@@ -90,6 +91,8 @@ class Explore extends StatelessWidget {
                         services: providerDetails['services'],
                         ratings: providerDetails['ratings'],
                         staffs: providerDetails['staffs'],
+                        dayTimes: providerDetails['dayTimes'],
+                        minimumDuration: providerDetails['minimumDuration'],
                       );
                     },
                   ).toList(),

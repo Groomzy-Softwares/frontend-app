@@ -18,9 +18,11 @@ class ProviderTradingScreen extends HookWidget {
     }
 
     final Map arguments = ModalRoute.of(context).settings.arguments;
-    int providerId = arguments['providerId'] ?? [];
+    int providerId = arguments['providerId'];
+    int minimumDuration = arguments['minimumDuration'];
     List services = arguments['services'] ?? [];
     List staffs = arguments['staffs'] ?? [];
+    List dayTimes = arguments['dayTimes'] ?? [];
 
     return Scaffold(
       appBar: AndroidAppBar(
@@ -34,6 +36,8 @@ class ProviderTradingScreen extends HookWidget {
             providerId: providerId,
             services: services,
             staffs: staffs,
+            dayTimes: dayTimes,
+            minimumDuration: minimumDuration,
           ),
         ),
       ),
