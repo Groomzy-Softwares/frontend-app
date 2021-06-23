@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import './edit_service.dart';
+import './delete_service.dart';
+
 class Service extends StatelessWidget {
   final String name;
   final String category;
@@ -84,7 +87,16 @@ class Service extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          child: EditService(),
+                        );
+                      },
+                    );
+                  },
                   child: Icon(
                     Icons.edit_outlined,
                     color: Colors.amber,
@@ -92,7 +104,14 @@ class Service extends StatelessWidget {
                 ),
                 VerticalDivider(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return DeleteService(serviceId: serviceId);
+                      },
+                    );
+                  },
                   child: Icon(
                     Icons.delete_forever_outlined,
                     color: Colors.redAccent,

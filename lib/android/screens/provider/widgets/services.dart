@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './service.dart';
+import './add_service.dart';
 
 class Services extends StatelessWidget {
   const Services({Key key}) : super(key: key);
@@ -84,7 +85,16 @@ class Services extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return Dialog(
+                    child: AddService(),
+                  );
+                },
+              );
+            },
             child: ListTile(
               leading: Icon(Icons.add_outlined, color: Colors.green),
               title: Text('Click to add new service'),
