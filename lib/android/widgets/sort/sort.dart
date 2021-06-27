@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AndroidSort extends StatelessWidget {
   const AndroidSort({Key key}) : super(key: key);
@@ -9,9 +10,9 @@ class AndroidSort extends StatelessWidget {
       child: IconButton(
         padding: EdgeInsets.zero,
         icon: Icon(
-          Icons.sort_outlined,
-          size: 30,
-          color: Colors.white,
+          FontAwesomeIcons.sortAmountDownAlt,
+          size: 28,
+          color: Colors.grey,
         ),
         onPressed: () {},
       ),

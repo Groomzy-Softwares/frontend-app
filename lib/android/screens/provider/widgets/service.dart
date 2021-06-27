@@ -9,6 +9,9 @@ class Service extends StatelessWidget {
   final String description;
   final double price;
   final int serviceId;
+  final bool inHouse;
+  final double duration;
+  final String durationUnit;
 
   const Service({
     this.price,
@@ -16,6 +19,9 @@ class Service extends StatelessWidget {
     this.description,
     this.category,
     this.serviceId,
+    this.inHouse,
+    this.duration,
+    this.durationUnit,
     Key key,
   }) : super(key: key);
 
@@ -65,17 +71,17 @@ class Service extends StatelessWidget {
               TableRow(children: [
                 TableCell(
                   child: Text(
-                    'R200',
+                    'R$price',
                   ),
                 ),
                 TableCell(
                   child: Text(
-                    '45 min',
+                    '$duration $durationUnit',
                   ),
                 ),
                 TableCell(
                   child: Text(
-                    'Yes',
+                    inHouse ? 'Yes' : 'No',
                   ),
                 ),
               ])

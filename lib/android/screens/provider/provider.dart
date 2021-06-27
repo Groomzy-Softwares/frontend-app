@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import './widgets/services.dart';
 import './widgets/operating_times.dart';
 import './widgets/bookings.dart';
+import '../../widgets/center_horizontal/center_horizontal.dart';
+import '../../widgets/center_horizontal_vertical/center_horizontal_vertical.dart';
+
 
 class Provider extends StatelessWidget {
   final int selectedIndex;
@@ -14,9 +17,9 @@ class Provider extends StatelessWidget {
 
   List<Widget> _widgetOptions() {
     return <Widget>[
-      Services(),
-      Bookings(),
-      OperatingTimes(),
+      AndroidCenterHorizontal(screenContent: Services(),),
+      AndroidCenterHorizontal(screenContent: Bookings()),
+      AndroidCenterHorizontalVertical(screenContent: OperatingTimes()),
     ];
   }
 

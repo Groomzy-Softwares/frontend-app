@@ -122,7 +122,7 @@ class SignIn extends HookWidget {
                       _email.value = input;
                     },
                     onValidation: (String input) {
-                      if (input.isEmpty) {
+                      if (input == null || input.isEmpty) {
                         return 'Email is required';
                       }
                       if (!EmailValidator.validate(input.trim())) {
@@ -141,7 +141,7 @@ class SignIn extends HookWidget {
                       _password.value = input;
                     },
                     onValidation: (String input) {
-                      if (input.isEmpty) {
+                      if (input == null || input.isEmpty) {
                         return 'Password is required';
                       }
                       if (input.length < 5) {

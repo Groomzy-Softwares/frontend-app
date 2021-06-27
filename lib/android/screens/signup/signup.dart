@@ -17,7 +17,7 @@ import '../../../api/graphql/mutations/provider/provider_signup.dart';
 class SignUp extends HookWidget {
   SignUp({Key key}) : super(key: key);
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +128,7 @@ class SignUp extends HookWidget {
                     _fullName.value = input;
                   },
                   onValidation: (String input) {
-                    if (input.isEmpty) {
+                    if (input == null || input.isEmpty) {
                       return 'First name is required';
                     }
 
@@ -145,7 +145,7 @@ class SignUp extends HookWidget {
 
                     },
                     onValidation: (String input) {
-                      if (input.isEmpty) {
+                      if (input == null || input.isEmpty) {
                         return 'Email is required';
                       }
                       if (!EmailValidator.validate(input.trim())) {
@@ -163,7 +163,7 @@ class SignUp extends HookWidget {
                       _phoneNumber.value = input;
                     },
                     onValidation: (String input) {
-                      if (input.isEmpty) {
+                      if (input == null || input.isEmpty) {
                         return 'Phone number is required';
                       }
 
@@ -179,7 +179,7 @@ class SignUp extends HookWidget {
                       _password.value = input;
                     },
                     onValidation: (String input) {
-                      if (input.isEmpty) {
+                      if (input == null || input.isEmpty) {
                         return 'Password is required';
                       }
                       if (input.length < 5) {

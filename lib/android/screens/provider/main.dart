@@ -57,9 +57,7 @@ class ProviderScreen extends HookWidget {
         ),
         drawer: AndroidDrawer(),
         body: SafeArea(
-          child: AndroidCenterHorizontalVertical(
-            screenContent: Provider(selectedIndex: _selectedIndex.value,),
-          ),
+          child: Provider(selectedIndex: _selectedIndex.value),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[

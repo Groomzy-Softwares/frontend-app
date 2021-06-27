@@ -8,6 +8,7 @@ class AndroidAlertDialog extends StatelessWidget {
   final bool fromSignUp;
   final bool fromResendFirstOTP;
   final int tabIndex;
+  final int popTimes;
 
   AndroidAlertDialog({
     this.title,
@@ -17,7 +18,9 @@ class AndroidAlertDialog extends StatelessWidget {
     this.fromSignUp,
     this.fromResendFirstOTP,
     this.tabIndex,
-  });
+    this.popTimes = 1,
+    Key key
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,9 @@ class AndroidAlertDialog extends StatelessWidget {
                 Navigator.of(context).pushNamed(navigateTo);
               }
             } else {
-              Navigator.of(context).pop();
+              for(int i = 0; i < popTimes; i++) {
+                Navigator.of(context).pop();
+              }
             }
           },
         )

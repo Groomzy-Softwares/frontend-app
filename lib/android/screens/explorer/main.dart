@@ -24,7 +24,6 @@ class ExploreScreen extends StatelessWidget {
       drawer: AndroidDrawer(),
       body: SafeArea(
         child: AndroidCenterHorizontalVerticalExpanded(
-          showSearch: true,
           screenContent: Explore(),
         ),
       ),

@@ -4,6 +4,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import './widgets/summary_service_provider.dart';
 import '../../widgets/horizontal_scroll/category_labels.dart';
 import '../../widgets/loading/loading.dart';
+import '../../widgets/filters/filters.dart';
+import '../../widgets/search/search.dart';
+import '../../widgets/sort/sort.dart';
 
 import '../../../api/graphql/queries/provider/providers.dart';
 import '../../../api/utils/utils.dart';
@@ -39,7 +42,7 @@ class Explore extends StatelessWidget {
         List providers = [];
 
         if (data != null && data['providers'] != null) {
-          providers = providersResult.data['providers'];
+          providers = data['providers'];
         }
 
         return RefreshIndicator(
@@ -49,6 +52,18 @@ class Explore extends StatelessWidget {
               children: [
                 AndroidCategoryLabels(),
                 Divider(),
+                Padding(
+                  padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      AndroidSearch(),
+                      AndroidFilters(),
+                      AndroidSort(),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10.0,),
                 if (errorMessage != null)
                   Padding(
                     padding: EdgeInsets.only(

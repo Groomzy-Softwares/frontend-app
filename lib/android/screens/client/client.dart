@@ -16,7 +16,6 @@ class Client extends StatelessWidget {
   List<Widget> _widgetOptions() {
     return <Widget>[
       AndroidCenterHorizontalVerticalExpanded(
-        showSearch: true,
         screenContent: Explore(),
       ),
       AndroidCenterHorizontalVertical(

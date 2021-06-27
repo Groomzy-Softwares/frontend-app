@@ -8,15 +8,12 @@ class AndroidSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 35.0,
-      width: MediaQuery.of(context).size.width * 0.75,
+      height: 40.0,
+      width: MediaQuery.of(context).size.width * 0.7,
       child: AndroidTextField(
         label: 'Search',
         suffixIcon: Icons.search_outlined,
         borderRadius: 50,
-        borderColor: Colors.white,
-        labelColor: Colors.white,
-        suffixIconColor: Colors.white,
       ),
     );
   }
