@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './edit_service.dart';
-import './delete_service.dart';
+import 'edit_service.dart';
+import 'delete_service.dart';
 
 class Service extends StatelessWidget {
   final String name;
@@ -41,19 +41,22 @@ class Service extends StatelessWidget {
                 TableCell(
                   child: Text(
                     'Price',
-                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500, color: Colors.black),
                   ),
                 ),
                 TableCell(
                   child: Text(
                     'Duration',
-                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500, color: Colors.black),
                   ),
                 ),
                 TableCell(
                   child: Text(
                     'In-house',
-                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500, color: Colors.black),
                   ),
                 ),
               ]),
@@ -114,7 +117,10 @@ class Service extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return DeleteService(serviceId: serviceId);
+                        return DeleteService(
+                          serviceId: serviceId,
+                          category: category,
+                        );
                       },
                     );
                   },

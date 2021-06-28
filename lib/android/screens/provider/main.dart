@@ -70,6 +70,10 @@ class ProviderScreen extends HookWidget {
               label: 'Bookings',
             ),
             BottomNavigationBarItem(
+              icon: Icon(Icons.group_outlined),
+              label: 'Staffs',
+            ),
+            BottomNavigationBarItem(
               icon: Icon(Icons.timelapse_outlined),
               label: 'Time',
             ),

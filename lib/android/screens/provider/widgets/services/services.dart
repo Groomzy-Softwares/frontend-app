@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import './service.dart';
-import './add_service.dart';
+import 'service.dart';
+import 'add_service.dart';
 
-import '../../../widgets/loading/loading.dart';
+import '../../../../widgets/loading/loading.dart';
 
-import '../../../../api/graphql/queries/service/services.dart';
+import '../../../../../api/graphql/queries/service/services.dart';
 
 class Services extends StatelessWidget {
   const Services({Key key}) : super(key: key);
@@ -78,13 +78,13 @@ class Services extends StatelessWidget {
               if (services.length < 1)
                 Container(
                   margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.15),
+                      top: MediaQuery.of(context).size.height * 0.3),
                   child: Text(
                     'You currently have no services listed',
                     style: TextStyle(
-                      fontSize: 30.0,
+                      fontSize: 25.0,
                       fontWeight: FontWeight.w500,
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.orange,
                     ),
                   ),
                 ),

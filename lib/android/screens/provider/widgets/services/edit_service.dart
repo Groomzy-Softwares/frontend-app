@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../widgets/button/button.dart';
-import '../../../widgets/checkbox/checkbox.dart';
-import '../../../widgets/text_field/text_field.dart';
+import '../../../../widgets/button/button.dart';
+import '../../../../widgets/checkbox/checkbox.dart';
+import '../../../../widgets/text_field/text_field.dart';
 
 class EditService extends HookWidget {
   final String title;

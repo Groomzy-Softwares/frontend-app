@@ -4,13 +4,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../../../widgets/button/button.dart';
-import '../../../widgets/checkbox/checkbox.dart';
-import '../../../widgets/text_field/text_field.dart';
-import '../../../widgets/alert_dialog/alert_dialog.dart';
-import '../../../widgets/loading/loading.dart';
+import '../../../../widgets/button/button.dart';
+import '../../../../widgets/checkbox/checkbox.dart';
+import '../../../../widgets/text_field/text_field.dart';
+import '../../../../widgets/alert_dialog/alert_dialog.dart';
+import '../../../../widgets/loading/loading.dart';
 
-import '../../../../api/graphql/mutations/service/add_service.dart';
+import '../../../../../api/graphql/mutations/service/add_service.dart';
 
 class AddService extends HookWidget {
   AddService({Key key}) : super(key: key);
@@ -77,7 +77,6 @@ class AddService extends HookWidget {
           },
           onCompleted: (dynamic addServiceResult) async {
             if (addServiceResult != null) {
-              print(addServiceResult);
               String message = addServiceResult['addService']['message'];
               if (message.isNotEmpty) {
                 showDialog(

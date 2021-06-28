@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import './operating_time.dart';
-import '../../../widgets/checkbox/checkbox.dart';
-import '../../../widgets/button/button.dart';
+import 'operating_time.dart';
+import '../../../../widgets/checkbox/checkbox.dart';
+import '../../../../widgets/button/button.dart';
 
-import '../../../../common/utils/utils.dart';
+import '../../../../../common/utils/utils.dart';
 
 class OperatingTimes extends StatefulWidget {
   OperatingTimes({Key key}) : super(key: key);
