@@ -35,7 +35,10 @@ class Staff extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return Dialog(
-                          child: EditStaff(),
+                          child: EditStaff(
+                            staffId: staffId,
+                            fullName: fullName,
+                          ),
                         );
                       },
                     );

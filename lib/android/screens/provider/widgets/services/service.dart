@@ -101,7 +101,16 @@ class Service extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return Dialog(
-                          child: EditService(),
+                          child: EditService(
+                            serviceId: serviceId,
+                            title: name,
+                            category: category,
+                            description: description,
+                            duration: duration,
+                            durationUnit: durationUnit,
+                            inHouse: inHouse,
+                            price: price,
+                          ),
                         );
                       },
                     );
