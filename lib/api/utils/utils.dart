@@ -51,7 +51,7 @@ class APIUtils {
   }
 
   Map getProviderProperties(Map provider) {
-    Map address = provider['address'];
+    Map address = provider['address'] ?? {};
     List bookings = provider['bookings'] ?? [];
     List dayTimes = provider['dayTimes'] ?? [];
     List serviceProviderCategories =

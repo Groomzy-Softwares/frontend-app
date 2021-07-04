@@ -38,23 +38,45 @@ class EditStaff extends HookWidget {
     }
 
     return Mutation(
-        options: MutationOptions(
-          document: gql(EditStaffMutation().editStaff),
-          update: (
-              GraphQLDataProxy cache,
-              QueryResult result,
-              ) {
-            if (result.hasException) {
-              String errMessage = result.exception.graphqlErrors[0].message;
+      options: MutationOptions(
+        document: gql(EditStaffMutation().editStaff),
+        update: (
+          GraphQLDataProxy cache,
+          QueryResult result,
+        ) {
+          if (result.hasException) {
+            String errMessage = result.exception.graphqlErrors[0].message;
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AndroidAlertDialog(
+                  title: 'Error',
+                  message: Text(
+                    errMessage,
+                    style: TextStyle(
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                  popTimes: 2,
+                );
+              },
+            );
+          }
+          return cache;
+        },
+        onCompleted: (dynamic editStaffResult) async {
+          if (editStaffResult != null) {
+            String message = editStaffResult['editStaff']['message'];
+            if (message.isNotEmpty) {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return AndroidAlertDialog(
-                    title: 'Error',
+                    title: 'Completed',
                     message: Text(
-                      errMessage,
+                      message,
                       style: TextStyle(
-                        color: Colors.redAccent,
+                        color: Colors.lightGreen,
                       ),
                     ),
                     popTimes: 2,
@@ -62,84 +84,63 @@ class EditStaff extends HookWidget {
                 },
               );
             }
-            return cache;
-          },
-          onCompleted: (dynamic editStaffResult) async {
-            if (editStaffResult != null) {
-              String message = editStaffResult['editStaff']['message'];
-              if (message.isNotEmpty) {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AndroidAlertDialog(
-                      title: 'Completed',
-                      message: Text(
-                        message,
-                        style: TextStyle(
-                          color: Colors.lightGreen,
-                        ),
-                      ),
-                      popTimes: 2,
-                    );
-                  },
-                );
-              }
-            }
-          },
-        ),
-        builder: (
-          RunMutation runEditStaffMutation,
-          QueryResult editStaffResult,
-        ) {
-          if (editStaffResult.isLoading) {
-            return AndroidLoading();
           }
-          return Form(
-            key: formKey,
-            child: Container(
-              constraints: BoxConstraints(
-                maxHeight: 500.0,
+        },
+      ),
+      builder: (
+        RunMutation runEditStaffMutation,
+        QueryResult editStaffResult,
+      ) {
+        if (editStaffResult.isLoading) {
+          return AndroidLoading();
+        }
+        return Form(
+          key: formKey,
+          child: Container(
+            constraints: BoxConstraints(
+              maxHeight: 500.0,
+            ),
+            child: SingleChildScrollView(
+              padding: EdgeInsets.only(
+                bottom: 10.0,
+                left: 10.0,
+                right: 10.0,
               ),
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(
-                  bottom: 10.0,
-                  left: 10.0,
-                  right: 10.0,
-                ),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        icon: Icon(
-                          Icons.cancel_outlined,
-                          color: Colors.redAccent,
-                        ),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(
+                        Icons.cancel_outlined,
+                        color: Colors.redAccent,
                       ),
                     ),
-                    SizedBox(height: 10.0),
-                    AndroidTextField(
-                      value: _fullName.value ?? fullName,
-                      label: 'title',
-                      onInputChange: (String input) {
-                        _fullName.value = input;
-                      },
-                    ),
-                    AndroidButton(
-                      label: 'Edit',
-                      backgroundColor: Theme.of(context).primaryColor,
-                      pressed: () {
-                        _submit(editStaff: runEditStaffMutation);
-                      },
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 10.0),
+                  AndroidTextField(
+                    value: _fullName.value ?? fullName,
+                    label: 'title',
+                    onInputChange: (String input) {
+                      _fullName.value = input;
+                    },
+                  ),
+                  AndroidButton(
+                    label: 'Edit',
+                    backgroundColor: Theme.of(context).primaryColor,
+                    pressed: () {
+                      _submit(editStaff: runEditStaffMutation);
+                    },
+                  ),
+                ],
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

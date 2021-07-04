@@ -8,17 +8,21 @@ class ProviderTrading extends StatelessWidget {
   final int selectedIndex;
   final int providerId;
   final int minimumDuration;
+  final Map address;
   final List services;
   final List staffs;
   final List dayTimes;
+  final List ratings;
 
   const ProviderTrading({
     this.selectedIndex,
     this.providerId,
+    this.address,
     this.services,
     this.staffs,
     this.dayTimes,
     this.minimumDuration,
+    this.ratings,
     Key key,
   }) : super(key: key);
 
@@ -31,8 +35,8 @@ class ProviderTrading extends StatelessWidget {
         dayTimes: dayTimes,
         minimumDuration: minimumDuration,
       ),
-      Details(),
-      Reviews(),
+      Details(dayTimes: dayTimes, staffs: staffs, address: address,),
+      Reviews(providerId: providerId),
     ];
   }
 

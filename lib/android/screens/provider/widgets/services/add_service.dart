@@ -33,8 +33,6 @@ class AddService extends HookWidget {
       }
       _formKey.currentState.save();
 
-      print(_inHouse.value);
-
       await addService({
         'category': _category.value,
         'title': _title.value,
@@ -47,25 +45,47 @@ class AddService extends HookWidget {
     }
 
     return Mutation(
-        options: MutationOptions(
-          document: gql(
-            AddServiceMutation().addService,
-          ),
-          update: (
-            GraphQLDataProxy cache,
-            QueryResult result,
-          ) {
-            if (result.hasException) {
-              String errMessage = result.exception.graphqlErrors[0].message;
+      options: MutationOptions(
+        document: gql(
+          AddServiceMutation().addService,
+        ),
+        update: (
+          GraphQLDataProxy cache,
+          QueryResult result,
+        ) {
+          if (result.hasException) {
+            String errMessage = result.exception.graphqlErrors[0].message;
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AndroidAlertDialog(
+                  title: 'Error',
+                  message: Text(
+                    errMessage,
+                    style: TextStyle(
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                  popTimes: 2,
+                );
+              },
+            );
+          }
+          return cache;
+        },
+        onCompleted: (dynamic addServiceResult) async {
+          if (addServiceResult != null) {
+            String message = addServiceResult['addService']['message'];
+            if (message.isNotEmpty) {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return AndroidAlertDialog(
-                    title: 'Error',
+                    title: 'Completed',
                     message: Text(
-                      errMessage,
+                      message,
                       style: TextStyle(
-                        color: Colors.redAccent,
+                        color: Colors.lightGreen,
                       ),
                     ),
                     popTimes: 2,
@@ -73,42 +93,20 @@ class AddService extends HookWidget {
                 },
               );
             }
-            return cache;
-          },
-          onCompleted: (dynamic addServiceResult) async {
-            if (addServiceResult != null) {
-              String message = addServiceResult['addService']['message'];
-              if (message.isNotEmpty) {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AndroidAlertDialog(
-                      title: 'Completed',
-                      message: Text(
-                        message,
-                        style: TextStyle(
-                          color: Colors.lightGreen,
-                        ),
-                      ),
-                      popTimes: 2,
-                    );
-                  },
-                );
-              }
-            }
-          },
-        ),
-        builder: (
-          RunMutation runAddServiceMutation,
-          QueryResult addServiceResult,
-        ) {
-          if (addServiceResult.isLoading) {
-            return AndroidLoading();
           }
+        },
+      ),
+      builder: (
+        RunMutation runAddServiceMutation,
+        QueryResult addServiceResult,
+      ) {
+        if (addServiceResult.isLoading) {
+          return AndroidLoading();
+        }
 
-          return Form(
-              key: _formKey,
-              child: Container(
+        return Form(
+          key: _formKey,
+          child: Container(
             constraints: BoxConstraints(
               maxHeight: 500.0,
             ),
@@ -209,7 +207,9 @@ class AddService extends HookWidget {
                     ),
                     cursorColor: Colors.grey,
                     onChanged: (String input) {
-                      _price.value = input != null && input.isNotEmpty ? double.parse(input) : 0.0;
+                      _price.value = input != null && input.isNotEmpty
+                          ? double.parse(input)
+                          : 0.0;
                     },
                     validator: (String input) {
                       if (input == null || input.isEmpty) {
@@ -234,7 +234,9 @@ class AddService extends HookWidget {
                     ),
                     cursorColor: Colors.grey,
                     onChanged: (String input) {
-                      _duration.value = input != null && input.isNotEmpty ? double.parse(input) : 0.0;
+                      _duration.value = input != null && input.isNotEmpty
+                          ? double.parse(input)
+                          : 0.0;
                     },
                     validator: (String input) {
                       if (input == null || input.isEmpty) {
@@ -289,7 +291,9 @@ class AddService extends HookWidget {
                 ],
               ),
             ),
-          ));
-        });
+          ),
+        );
+      },
+    );
   }
 }

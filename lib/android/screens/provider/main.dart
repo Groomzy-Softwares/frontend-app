@@ -9,7 +9,6 @@ import '../../widgets/alert_dialog/alert_dialog.dart';
 import '../../widgets/loading/loading.dart';
 import '../../widgets/app_bar/app_bar.dart';
 import '../../widgets/drawer/drawer.dart';
-import '../../widgets/center_horizontal_vertical/center_horizontal_vertical.dart';
 import '../../../common/constants/constants.dart';
 
 import '../../../api/utils/utils.dart';
@@ -22,7 +21,7 @@ class ProviderScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _selectedIndex = useState(0);
-    final _user = useState(null);
+    final _user = useState<Map>(null);
     final _isLoading = useState(true);
 
     void _onItemTapped(int index) {
@@ -43,10 +42,11 @@ class ProviderScreen extends HookWidget {
 
     if (_isLoading.value) {
       return AndroidLoading();
-    } else if(_user == null) {
+    } else if (_user.value == null) {
       return AndroidAlertDialog(
         title: 'Info',
-        message: Text('It appears you are no longer signed in, please sign in.'),
+        message:
+            Text('It appears you are no longer signed in, please sign in.'),
         navigateTo: ExploreScreen.routeName,
         replacePreviousNavigation: true,
       );
@@ -57,7 +57,10 @@ class ProviderScreen extends HookWidget {
         ),
         drawer: AndroidDrawer(),
         body: SafeArea(
-          child: Provider(selectedIndex: _selectedIndex.value),
+          child: Provider(
+            selectedIndex: _selectedIndex.value,
+            providerId: _user.value['id'],
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[

@@ -15,26 +15,33 @@ class AndroidCheckBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return textBelow ? Column(
-      children: [
-        Checkbox(
-          value: checked,
-          onChanged: onChecked,
-          checkColor: Colors.white,
-          activeColor: Theme.of(context).primaryColor,
-        ),
-        Text(label),
-      ],
-    ) : Row(
-      children: [
-        Checkbox(
-          value: checked,
-          onChanged: onChecked,
-          checkColor: Colors.white,
-          activeColor: Theme.of(context).primaryColor,
-        ),
-        Text(label),
-      ],
-    );
+    return textBelow
+        ? Column(
+            children: [
+              Checkbox(
+                value: checked,
+                onChanged: onChecked,
+                checkColor: Colors.white,
+                activeColor: Theme.of(context).primaryColor,
+              ),
+              Text(label),
+            ],
+          )
+        : Row(
+            children: [
+              Checkbox(
+                value: checked,
+                onChanged: onChecked,
+                checkColor: Colors.white,
+                activeColor: Colors.green,
+              ),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+            ],
+          );
   }
 }

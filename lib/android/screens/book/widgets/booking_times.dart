@@ -5,6 +5,7 @@ class BookingTimes extends StatelessWidget {
   final Function selectTime;
   final List dayTimes;
   final DateTime selectedDay;
+  final String selectedTime;
   final int minimumDuration;
   final int duration;
 
@@ -12,6 +13,7 @@ class BookingTimes extends StatelessWidget {
     this.dayTimes,
     this.selectTime,
     this.selectedDay,
+    this.selectedTime,
     this.minimumDuration,
     this.duration,
     Key key,
@@ -22,9 +24,17 @@ class BookingTimes extends StatelessWidget {
     List times() {
       String day =
           DateFormat.yMEd().add_jms().format(selectedDay).split(',')[0];
-      Map selectedDayOperatingTime = dayTimes.where((dayTime) {
+      List selectedDayOperating = dayTimes.where((dayTime) {
         return dayTime['day']['day'] == day;
-      }).toList()[0]['time'];
+      }).toList();
+
+      Map selectedDayOperatingTime;
+
+      if (selectedDayOperating.length < 1) {
+        return [];
+      }
+
+      selectedDayOperatingTime = selectedDayOperating[0]['time'];
 
       String startTime = selectedDayOperatingTime['startTime'];
       String endTime = selectedDayOperatingTime['endTime'];
@@ -80,8 +90,20 @@ class BookingTimes extends StatelessWidget {
       height: 80.0,
       padding: EdgeInsets.only(bottom: 5.0),
       child: SingleChildScrollView(
-        child: Column(
+        scrollDirection: Axis.horizontal,
+        child: Row(
           children: [
+            if (times().length < 1)
+              Container(
+                margin: EdgeInsets.only(top: 10.0),
+                child: Text(
+                  'Sorry, we are not operating on that day\n\nPlease choose a different day',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.orange,
+                  ),
+                ),
+              ),
             ...times()
                 .map(
                   (row) => Row(
@@ -95,12 +117,27 @@ class BookingTimes extends StatelessWidget {
                             },
                             child: Container(
                               height: 50.0,
-                              width: 95,
+                              width: 105,
                               child: Card(
+                                color: selectedTime ==
+                                        '${rowCell.hour}:${rowCell.minute}'
+                                    ? Colors.green
+                                    : null,
                                 child: Align(
                                   alignment: Alignment.center,
-                                  child:
-                                      Text('${rowCell.hour}:${rowCell.minute}'),
+                                  child: Text(
+                                    '${rowCell.hour}:${rowCell.minute}',
+                                    style: TextStyle(
+                                      fontWeight: selectedTime ==
+                                              '${rowCell.hour}:${rowCell.minute}'
+                                          ? FontWeight.w500
+                                          : FontWeight.normal,
+                                      fontSize: selectedTime ==
+                                              '${rowCell.hour}:${rowCell.minute}'
+                                          ? 18.0
+                                          : 16,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

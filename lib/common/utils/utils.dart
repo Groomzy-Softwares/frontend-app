@@ -113,7 +113,7 @@ class CommonUtils {
   }
 
   Map ratingReview(rating) {
-    if (rating >= 3.75) {
+    if (rating >= 3.5) {
       return {
         "icon": FontAwesomeIcons.grinStars,
         "color": Colors.green,

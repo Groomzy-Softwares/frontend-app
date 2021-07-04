@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../widgets/horizontal_scroll/staffers.dart';
-
 class Details extends StatelessWidget {
-  const Details({Key key}) : super(key: key);
+  final List dayTimes;
+  final List staffs;
+  final Map address;
+
+  const Details({
+    this.staffs,
+    this.dayTimes,
+    this.address,
+    Key key,
+  }) : super(key: key);
 
   Widget mapContainer({
     BuildContext context,
     String address,
-    int providerId,
     double lat,
     double log,
   }) {
@@ -25,7 +31,7 @@ class Details extends StatelessWidget {
           [
             Marker(
               infoWindow: InfoWindow(title: address),
-              markerId: MarkerId('$providerId'),
+              markerId: MarkerId(address),
               draggable: false,
               position: LatLng(lat, log),
             )
@@ -52,23 +58,14 @@ class Details extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String address = '83 Ntonto Zulu Dr, Umlazi, Umlazi D, Durban, 4031';
-    final int providerId = 1;
-    final List<String> staffs = ['Sifiso', 'Myeza'];
-    final List businessDays = ['Mon', 'Tue', 'Wed'];
-    final String businessStartTime = '07:00 am';
-    final String businessEndTime = '06:00 pm';
-    final double lat = 26.3008;
-    final double log = 27.9483;
-
     return Column(
       children: [
         mapContainer(
-            context: context,
-            address: address,
-            providerId: providerId,
-            lat: lat,
-            log: log),
+          context: context,
+          address: address['address'] ?? '',
+          lat: address['latitude'] ?? 0,
+          log: address['longitude'] ?? 0,
+        ),
         Divider(),
         Padding(
           padding: EdgeInsets.only(left: 10),
@@ -84,6 +81,9 @@ class Details extends StatelessWidget {
               ),
             ),
           ),
+        ),
+        SizedBox(
+          height: 10.0,
         ),
         Column(
           children: [
@@ -102,11 +102,43 @@ class Details extends StatelessWidget {
                   ),
                 ),
               ),
-            AndroidStaffers(
-              onSelectStaffer: (selectedStaffer) {
-                print(selectedStaffer);
-              },
-            ),
+            if (staffs.length > 0)
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Column(
+                  children: [
+                    ...staffs
+                        .map(
+                          (staff) => Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.white,
+                                child: CircleAvatar(
+                                  radius: 18,
+                                  backgroundColor: Colors.black12,
+                                  child: CircleAvatar(
+                                    radius: 16,
+                                    backgroundColor: Colors.white,
+                                    child: Text(
+                                      staff['fullName']
+                                          .toString()
+                                          .split(' ')[0][0]
+                                          .toString(),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text(staff['fullName'].toString().split(' ')[0]),
+                            ],
+                          ),
+                        )
+                        .toList()
+                  ],
+                ),
+              ),
           ],
         ),
         Divider(),
@@ -125,30 +157,41 @@ class Details extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 20.0,),
+        SizedBox(
+          height: 20.0,
+        ),
         Container(
           margin: EdgeInsets.only(left: 20.0, right: 20.0),
           child: Column(
             children: [
-              ...businessDays.map((day) => Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        day,
-                        style: TextStyle(color: Colors.black54),
-                      ),
-                      Text('$businessStartTime - $businessEndTime'),
-                    ],
-                  ),
-                  Divider(),
-                ],
-              )).toList(),
+              ...dayTimes
+                  .map(
+                    (dayTime) => Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              dayTime['day']['day'],
+                              style: TextStyle(color: Colors.black54),
+                            ),
+                            Text(
+                              '${dayTime['time']['startTime']} -'
+                              ' ${dayTime['time']['endTime']}',
+                            ),
+                          ],
+                        ),
+                        Divider(),
+                      ],
+                    ),
+                  )
+                  .toList(),
             ],
           ),
         ),
-        SizedBox(height: 20.0,),
+        SizedBox(
+          height: 20.0,
+        ),
       ],
     );
   }

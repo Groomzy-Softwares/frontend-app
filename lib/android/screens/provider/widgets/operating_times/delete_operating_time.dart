@@ -1,0 +1,113 @@
+import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+
+import '../../../../widgets/alert_dialog/alert_dialog.dart';
+import '../../../../widgets/loading/loading.dart';
+
+import '../../../../../api/graphql/operating_time/delete_operating_time.dart';
+
+class DeleteOperatingTime extends StatelessWidget {
+  final int dayTimeId;
+
+  const DeleteOperatingTime({
+    @required this.dayTimeId,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Future<void> _submit({Function deleteOperatingTime}) async {
+      await deleteOperatingTime({
+        'dayTimeId': dayTimeId,
+      });
+    }
+
+    return AlertDialog(
+      title: Text('Please confirm'),
+      content: Text('Are you sure want to delete business time?'),
+      actions: <Widget>[
+        Mutation(
+          options: MutationOptions(
+            document: gql(
+              DeleteOperatingTimeMutation().deleteOperatingTime,
+            ),
+            update: (
+                GraphQLDataProxy cache,
+                QueryResult result,
+                ) {
+              if (result.hasException) {
+                String errMessage = result.exception.graphqlErrors[0].message;
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AndroidAlertDialog(
+                      title: 'Error',
+                      message: Text(
+                        errMessage,
+                        style: TextStyle(
+                          color: Colors.redAccent,
+                        ),
+                      ),
+                      popTimes: 2,
+                    );
+                  },
+                );
+              }
+              return cache;
+            },
+            onCompleted: (dynamic deleteOperatingTimeResult) async {
+              if (deleteOperatingTimeResult != null) {
+                String message =
+                deleteOperatingTimeResult['deleteOperatingTime']['message'];
+                if (message.isNotEmpty) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AndroidAlertDialog(
+                        title: 'Completed',
+                        message: Text(
+                          message,
+                          style: TextStyle(
+                            color: Colors.lightGreen,
+                          ),
+                        ),
+                        popTimes: 2,
+                      );
+                    },
+                  );
+                }
+              }
+            },
+          ),
+          builder: (
+              RunMutation runDeleteOperatingTimeMutation,
+              QueryResult deleteOperatingTimeResult,
+              ) {
+            if (deleteOperatingTimeResult.isLoading) {
+              return AndroidLoading();
+            }
+
+            return TextButton(
+              child: Text(
+                'Delete',
+                style: TextStyle(color: Colors.redAccent),
+              ),
+              onPressed: () {
+                _submit(deleteOperatingTime: runDeleteOperatingTimeMutation);
+              },
+            );
+          },
+        ),
+        TextButton(
+          child: Text(
+            'Cancel',
+            style: TextStyle(color: Colors.amber),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+}

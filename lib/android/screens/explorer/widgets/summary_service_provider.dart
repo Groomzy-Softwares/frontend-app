@@ -76,15 +76,17 @@ class AndroidSummaryService extends StatelessWidget {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamed(
-                        ProviderTradingScreen.routeName,
-                        arguments: {
-                          'providerId': id,
-                          'services': services,
-                          'staffs': staffs,
-                          'dayTimes': dayTimes,
-                          'minimumDuration': minimumDuration,
-                        }
-                      );
+                          ProviderTradingScreen.routeName,
+                          arguments: {
+                            'providerId': id,
+                            'services': services,
+                            'staffs': staffs,
+                            'dayTimes': dayTimes,
+                            'minimumDuration': minimumDuration,
+                            'ratings': ratings,
+                            'address': address,
+
+                          });
                     },
                   ),
                   // child: FutureBuilder<Widget>(
@@ -109,8 +111,12 @@ class AndroidSummaryService extends StatelessWidget {
                     Divider(),
                     Rating(
                       ratingCounts: providerRating['ratingCounts'] ?? 0,
-                      ratingPercentage: providerRating['ratingPercentage'] ?? 0,
+                      ratingPercentage: double.parse(
+                              providerRating['ratingPercentage'] ?? '0') ??
+                          0,
                       ratingStatus: providerRating['ratingStatus'] ?? '',
+                      ratingColor: providerRating['ratingColor'],
+                      ratingIcon: providerRating['ratingIcon'],
                     ),
                   ],
                 )

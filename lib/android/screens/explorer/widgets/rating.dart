@@ -34,7 +34,7 @@ class Rating extends StatelessWidget {
           onRatingUpdate: onRatingUpdate,
           itemSize: 24,
           icon: Icons.star_outline,
-          iconColor: Colors.green,
+          iconColor: ratingColor,
         ),
         subtitle: Text('$ratingPercentage% $ratingStatus service'),
         trailing: Column(

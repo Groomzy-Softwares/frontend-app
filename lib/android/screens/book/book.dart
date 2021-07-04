@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
 
 import './widgets/booking_times.dart';
 import '../checkout/main.dart';
 import '../../widgets/calender/calender.dart';
+import '../../widgets/button/button.dart';
 import '../../widgets/checkbox/checkbox.dart';
 import '../../widgets/heading/heading.dart';
 import '../../widgets/text_field/text_field.dart';
-import '../../widgets/horizontal_scroll/staffers.dart';
 
 class Book extends HookWidget {
   final String name;
@@ -42,8 +42,17 @@ class Book extends HookWidget {
     final _selectedDay = useState<DateTime>(null);
     final _selectedTime = useState<String>(null);
     final _selectedStaffer = useState<String>(null);
+    final _selectedStafferId = useState<int>(null);
     final _serviceCallAddress = useState<String>(null);
     final _inHouse = useState<bool>(false);
+
+    bool canSelectTime() {
+      String day =
+          DateFormat.yMEd().add_jms().format(_selectedDay.value).split(',')[0];
+      List activeDays =
+          dayTimes.where((dayTime) => dayTime['day']['day'] == day).toList();
+      return activeDays.length > 0;
+    }
 
     bool canBook() {
       return (_inHouse.value &&
@@ -108,11 +117,12 @@ class Book extends HookWidget {
                   },
                   dayTimes: dayTimes,
                   selectedDay: _selectedDay.value,
+                  selectedTime: _selectedTime.value,
                   minimumDuration: minimumDuration,
                 ),
               ],
             ),
-          if (_selectedTime.value != null)
+          if (_selectedTime.value != null && canSelectTime())
             Column(
               children: [
                 Divider(),
@@ -137,7 +147,7 @@ class Book extends HookWidget {
                 ),
               ],
             ),
-          if (_inHouse.value)
+          if (_inHouse.value && canSelectTime())
             Column(
               children: [
                 Divider(),
@@ -160,8 +170,10 @@ class Book extends HookWidget {
                 ),
               ],
             ),
-          if (canSelectStaff())
+          if (canSelectStaff() && canSelectTime())
             Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Divider(),
                 Align(
@@ -174,54 +186,79 @@ class Book extends HookWidget {
                     ),
                   ),
                 ),
-                AndroidStaffers(
-                  onSelectStaffer: (selectedStaffer) {
-                    _selectedStaffer.value = selectedStaffer;
-                  },
-                  selectedStaffer: _selectedStaffer.value,
+                SizedBox(
+                  height: 10.0,
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ...staffs
+                          .map(
+                            (staff) => Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    _selectedStaffer.value = staff['fullName'];
+                                    _selectedStafferId.value = staff['id'];
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor: Colors.white,
+                                    child: CircleAvatar(
+                                      radius: 28,
+                                      backgroundColor:
+                                          _selectedStaffer.value != null
+                                              ? Colors.green
+                                              : Colors.black12,
+                                      child: CircleAvatar(
+                                        radius: 25,
+                                        backgroundColor: Colors.white,
+                                        child: Text(
+                                          staff['fullName']
+                                              .toString()
+                                              .split(' ')[0][0]
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 22.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  staff['fullName'].toString().split(' ')[0],
+                                  style: TextStyle(fontSize: 18.0),
+                                ),
+                              ],
+                            ),
+                          )
+                          .toList()
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10.0,
                 ),
               ],
             ),
-          if (canBook())
-            Container(
-              width: double.infinity,
-              height: 50.0,
-              color: Theme.of(context).primaryColor,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    CheckoutScreen.routeName,
-                    arguments: {
-                      'serviceId': serviceId,
-                      'name': name,
-                      'description': description,
-                      'price': price,
-                      'category': category,
-                    },
-                  );
-                },
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      FontAwesomeIcons.moneyBill,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Text(
-                      'Checkout',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 22.0),
-                    )
-                  ],
-                ),
-              ),
+          if (canBook() && canSelectTime())
+            AndroidButton(
+              label: 'Checkout',
+              backgroundColor: Colors.green,
+              pressed: () {
+                Navigator.of(context).pushNamed(
+                  CheckoutScreen.routeName,
+                  arguments: {
+                    'serviceId': serviceId,
+                    'name': name,
+                    'description': description,
+                    'price': price,
+                    'category': category,
+                  },
+                );
+              },
             ),
         ],
       ),
