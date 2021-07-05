@@ -2,24 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 class AndroidCategory extends StatelessWidget {
+  final ValueNotifier<String> selectedCategory;
   final String imageAssetPath;
   final String category;
 
   const AndroidCategory({
+    this.selectedCategory,
     this.imageAssetPath,
     this.category,
     Key key,
   }) : super(key: key);
-
-  void navigateToRespectiveScreen({String category}) {
-    if ('Provider' == 'Provider') {
-      print('wrt Provider');
-    } else if ('Client' == 'Client') {
-      print('wrt client');
-    } else {
-      print('wrt guest');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +26,9 @@ class AndroidCategory extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 40.0,
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor: selectedCategory.value == category
+                    ? Colors.green
+                    : Theme.of(context).primaryColor,
                 child: Image.asset(
                   imageAssetPath,
                   height: 50.0,
@@ -46,7 +40,10 @@ class AndroidCategory extends StatelessWidget {
                 category,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 16.0
+                  fontSize: selectedCategory.value == category ? 20.0 : 16.0,
+                  fontWeight: selectedCategory.value == category
+                      ? FontWeight.w500
+                      : FontWeight.normal,
                 ),
                 maxLines: 1,
               )
@@ -54,9 +51,11 @@ class AndroidCategory extends StatelessWidget {
           ),
         ),
         onTap: () {
-          navigateToRespectiveScreen(
-            category: category,
-          );
+          if (selectedCategory.value == category) {
+            selectedCategory.value = null;
+          } else {
+            selectedCategory.value = category;
+          }
         },
       ),
     );

@@ -4,7 +4,9 @@ import '../category/category.dart';
 import '../../../common/constants/constants.dart';
 
 class AndroidCategoryLabels extends StatelessWidget {
-  const AndroidCategoryLabels({Key key}) : super(key: key);
+  final ValueNotifier<String> selectedCategory;
+
+  const AndroidCategoryLabels({this.selectedCategory, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class AndroidCategoryLabels extends StatelessWidget {
               (category) => AndroidCategory(
                 imageAssetPath: category['imageAssetPath'],
                 category: category['category'],
+                  selectedCategory: selectedCategory,
               ),
             )
             .toList(),

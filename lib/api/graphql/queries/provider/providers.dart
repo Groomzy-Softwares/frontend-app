@@ -1,8 +1,14 @@
 class ProvidersQuery {
   String get providers {
     return '''
-      query PROVIDERS_QUERY {
-        providers{
+      query PROVIDERS_QUERY(
+        \$search: String
+        \$category: String
+      ) {
+        providers(
+          search: \$search
+          category: \$category
+        ){
           id
           email
           fullName

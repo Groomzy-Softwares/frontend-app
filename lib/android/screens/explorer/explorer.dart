@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import './widgets/summary_service_provider.dart';
@@ -11,14 +12,19 @@ import '../../widgets/sort/sort.dart';
 import '../../../api/graphql/queries/provider/providers.dart';
 import '../../../api/utils/utils.dart';
 
-class Explore extends StatelessWidget {
+class Explore extends HookWidget {
   const Explore({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print('');
+    final _search = useState<String>(null);
+    final _category = useState<String>(null);
+
     return Query(
-      options: QueryOptions(document: gql(ProvidersQuery().providers)),
+      options: QueryOptions(
+        document: gql(ProvidersQuery().providers),
+        variables: {'search': _search.value, 'category': _category.value},
+      ),
       builder: (
         QueryResult providersResult, {
         VoidCallback refetch,
@@ -30,7 +36,7 @@ class Explore extends StatelessWidget {
             errorMessage = providersResult.exception.graphqlErrors[0].message;
           } else {
             errorMessage = 'Oops! seems like there is something wrong, '
-                'please alert us at support@groomzy.co.za with this issue.';
+                'please alert us at support@groomzy.co.za with the steps you made.';
           }
         }
 
@@ -50,20 +56,26 @@ class Explore extends StatelessWidget {
             physics: AlwaysScrollableScrollPhysics(),
             child: Column(
               children: [
-                AndroidCategoryLabels(),
+                AndroidCategoryLabels(
+                  selectedCategory: _category,
+                ),
                 Divider(),
                 Padding(
-                  padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      AndroidSearch(),
-                      AndroidFilters(),
+                      AndroidSearch(
+                        search: _search,
+                      ),
+                      // AndroidFilters(),
                       AndroidSort(),
                     ],
                   ),
                 ),
-                SizedBox(height: 10.0,),
+                SizedBox(
+                  height: 10.0,
+                ),
                 if (errorMessage != null)
                   Padding(
                     padding: EdgeInsets.only(

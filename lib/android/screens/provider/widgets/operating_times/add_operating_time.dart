@@ -10,6 +10,8 @@ import '../../../../widgets/button/button.dart';
 import '../../../../widgets/alert_dialog/alert_dialog.dart';
 import '../../../../widgets/loading/loading.dart';
 
+import '../../../../../common/utils/utils.dart';
+
 import '../../../../../api/graphql/operating_time/add_operating_time.dart';
 
 class AddOperatingTime extends HookWidget {
@@ -130,36 +132,7 @@ class AddOperatingTime extends HookWidget {
                     titleText: 'Day',
                     textField: 'display',
                     valueField: 'value',
-                    dataSource: [
-                      {
-                        "display": "Mon",
-                        "value": "Mon",
-                      },
-                      {
-                        "display": "Tue",
-                        "value": "Tue",
-                      },
-                      {
-                        "display": "Wed",
-                        "value": "Wed",
-                      },
-                      {
-                        "display": "Thu",
-                        "value": "Thu",
-                      },
-                      {
-                        "display": "Fri",
-                        "value": "Fri",
-                      },
-                      {
-                        "display": "Sat",
-                        "value": "Sat",
-                      },
-                      {
-                        "display": "Sun",
-                        "value": "Sun",
-                      },
-                    ],
+                    dataSource: CommonUtils().weekDays(),
                     onChanged: (String input) {
                       _day.value = input;
                     },

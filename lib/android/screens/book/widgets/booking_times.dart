@@ -97,7 +97,8 @@ class BookingTimes extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(top: 10.0),
                 child: Text(
-                  'Sorry, we are not operating on that day\n\nPlease choose a different day',
+                  'Sorry, we are not operating on that day\n\n'
+                  'Please choose one of the operating days listed',
                   style: TextStyle(
                     fontSize: 18.0,
                     color: Colors.orange,
@@ -113,7 +114,12 @@ class BookingTimes extends StatelessWidget {
                         (rowCell) {
                           return GestureDetector(
                             onTap: () {
-                              selectTime('${rowCell.hour}:${rowCell.minute}');
+                              if (selectedTime ==
+                                  '${rowCell.hour}:${rowCell.minute}') {
+                                selectTime(null);
+                              } else {
+                                selectTime('${rowCell.hour}:${rowCell.minute}');
+                              }
                             },
                             child: Container(
                               height: 50.0,

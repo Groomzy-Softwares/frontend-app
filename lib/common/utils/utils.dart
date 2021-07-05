@@ -189,15 +189,36 @@ class CommonUtils {
     return nailTechnicianBookingMadePayloadId;
   }
 
-  List<String> weekDays() {
+  List<Map<String, String>> weekDays() {
     return [
-      'Mon',
-      'Tue',
-      'Wed',
-      'Thu',
-      'Fri',
-      'Sat',
-      'Sun',
+      {
+        "display": "Mon",
+        "value": "Mon",
+      },
+      {
+        "display": "Tue",
+        "value": "Tue",
+      },
+      {
+        "display": "Wed",
+        "value": "Wed",
+      },
+      {
+        "display": "Thu",
+        "value": "Thu",
+      },
+      {
+        "display": "Fri",
+        "value": "Fri",
+      },
+      {
+        "display": "Sat",
+        "value": "Sat",
+      },
+      {
+        "display": "Sun",
+        "value": "Sun",
+      },
     ];
   }
 
@@ -220,5 +241,19 @@ class CommonUtils {
 
     load.addListener(listener);
     return completer.future;
+  }
+
+  // Store explorer search
+  Future<void> setExplorerSearch(String search) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('explorer_search', search ?? '');
+  }
+
+  // Get explorer search
+  Future<String> getExplorerSearch() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String explorerSearch = prefs.getString('explorer_search');
+
+    return explorerSearch;
   }
 }
