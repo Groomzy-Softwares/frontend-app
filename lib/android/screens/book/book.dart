@@ -100,13 +100,15 @@ class Book extends HookWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ...dayTimes
-                        .map((dayTime) => Text(
-                      dayTime['day']['day'],
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ))
+                        .map(
+                          (dayTime) => Text(
+                            dayTime['day']['day'],
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
                         .toList()
                   ],
                 ),

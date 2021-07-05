@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:groomzy/android/widgets/button/button.dart';
+import 'package:groomzy/android/widgets/table/table_cell.dart';
+import 'package:groomzy/android/widgets/table/table_header.dart';
 
 class Booking extends StatelessWidget {
-  const Booking({Key key}) : super(key: key);
+  final int bookingId;
+  final String provider;
+  final String bookingDate;
+  final String bookingTime;
+  final bool inHouse;
+  final Map service;
+
+  const Booking({
+    this.bookingId,
+    this.provider,
+    this.bookingDate,
+    this.bookingTime,
+    this.inHouse,
+    this.service,
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,81 +29,84 @@ class Booking extends StatelessWidget {
         elevation: 0.5,
         child: Column(
           children: [
-            ListTile(
-              contentPadding: EdgeInsets.all(5.0),
-              title: Text('Title'),
-              subtitle: Container(
-                margin: EdgeInsets.only(
-                  top: 10.0,
-                ),
-                child: Table(
-                  children: [
-                    TableRow(children: [
-                      TableCell(
-                        child: Text(
-                          'Provider',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      TableCell(
-                        child: Text(
-                          'Date',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      TableCell(
-                        child: Text(
-                          'Time',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ]),
-                    TableRow(children: [
-                      Divider(),
-                      Divider(),
-                      Divider(),
-                    ]),
-                    TableRow(children: [
-                      TableCell(
-                        child: Text('Sifiso Myeza'),
-                      ),
-                      TableCell(
-                        child: Text('2021/10/11'),
-                      ),
-                      TableCell(
-                        child: Text('04:00 pm'),
-                      ),
-                    ]),
-                  ],
-                ),
+            Divider(
+              height: 0,
+            ),
+            Container(
+              margin: EdgeInsets.only(
+                left: 10.0,
+                top: 10.0,
               ),
-              trailing: Container(
-                width: 90.0,
-                margin: EdgeInsets.only(top: 5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        Icon(Icons.remove_red_eye_outlined, color: Colors.blue,),
-                        Text('View'),
-                      ],
+              child: Table(
+                children: [
+                  TableRow(
+                    children: [
+                      TableHeader(header: 'Title'),
+                      TableHeader(header: 'Date time'),
+                      TableHeader(header: 'InHouse'),
+                      TableHeader(header: 'Provider'),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      Divider(),
+                      Divider(),
+                      Divider(),
+                      Divider(),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      TableValue(value: service['title']),
+                      TableValue(value: '$bookingDate $bookingTime hrz'),
+                      TableValue(value: inHouse ? 'Yes' : 'No'),
+                      TableValue(value: provider),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 5.0, bottom: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 35.0,
+                    width: 100.0,
+                    child: AndroidButton(
+                      label: 'View',
+                      icon: Icons.remove_red_eye_outlined,
+                      fontSize: 16.0,
+                      iconSize: 18.0,
                     ),
-                    VerticalDivider(),
-                    Column(
-                      children: [
-                        Icon(Icons.cancel_outlined, color: Colors.redAccent,),
-                        Text('Cancel'),
-                      ],
+                  ),
+                  Container(
+                    height: 35.0,
+                    width: 100.0,
+                    child: AndroidButton(
+                      label: 'Edit',
+                      icon: Icons.edit_outlined,
+                      backgroundColor: Colors.orange,
+                      fontSize: 16.0,
+                      iconSize: 18.0,
                     ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    height: 35.0,
+                    width: 100.0,
+                    child: AndroidButton(
+                      label: 'Cancel',
+                      icon: Icons.delete_forever_outlined,
+                      backgroundColor: Colors.redAccent,
+                      fontSize: 16.0,
+                      iconSize: 18.0,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

@@ -1,11 +1,11 @@
-class ProviderBookingsQuery {
-  String get providerBookings {
+class ClientBookingsQuery {
+  String get clientBookings {
     return '''
-      query PROVIDER_BOOKINGS_QUERY (
-        \$providerId: Int!
+      query CLIENT_BOOKINGS_QUERY (
+        \$clientId: Int!
       ) {
-        providerBookings (
-          providerId: \$providerId
+        clientBookings (
+          clientId: \$clientId
         ) {
           bookings {
             id
@@ -24,7 +24,7 @@ class ProviderBookingsQuery {
               id
               fullName
             }
-            client {
+            provider {
               id
               fullName
             }

@@ -43,10 +43,11 @@ class ClientScreen extends HookWidget {
 
     if (_isLoading.value) {
       return AndroidLoading();
-    } else if(_user == null) {
+    } else if (_user.value == null) {
       return AndroidAlertDialog(
         title: 'Info',
-        message: Text('It appears you are no longer signed in, please sign in.'),
+        message:
+            Text('It appears you are no longer signed in, please sign in.'),
         navigateTo: ExploreScreen.routeName,
         replacePreviousNavigation: true,
       );
@@ -57,7 +58,10 @@ class ClientScreen extends HookWidget {
         ),
         drawer: AndroidDrawer(),
         body: SafeArea(
-          child: Client(selectedIndex: _selectedIndex.value,),
+          child: Client(
+            selectedIndex: _selectedIndex.value,
+            clientId: _user.value['id'],
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:groomzy/android/widgets/button/button.dart';
+
+import '../../../../widgets/button/button.dart';
+import '../../../../widgets/table/table_cell.dart';
+import '../../../../widgets/table/table_header.dart';
 
 class Booking extends StatelessWidget {
   final int bookingId;
@@ -21,34 +24,15 @@ class Booking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget tableHeader(String header) {
-      return TableCell(
-        child: Text(
-          header,
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 16.0,
-          ),
-        ),
-      );
-    }
-
-    Widget tableCell(String value) {
-      return TableCell(
-        child: Text(
-          value,
-          style: TextStyle(fontSize: 16),
-        ),
-      );
-    }
-
     return Container(
       child: Card(
         color: Colors.grey.shade50,
         elevation: 0.5,
         child: Column(
           children: [
-            Divider(height: 0,),
+            Divider(
+              height: 0,
+            ),
             Container(
               margin: EdgeInsets.only(
                 left: 10.0,
@@ -56,24 +40,30 @@ class Booking extends StatelessWidget {
               ),
               child: Table(
                 children: [
-                  TableRow(children: [
-                    tableHeader('Title'),
-                    tableHeader('Date time'),
-                    tableHeader('InHouse'),
-                    tableHeader('Client'),
-                  ]),
-                  TableRow(children: [
-                    Divider(),
-                    Divider(),
-                    Divider(),
-                    Divider(),
-                  ]),
-                  TableRow(children: [
-                    tableCell(service['title']),
-                    tableCell('$bookingDate $bookingTime hrz'),
-                    tableCell(inHouse ? 'Yes' : 'No'),
-                    tableCell(bookedBy),
-                  ]),
+                  TableRow(
+                    children: [
+                      TableHeader(header: 'Title'),
+                      TableHeader(header: 'Date time'),
+                      TableHeader(header: 'InHouse'),
+                      TableHeader(header: 'Client'),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      Divider(),
+                      Divider(),
+                      Divider(),
+                      Divider(),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      TableValue(value: service['title']),
+                      TableValue(value: '$bookingDate $bookingTime hrz'),
+                      TableValue(value: inHouse ? 'Yes' : 'No'),
+                      TableValue(value: bookedBy),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -86,35 +76,35 @@ class Booking extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    height: 35,
-                    width: 90,
+                    height: 35.0,
+                    width: 100.0,
                     child: AndroidButton(
                       label: 'View',
                       icon: Icons.remove_red_eye_outlined,
-                      fontSize: 16,
-                      iconSize: 18,
+                      fontSize: 16.0,
+                      iconSize: 18.0,
                     ),
                   ),
                   Container(
-                    height: 35,
-                    width: 90,
+                    height: 35.0,
+                    width: 100.0,
                     child: AndroidButton(
                       label: 'Done',
                       icon: Icons.done_outline,
                       backgroundColor: Colors.green,
-                      fontSize: 16,
-                      iconSize: 18,
+                      fontSize: 16.0,
+                      iconSize: 18.0,
                     ),
                   ),
                   Container(
-                    height: 35,
-                    width: 90,
+                    height: 35.0,
+                    width: 100.0,
                     child: AndroidButton(
                       label: 'Cancel',
                       icon: Icons.delete_forever_outlined,
                       backgroundColor: Colors.redAccent,
-                      fontSize: 16,
-                      iconSize: 18,
+                      fontSize: 16.0,
+                      iconSize: 18.0,
                     ),
                   ),
                 ],

@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'widgets/bookings.dart';
 import '../explorer/explorer.dart';
-import '../../widgets/center_horizontal_vertical/center_horizontal_vertical.dart';
+import '../../widgets/center_horizontal/center_horizontal.dart';
 import '../../widgets/center_horizontal_vertical/center_horizontal_vertical_expanded.dart';
 
 class Client extends StatelessWidget {
   final int selectedIndex;
+  final int clientId;
 
   const Client({
     this.selectedIndex,
+    this.clientId,
     Key key,
   }) : super(key: key);
 
@@ -18,8 +20,8 @@ class Client extends StatelessWidget {
       AndroidCenterHorizontalVerticalExpanded(
         screenContent: Explore(),
       ),
-      AndroidCenterHorizontalVertical(
-        screenContent: Bookings(),
+      AndroidCenterHorizontal(
+        screenContent: Bookings(clientId: clientId),
       ),
     ];
   }

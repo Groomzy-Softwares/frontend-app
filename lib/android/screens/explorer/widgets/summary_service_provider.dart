@@ -3,7 +3,6 @@ import 'package:map_launcher/map_launcher.dart';
 
 import './rating.dart';
 import '../../provider_trading/main.dart';
-import '../../../widgets/horizontal_scroll/labels.dart';
 
 import '../../../../common/constants/constants.dart';
 import '../../../../common/utils/utils.dart';
@@ -103,12 +102,6 @@ class AndroidSummaryService extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      child: AndroidLabels(
-                        categories: categories,
-                      ),
-                    ),
-                    Divider(),
                     Rating(
                       ratingCounts: providerRating['ratingCounts'] ?? 0,
                       ratingPercentage: double.parse(
