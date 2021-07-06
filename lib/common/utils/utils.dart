@@ -130,8 +130,7 @@ class CommonUtils {
     };
   }
 
-  Future<void> setBookingMadePayloadId(
-      int barberBookingMadePayloadId) async {
+  Future<void> setBookingMadePayloadId(int barberBookingMadePayloadId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt(
         'barberBookingMadePayloadId', barberBookingMadePayloadId);
@@ -154,7 +153,7 @@ class CommonUtils {
   Future<int> getHairdresserBookingMadePayloadId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int hairdresserBookingMadePayloadId =
-    prefs.getInt('hairdresserBookingMadePayloadId');
+        prefs.getInt('hairdresserBookingMadePayloadId');
 
     return hairdresserBookingMadePayloadId;
   }
@@ -169,7 +168,7 @@ class CommonUtils {
   Future<int> getMakeupArtistBookingMadePayloadId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int makeupArtistBookingMadePayloadId =
-    prefs.getInt('makeupArtistBookingMadePayloadId');
+        prefs.getInt('makeupArtistBookingMadePayloadId');
 
     return makeupArtistBookingMadePayloadId;
   }
@@ -184,41 +183,30 @@ class CommonUtils {
   Future<int> getNailTechnicianBookingMadePayloadId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int nailTechnicianBookingMadePayloadId =
-    prefs.getInt('nailTechnicianBookingMadePayloadId');
+        prefs.getInt('nailTechnicianBookingMadePayloadId');
 
     return nailTechnicianBookingMadePayloadId;
   }
 
-  List<Map<String, String>> weekDays() {
+  List<String> weekDays() {
     return [
-      {
-        "display": "Mon",
-        "value": "Mon",
-      },
-      {
-        "display": "Tue",
-        "value": "Tue",
-      },
-      {
-        "display": "Wed",
-        "value": "Wed",
-      },
-      {
-        "display": "Thu",
-        "value": "Thu",
-      },
-      {
-        "display": "Fri",
-        "value": "Fri",
-      },
-      {
-        "display": "Sat",
-        "value": "Sat",
-      },
-      {
-        "display": "Sun",
-        "value": "Sun",
-      },
+      'Mon',
+      'Tue',
+      'Wed',
+      'Thu',
+      'Fri',
+      'Sat',
+      'Sun',
+    ];
+  }
+
+  List<String> categories() {
+    return [
+      'Barber',
+      'Hairdresser',
+      'Makeup artist',
+      'Nail technician',
+      'Spa',
     ];
   }
 

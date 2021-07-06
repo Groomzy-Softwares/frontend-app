@@ -1,8 +1,9 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:groomzy/common/utils/utils.dart';
 
 import '../../../../widgets/button/button.dart';
 import '../../../../widgets/checkbox/checkbox.dart';
@@ -70,9 +71,9 @@ class EditService extends HookWidget {
             EditServiceMutation().editService,
           ),
           update: (
-              GraphQLDataProxy cache,
-              QueryResult result,
-              ) {
+            GraphQLDataProxy cache,
+            QueryResult result,
+          ) {
             if (result.hasException) {
               String errMessage = result.exception.graphqlErrors[0].message;
               showDialog(
@@ -150,36 +151,28 @@ class EditService extends HookWidget {
                       ),
                     ),
                     SizedBox(height: 10.0),
-                    DropDownFormField(
-                      value: _category.value ?? category,
-                      titleText: 'Category',
-                      textField: 'display',
-                      valueField: 'value',
-                      dataSource: [
-                        {
-                          "display": "Barber",
-                          "value": "Barber",
-                        },
-                        {
-                          "display": "Hairdresser",
-                          "value": "Hairdresser",
-                        },
-                        {
-                          "display": "Makeup artist",
-                          "value": "Makeup artist",
-                        },
-                        {
-                          "display": "Nail technician",
-                          "value": "Nail technician",
-                        },
-                        {
-                          "display": "Spa",
-                          "value": "Spa",
-                        },
-                      ],
+                    DropdownSearch<String>(
+                      mode: Mode.MENU,
+                      showSelectedItem: true,
+                      items: CommonUtils().categories(),
+                      label: "Category",
+                      hint: "Select category",
                       onChanged: (String input) {
                         _category.value = input != null ? input : null;
                       },
+                      selectedItem: _category.value ?? category,
+                      dropdownSearchDecoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 10.0),
                     AndroidTextField(
@@ -199,7 +192,9 @@ class EditService extends HookWidget {
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(
-                      initialValue: _price.value != null ? _price.value.toString() : price.toString(),
+                      initialValue: _price.value != null
+                          ? _price.value.toString()
+                          : price.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         labelText: 'Price',
@@ -212,12 +207,15 @@ class EditService extends HookWidget {
                       ),
                       cursorColor: Colors.grey,
                       onChanged: (String input) {
-                        _price.value = input != null ? double.parse(input) : null;
+                        _price.value =
+                            input != null ? double.parse(input) : null;
                       },
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(
-                      initialValue: _duration.value != null ? _duration.value.toString() : duration.toString(),
+                      initialValue: _duration.value != null
+                          ? _duration.value.toString()
+                          : duration.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         labelText: 'Duration',
@@ -230,28 +228,34 @@ class EditService extends HookWidget {
                       ),
                       cursorColor: Colors.grey,
                       onChanged: (String input) {
-                        _duration.value = input != null ? double.parse(input) : null;
+                        _duration.value =
+                            input != null ? double.parse(input) : null;
                       },
                     ),
                     SizedBox(height: 10.0),
-                    DropDownFormField(
-                      value: _durationUnit.value ?? durationUnit,
-                      titleText: 'Duration unit',
-                      textField: 'display',
-                      valueField: 'value',
-                      dataSource: [
-                        {
-                          "display": "Minutes",
-                          "value": "min",
-                        },
-                        {
-                          "display": "Hours",
-                          "value": "hrz",
-                        },
-                      ],
+                    DropdownSearch<String>(
+                      mode: Mode.MENU,
+                      showSelectedItem: true,
+                      items: ['min', 'hrz'],
+                      label: "Duration unit",
+                      hint: "Select duration unit",
                       onChanged: (String input) {
                         _durationUnit.value = input != null ? input : null;
                       },
+                      maxHeight: 120.0,
+                      selectedItem: _durationUnit.value ?? durationUnit,
+                      dropdownSearchDecoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 10.0),
                     AndroidCheckBox(

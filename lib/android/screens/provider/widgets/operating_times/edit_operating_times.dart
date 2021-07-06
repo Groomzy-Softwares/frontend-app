@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -9,8 +8,7 @@ import './time.dart';
 import '../../../../widgets/button/button.dart';
 import '../../../../widgets/alert_dialog/alert_dialog.dart';
 import '../../../../widgets/loading/loading.dart';
-
-import '../../../../../common/utils/utils.dart';
+import '../../../../widgets/text_field/text_field.dart';
 
 import '../../../../../api/graphql/operating_time/edit_operating_time.dart';
 
@@ -139,23 +137,15 @@ class EditOperatingTime extends HookWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10.0),
-                  DropDownFormField(
+                  AndroidTextField(
                     value: _day.value,
-                    titleText: 'Day',
-                    textField: 'display',
-                    valueField: 'value',
-                    dataSource: CommonUtils().weekDays(),
-                    onChanged: (String input) {
-                      _day.value = input;
-                    },
-                    validator: (input) {
-                      if (input == null || input.isEmpty) {
-                        return 'Day is required';
-                      }
-
-                      return null;
-                    },
+                    label: 'Day',
+                    enabled: false,
+                  ),
+                  SizedBox(height: 10.0),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('NB! Can only update the times.'),
                   ),
                   SizedBox(height: 10.0),
                   Time(

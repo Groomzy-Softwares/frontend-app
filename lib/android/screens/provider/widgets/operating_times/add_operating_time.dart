@@ -1,5 +1,5 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -21,7 +21,7 @@ class AddOperatingTime extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _day = useState<String>('');
+    final _day = useState<String>(null);
     final _startTime = useState<String>(null);
     final _endTime = useState<String>(null);
 
@@ -127,12 +127,13 @@ class AddOperatingTime extends HookWidget {
                     ),
                   ),
                   SizedBox(height: 10.0),
-                  DropDownFormField(
-                    value: _day.value,
-                    titleText: 'Day',
-                    textField: 'display',
-                    valueField: 'value',
-                    dataSource: CommonUtils().weekDays(),
+                  DropdownSearch<String>(
+                    mode: Mode.MENU,
+                    showSelectedItem: true,
+                    items: CommonUtils().weekDays(),
+                    label: "Day",
+                    hint: "Select day",
+                    selectedItem: _day.value,
                     onChanged: (String input) {
                       _day.value = input;
                     },
@@ -143,6 +144,18 @@ class AddOperatingTime extends HookWidget {
 
                       return null;
                     },
+                    dropdownSearchDecoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 10.0),
                   Time(

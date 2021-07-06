@@ -33,7 +33,7 @@ class AndroidCheckBox extends StatelessWidget {
                 value: checked,
                 onChanged: onChecked,
                 checkColor: Colors.white,
-                activeColor: Colors.green,
+                activeColor: Theme.of(context).primaryColor,
               ),
               Text(
                 label,

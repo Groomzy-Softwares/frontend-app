@@ -14,6 +14,7 @@ class AndroidTextField extends StatelessWidget {
   final bool obscureText;
   final Function onInputChange;
   final Function onValidation;
+  final bool enabled;
 
   const AndroidTextField({
     this.label,
@@ -29,6 +30,7 @@ class AndroidTextField extends StatelessWidget {
     this.onInputChange,
     this.onValidation,
     this.obscureText = false,
+    this.enabled = true,
     Key key,
   }) : super(key: key);
   @override
@@ -40,6 +42,7 @@ class AndroidTextField extends StatelessWidget {
         onChanged: onInputChange,
         validator: onValidation,
         cursorColor: cursorColor,
+        enabled: enabled,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: borderColor),

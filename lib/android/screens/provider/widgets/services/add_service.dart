@@ -1,8 +1,9 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:groomzy/common/utils/utils.dart';
 
 import '../../../../widgets/button/button.dart';
 import '../../../../widgets/checkbox/checkbox.dart';
@@ -19,12 +20,12 @@ class AddService extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _title = useState<String>('');
-    final _category = useState<String>('');
-    final _description = useState<String>('');
-    final _price = useState<double>(0.0);
-    final _duration = useState<double>(0.0);
-    final _durationUnit = useState<String>('');
+    final _title = useState<String>(null);
+    final _category = useState<String>(null);
+    final _description = useState<String>(null);
+    final _price = useState<double>(null);
+    final _duration = useState<double>(null);
+    final _durationUnit = useState<String>(null);
     final _inHouse = useState<bool>(false);
 
     Future<void> _submit({Function addService}) async {
@@ -131,33 +132,13 @@ class AddService extends HookWidget {
                     ),
                   ),
                   SizedBox(height: 10.0),
-                  DropDownFormField(
-                    value: _category.value,
-                    titleText: 'Category',
-                    textField: 'display',
-                    valueField: 'value',
-                    dataSource: [
-                      {
-                        "display": "Barber",
-                        "value": "Barber",
-                      },
-                      {
-                        "display": "Hairdresser",
-                        "value": "Hairdresser",
-                      },
-                      {
-                        "display": "Makeup artist",
-                        "value": "Makeup artist",
-                      },
-                      {
-                        "display": "Nail technician",
-                        "value": "Nail technician",
-                      },
-                      {
-                        "display": "Spa",
-                        "value": "Spa",
-                      },
-                    ],
+                  DropdownSearch<String>(
+                    mode: Mode.MENU,
+                    showSelectedItem: true,
+                    items: CommonUtils().categories(),
+                    label: "Category",
+                    hint: "Select category",
+                    selectedItem: _category.value,
                     onChanged: (String input) {
                       _category.value = input;
                     },
@@ -168,6 +149,19 @@ class AddService extends HookWidget {
 
                       return null;
                     },
+                    autoFocusSearchBox: false,
+                    dropdownSearchDecoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 10.0),
                   AndroidTextField(
@@ -194,7 +188,7 @@ class AddService extends HookWidget {
                   ),
                   SizedBox(height: 10.0),
                   TextFormField(
-                    initialValue: _price.value.toString(),
+                    initialValue: _price.value == null ? null : _price.value.toString(),
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: 'Price',
@@ -221,7 +215,7 @@ class AddService extends HookWidget {
                   ),
                   SizedBox(height: 10.0),
                   TextFormField(
-                    initialValue: _duration.value.toString(),
+                    initialValue: _duration.value == null ? null : _duration.value.toString(),
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: 'Duration',
@@ -247,21 +241,14 @@ class AddService extends HookWidget {
                     },
                   ),
                   SizedBox(height: 10.0),
-                  DropDownFormField(
-                    value: _durationUnit.value,
-                    titleText: 'Duration unit',
-                    textField: 'display',
-                    valueField: 'value',
-                    dataSource: [
-                      {
-                        "display": "Minutes",
-                        "value": "min",
-                      },
-                      {
-                        "display": "Hours",
-                        "value": "hrz",
-                      },
-                    ],
+                  DropdownSearch<String>(
+                    mode: Mode.MENU,
+                    // showSelectedItem: true,
+                    items: ['min', 'hrz'],
+                    label: "Duration unit",
+                    hint: "Select duration unit",
+                    maxHeight: 120.0,
+                    selectedItem: _durationUnit.value,
                     onChanged: (String input) {
                       _durationUnit.value = input;
                     },
@@ -272,6 +259,18 @@ class AddService extends HookWidget {
 
                       return null;
                     },
+                    dropdownSearchDecoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 10.0),
                   AndroidCheckBox(
