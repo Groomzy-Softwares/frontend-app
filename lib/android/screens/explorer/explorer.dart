@@ -120,6 +120,7 @@ class Explore extends HookWidget {
                         staffs: providerDetails['staffs'],
                         dayTimes: providerDetails['dayTimes'],
                         minimumDuration: providerDetails['minimumDuration'],
+                        bookings: providerDetails['bookings'],
                       );
                     },
                   ).toList(),

@@ -151,6 +151,7 @@ class AddService extends HookWidget {
                     },
                     autoFocusSearchBox: false,
                     dropdownSearchDecoration: InputDecoration(
+                      labelStyle: TextStyle(color: Colors.grey),
                       contentPadding: EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
@@ -260,6 +261,7 @@ class AddService extends HookWidget {
                       return null;
                     },
                     dropdownSearchDecoration: InputDecoration(
+                      labelStyle: TextStyle(color: Colors.grey),
                       contentPadding: EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),

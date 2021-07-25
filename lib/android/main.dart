@@ -59,7 +59,7 @@ class _AndroidAppState extends State<AndroidApp> {
     return MaterialApp(
       title: APP_TITLE,
       theme: ThemeData(
-        primaryColor: Colors.blueGrey.shade800,
+        primaryColor: Colors.blueGrey,
       ),
       home: Utils().homeScreen(_user != null ? _user['role'] : ''),
       routes: {

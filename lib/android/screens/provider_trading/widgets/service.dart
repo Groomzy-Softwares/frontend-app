@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../book/main.dart';
 
 class Service extends StatelessWidget {
+  final int providerId;
   final String name;
   final String description;
   final double price;
@@ -11,8 +12,10 @@ class Service extends StatelessWidget {
   final int duration;
   final List staffs;
   final List dayTimes;
+  final List bookings;
 
   const Service({
+    this.providerId,
     this.price,
     this.name,
     this.description,
@@ -21,6 +24,7 @@ class Service extends StatelessWidget {
     this.dayTimes,
     this.minimumDuration,
     this.duration,
+    this.bookings,
     Key key,
   }) : super(key: key);
 
@@ -31,14 +35,16 @@ class Service extends StatelessWidget {
         Navigator.of(context).pushNamed(
           BookScreen.routeName,
           arguments: {
+            'providerId': providerId,
             'name': name,
             'description': description,
-            'serviceId': 1,
+            'serviceId': serviceId,
             'price': price,
             'staffs': staffs,
             'dayTimes': dayTimes,
             'minimumDuration': minimumDuration,
             'duration': duration,
+            'bookings': bookings,
           },
         );
       },

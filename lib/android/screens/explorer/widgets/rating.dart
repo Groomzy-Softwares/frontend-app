@@ -10,6 +10,7 @@ class Rating extends StatelessWidget {
   final String ratingStatus;
   final double ratingCounts;
   final Function onRatingUpdate;
+  final int numberOfRatedBookings;
 
   const Rating({
     this.ratingIcon,
@@ -18,6 +19,7 @@ class Rating extends StatelessWidget {
     this.ratingPercentage = 0,
     this.ratingStatus = 'not rated',
     this.onRatingUpdate,
+    this.numberOfRatedBookings,
     Key key,
   }) : super(key: key);
 
@@ -39,7 +41,7 @@ class Rating extends StatelessWidget {
         subtitle: Text('$ratingPercentage% $ratingStatus service'),
         trailing: Column(
           children: [
-            Text('$ratingCounts ratings'),
+            Text('$numberOfRatedBookings ratings'),
             SizedBox(height: 15.0),
           ],
         ),

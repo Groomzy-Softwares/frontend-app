@@ -18,6 +18,7 @@ class AndroidSummaryService extends StatelessWidget {
   final List staffs;
   final List dayTimes;
   final int minimumDuration;
+  final List bookings;
 
   AndroidSummaryService({
     this.id,
@@ -30,6 +31,7 @@ class AndroidSummaryService extends StatelessWidget {
     this.staffs,
     this.dayTimes,
     this.minimumDuration,
+    this.bookings,
     Key key,
   }) : super(key: key);
 
@@ -84,7 +86,7 @@ class AndroidSummaryService extends StatelessWidget {
                             'minimumDuration': minimumDuration,
                             'ratings': ratings,
                             'address': address,
-
+                            'bookings': bookings,
                           });
                     },
                   ),
@@ -103,6 +105,7 @@ class AndroidSummaryService extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Rating(
+                      numberOfRatedBookings: ratings.length,
                       ratingCounts: providerRating['ratingCounts'] ?? 0,
                       ratingPercentage: double.parse(
                               providerRating['ratingPercentage'] ?? '0') ??

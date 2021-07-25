@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CommonUtils {
@@ -87,7 +88,7 @@ class CommonUtils {
       };
     }
 
-    double totalRating = ratings.fold(0, (total, rating) {
+    double totalRating = ratings.where((rating) => rating != null).fold(0, (total, rating) {
       return total += rating['rate'];
     });
     ratingPercentage = totalRating / (5 * ratings.length) * 100;
@@ -243,5 +244,48 @@ class CommonUtils {
     String explorerSearch = prefs.getString('explorer_search');
 
     return explorerSearch;
+  }
+
+  bool canBook({
+    ValueNotifier<bool> inHouse,
+    ValueNotifier<String> serviceCallAddress,
+    ValueNotifier<DateTime> selectedDay,
+    ValueNotifier<String> selectedTime,
+    ValueNotifier<String> selectedStaffer,
+  }) {
+    return (inHouse.value &&
+            serviceCallAddress.value != null &&
+            selectedDay.value != null &&
+            selectedTime.value != null &&
+            selectedStaffer.value != null) ||
+        (!inHouse.value &&
+            serviceCallAddress.value == null &&
+            selectedDay.value != null &&
+            selectedTime.value != null &&
+            selectedStaffer.value != null);
+  }
+
+  bool canSelectTime({
+    ValueNotifier<DateTime> selectedDay,
+    List<dynamic> dayTimes,
+  }) {
+    String day =
+        DateFormat.yMEd().add_jms().format(selectedDay.value).split(',')[0];
+    List activeDays =
+        dayTimes.where((dayTime) => dayTime['day']['day'] == day).toList();
+    return activeDays.length > 0;
+  }
+
+  bool canSelectStaff({
+    ValueNotifier<bool> inHouse,
+    ValueNotifier<String> serviceCallAddress,
+    ValueNotifier<String> selectedTime,
+  }) {
+    return (inHouse.value &&
+            serviceCallAddress.value != null &&
+            selectedTime.value != null) ||
+        (!inHouse.value &&
+            serviceCallAddress.value == null &&
+            selectedTime.value != null);
   }
 }

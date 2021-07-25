@@ -77,16 +77,33 @@ class APIUtils {
     }
 
     if (bookings.length > 0) {
-      ratings = bookings.map((booking) => booking['rating']).toList();
+      ratings = bookings
+          .map((booking) => booking['rating'])
+          .where((rating) => rating != null)
+          .toList();
     }
 
-    List durations = services.map((service) {
-      bool isHours = service['durationUnit'] == 'hrz';
-      return isHours ? service['duration'] * 60 : service['duration'];
-    }).toList();
+    List<int> durations = services
+        .map((service) {
+          bool isHours = service['durationUnit'] == 'hrz';
+          return isHours
+              ? service['duration'] * 60
+              : service['duration'] as int;
+        })
+        .toList()
+        .cast<int>();
 
-    int minimumDuration = durations != null && durations.length > 0 ?
-        durations.reduce((curr, next) => curr < next ? curr : next) : 0;
+    int maxDuration = 0;
+    int minDuration = 0;
+
+    if (durations != null && durations.length > 0) {
+      maxDuration = durations.reduce(max);
+      minDuration = durations.reduce(min);
+    }
+
+    int durationDiff = maxDuration - minDuration;
+    int minimumDuration =
+        durationDiff <= minDuration ? durationDiff : minDuration;
 
     return {
       'id': provider['id'],

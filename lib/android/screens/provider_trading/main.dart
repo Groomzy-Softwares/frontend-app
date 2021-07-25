@@ -25,6 +25,7 @@ class ProviderTradingScreen extends HookWidget {
     List staffs = arguments['staffs'] ?? [];
     List dayTimes = arguments['dayTimes'] ?? [];
     List ratings = arguments['ratings'] ?? [];
+    List bookings = arguments['bookings'] ?? [];
 
     return Scaffold(
       appBar: AndroidAppBar(
@@ -41,7 +42,8 @@ class ProviderTradingScreen extends HookWidget {
             dayTimes: dayTimes,
             minimumDuration: minimumDuration,
             ratings: ratings,
-              address: address,
+            address: address,
+            bookings: bookings,
           ),
         ),
       ),

@@ -21,6 +21,7 @@ class BookScreen extends StatelessWidget {
       body: SafeArea(
         child: AndroidCenterHorizontal(
           screenContent: Book(
+            providerId: arguments['providerId'],
             price: arguments['price'],
             description: arguments['description'],
             name: arguments['name'],
@@ -29,6 +30,7 @@ class BookScreen extends StatelessWidget {
             dayTimes: arguments['dayTimes'] ?? [],
             minimumDuration: arguments['minimumDuration'],
             duration: arguments['duration'],
+            bookings: arguments['bookings'],
           ),
         ),
       ),

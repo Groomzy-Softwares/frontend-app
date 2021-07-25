@@ -162,6 +162,7 @@ class EditService extends HookWidget {
                       },
                       selectedItem: _category.value ?? category,
                       dropdownSearchDecoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.grey),
                         contentPadding: EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey),
@@ -245,6 +246,7 @@ class EditService extends HookWidget {
                       maxHeight: 120.0,
                       selectedItem: _durationUnit.value ?? durationUnit,
                       dropdownSearchDecoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.grey),
                         contentPadding: EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey),

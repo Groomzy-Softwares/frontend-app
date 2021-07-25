@@ -80,7 +80,7 @@ class Reviews extends StatelessWidget {
                     ),
                   ),
                 if (ratings.length > 0)
-                  ...ratings.map(
+                  ...ratings.where((rating) => rating['rating'] != null).map(
                     (rating) {
                       Map _rating = rating['rating'];
                       Map client = rating['client'];
@@ -117,13 +117,17 @@ class Reviews extends StatelessWidget {
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: 6.0,),
+                                SizedBox(
+                                  height: 6.0,
+                                ),
                                 AndroidRating(
                                   ratingCounts: _rating['rate'].toDouble(),
                                   icon: Icons.star_outline,
                                   iconColor: ratingReview['color'],
                                 ),
-                                SizedBox(height: 10.0,),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
                                 Text(
                                   _rating['comment'],
                                   style: TextStyle(

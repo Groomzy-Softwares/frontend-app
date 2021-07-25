@@ -12,7 +12,7 @@ import '../../../../widgets/loading/loading.dart';
 
 import '../../../../../common/utils/utils.dart';
 
-import '../../../../../api/graphql/operating_time/add_operating_time.dart';
+import '../../../../../api/graphql/mutations/operating_time/add_operating_time.dart';
 
 class AddOperatingTime extends HookWidget {
   AddOperatingTime({Key key}) : super(key: key);
@@ -145,6 +145,7 @@ class AddOperatingTime extends HookWidget {
                       return null;
                     },
                     dropdownSearchDecoration: InputDecoration(
+                      labelStyle: TextStyle(color: Colors.grey),
                       contentPadding: EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),

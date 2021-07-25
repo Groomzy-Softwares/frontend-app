@@ -27,8 +27,13 @@ class ProvidersQuery {
             }
           }
           bookings {
+            bookingTime
             rating {
               rate
+            }
+            service {
+              duration
+              durationUnit
             }
           }
           serviceProviderCategories {

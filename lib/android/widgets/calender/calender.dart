@@ -39,11 +39,11 @@ class AndroidCalendar extends StatelessWidget {
         // Use `CalendarStyle` to customize the UI
         isTodayHighlighted: false,
         selectedDecoration: BoxDecoration(
-          color: Colors.green,
           shape: BoxShape.circle,
+          border: Border.all(color: Theme.of(context).primaryColor, width: 2.5)
         ),
         selectedTextStyle: TextStyle(
-          color: Colors.white,
+          color: Theme.of(context).primaryColor,
         ),
       ),
     );

@@ -14,11 +14,11 @@ class Checkout extends StatelessWidget {
   final String description;
   final double price;
   final int bookingId;
-  final Function bookingStatusMutation;
+  final Function clientBookCompleteMutation;
 
   const Checkout({
     this.bookingId,
-    this.bookingStatusMutation,
+    this.clientBookCompleteMutation,
     this.description,
     this.name,
     this.price,
@@ -47,9 +47,10 @@ class Checkout extends StatelessWidget {
         '$payFastUrl?merchant_id=$payFastMerchantId&merchant_key=$payFastMerchantKey&item_name=$name&item_description=$description&amount=$price&return_url=$successUrl&cancel_url=$cancelUrl');
     Future<void> _submit(bool status) async {
       try {
-        await bookingStatusMutation({
+
+        await clientBookCompleteMutation({
           'bookingId': bookingId,
-          'status': status,
+          'complete': status,
         });
       } catch (error) {
         return;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'widgets/bookings.dart';
 import '../explorer/explorer.dart';
-import '../../widgets/center_horizontal/center_horizontal.dart';
+import '../../widgets/center_horizontal/center_horizontal_expanded.dart';
 import '../../widgets/center_horizontal_vertical/center_horizontal_vertical_expanded.dart';
 
 class Client extends StatelessWidget {
@@ -20,7 +20,7 @@ class Client extends StatelessWidget {
       AndroidCenterHorizontalVerticalExpanded(
         screenContent: Explore(),
       ),
-      AndroidCenterHorizontal(
+      AndroidCenterHorizontalExpanded(
         screenContent: Bookings(clientId: clientId),
       ),
     ];

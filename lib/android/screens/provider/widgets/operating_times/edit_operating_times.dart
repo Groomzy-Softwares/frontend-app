@@ -10,7 +10,7 @@ import '../../../../widgets/alert_dialog/alert_dialog.dart';
 import '../../../../widgets/loading/loading.dart';
 import '../../../../widgets/text_field/text_field.dart';
 
-import '../../../../../api/graphql/operating_time/edit_operating_time.dart';
+import '../../../../../api/graphql/mutations/operating_time/edit_operating_time.dart';
 
 
 class EditOperatingTime extends HookWidget {

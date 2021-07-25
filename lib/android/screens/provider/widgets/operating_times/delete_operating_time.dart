@@ -4,7 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import '../../../../widgets/alert_dialog/alert_dialog.dart';
 import '../../../../widgets/loading/loading.dart';
 
-import '../../../../../api/graphql/operating_time/delete_operating_time.dart';
+import '../../../../../api/graphql/mutations/operating_time/delete_operating_time.dart';
 
 class DeleteOperatingTime extends StatelessWidget {
   final int dayTimeId;
